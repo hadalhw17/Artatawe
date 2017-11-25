@@ -40,6 +40,7 @@ public class ScenePattern {
         leftDrawer.setDefaultDrawerSize(300);
         leftDrawer.setOverLayVisible(false);
         leftDrawer.setSidePane(drawePane);
+        leftDrawer.setPrefSize(0,0);
         border.setLeft(leftDrawer);
         contentPane = constructContentPane(image);
         border.setCenter(contentPane);
@@ -92,8 +93,10 @@ public class ScenePattern {
 
             if (leftDrawer.isShown()) {
                 leftDrawer.close();
+                leftDrawer.setPrefSize(0,0);
             } else {
                 leftDrawer.open();
+                leftDrawer.setPrefSize(300,0);
             }
         });
     }
