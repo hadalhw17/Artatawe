@@ -19,7 +19,7 @@ public class GUIController extends Application {
 
         primaryStage.setTitle("Artatawe");
 
-        Scene profileScene = new Scene(new ProfileScene().getPane(), 600, 600);
+        Scene profileScene = new Scene(new ProfileScene("res/profile_images/prof1.png").getPane(), 600, 600);
         primaryStage.setScene(profileScene);
         primaryStage.show();
 
