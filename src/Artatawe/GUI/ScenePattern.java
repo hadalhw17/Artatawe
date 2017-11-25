@@ -3,10 +3,17 @@ package Artatawe.GUI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Screen;
+
+import java.io.File;
 
 import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
 
@@ -16,10 +23,17 @@ public class ScenePattern {
     private JFXDrawer leftDrawer = new JFXDrawer();
     private VBox drawePane = new VBox();
     private BorderPane border = new BorderPane();
-    private Pane contentPane;
+    private JFXMasonryPane contentPane;
 
+    Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+    private Image image;
+    private File file;
+    private ImageView imgView;
 
     public ScenePattern() {
+        file = new File("src/res/img1.png");
+        image = new Image(file.toURI().toString());
         HBox hbox = addHBox();
         border.setTop(hbox);
         drawePane = addVBox();
@@ -27,7 +41,7 @@ public class ScenePattern {
         leftDrawer.setOverLayVisible(false);
         leftDrawer.setSidePane(drawePane);
         border.setLeft(leftDrawer);
-        //contentPane = constructContentPane();
+        contentPane = constructContentPane(image);
         border.setCenter(contentPane);
         initialize();
     }
@@ -85,7 +99,12 @@ public class ScenePattern {
     }
 
 
-    public Pane constructContentPane(){
-        return new Pane();//TODO retun statement
+    public JFXMasonryPane constructContentPane(Image img){
+
+        return contentPane;
+    }
+
+    public void repaint(Number n){
+
     }
 }
