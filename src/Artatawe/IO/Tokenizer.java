@@ -56,7 +56,7 @@ class Tokenizer
      * @return the next token
      * @throws InputMismatchException if the next token is not the correct type
      */
-    public Token next(TokenCode code)
+    public Token next(TokenCode code) throws InputMismatchException
     {
         //Assert that the next token is the expected type
         if (nextToken.getCode() != code)
