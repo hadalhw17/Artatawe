@@ -3,14 +3,18 @@ package Artatawe.GUI;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXMasonryPane;
+import com.jfoenix.controls.JFXSlider;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
@@ -27,7 +31,7 @@ public class CustomAvatar extends ScenePattern {
 
 
     public CustomAvatar(){
-        //init();
+        setNameLabel("Custom Avatar");
         setContentPane();
     }
 
@@ -43,25 +47,22 @@ public class CustomAvatar extends ScenePattern {
         Platform.exit();
     }
 
-    public void go(){
-        Pane root = new Pane();
-        Canvas canvas = new Canvas(300, 250);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        drawShapes(gc);
-        root.getChildren().add(canvas);
-    }
 
     @Override
     public JFXMasonryPane constructContentPane(){
         JFXMasonryPane root = new JFXMasonryPane();
         JFXColorPicker colorPicker = new JFXColorPicker();
+        JFXSlider sizeSlider = new JFXSlider();
+        sizeSlider.setMinWidth(200);
+        sizeSlider.setMinHeight(10);
+        sizeSlider.setOrientation(Orientation.HORIZONTAL);
         Pane pane1 = new Pane();
         Pane pane = new Pane();
-        //colorPicker.setStyle("-jfx-color-picker:");
-        Canvas canvas = new Canvas(800, 800);
+        VBox pane2 = new VBox();
+        Canvas canvas = new Canvas(1000, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D( );
         canvas.setOnMouseDragged(e->{
-            double size = 5;
+            double size = sizeSlider.getValue();
             double x = e.getX() - size/2;
             double y = e.getY() - size-2;
             gc.setFill(colorPicker.getValue());
@@ -70,7 +71,8 @@ public class CustomAvatar extends ScenePattern {
         //drawShapes(gc);
         pane.getChildren().add(canvas);
         pane1.getChildren().add(colorPicker);
-        root.getChildren().addAll(pane,pane1);
+        pane2.getChildren().addAll(sizeSlider, new Label("Resize brush"));
+        root.getChildren().addAll(pane,pane1,pane2);
         return root;
     }
     private void drawShapes(GraphicsContext gc) {

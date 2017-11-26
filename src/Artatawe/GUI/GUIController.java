@@ -3,6 +3,7 @@ package Artatawe.GUI;
 import Artatawe.Data.Profile;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GUIController extends Application {
@@ -21,7 +22,7 @@ public class GUIController extends Application {
 
         primaryStage.setTitle("Artatawe");
 
-        root = new Scene(new CustomAvatar().getPane(),600,600);
+        root = new Scene(new CustomAvatar().getPane(), Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()-25);
 
         primaryStage.setScene(root);
         primaryStage.show();
