@@ -1,5 +1,8 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Profile;
+import Artatawe.GUI.ProfileScene;
+import Artatawe.GUI.ScenePattern;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +14,7 @@ public class GUIController extends Application {
 
     public static Number screenWidth = 0;
     public static  Number screenHeight = 0;
+    static Scene root;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -21,9 +25,9 @@ public class GUIController extends Application {
 
         primaryStage.setTitle("Artatawe");
 
-        Scene profileScene = new Scene(new ProfileScene("img1.jpg").getPane(), 600, 600);
-        Scene profileScene1 = new Scene(new ScenePattern().getPane(), 600, 600);
-        primaryStage.setScene(profileScene);
+        root = new Scene(new ProfileScene(new Profile()).getPane(), 600, 600);
+
+        primaryStage.setScene(root);
         primaryStage.show();
 
         primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -34,6 +38,7 @@ public class GUIController extends Application {
             screenHeight = newVal;
         });
     }
+
 
 
 }

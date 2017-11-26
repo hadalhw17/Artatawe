@@ -1,5 +1,6 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -15,6 +16,7 @@ import javafx.stage.Screen;
 
 import java.io.File;
 
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
 
 public class ScenePattern {
@@ -52,17 +54,26 @@ public class ScenePattern {
     }
 
     public VBox addVBox() {
+        JFXButton profileButton = new JFXButton("View Profile");
         JFXButton button1 = new JFXButton("View Auctions");
         JFXButton button2 = new JFXButton("Bid artwork");
         VBox vBox = new VBox();
         vBox.setStyle("-fx-background-color: #E91E63; -fx-padding: -10;");
         vBox.setPadding(new Insets(15, 12, 15, 0));
         vBox.setSpacing(10);
-        vBox.setMargin(button1, new Insets(25, 25, 1, 25));
         button1.setMaxWidth(10000);
+        button1.addEventHandler(MOUSE_CLICKED, e -> {
+            border.setCenter(new AuctionScene().constructContentPane(image));
+        });
+        profileButton.addEventHandler(MOUSE_CLICKED, e -> {
+            border.setCenter(new ProfileScene(new Profile()).constructContentPane(image));
+        });
+        vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));
+        vBox.setMargin(button1, new Insets(1, 25, 1, 25));
         vBox.setMargin(button2, new Insets(1, 25, 25, 25));
         button2.setMaxWidth(10000);
-        vBox.getChildren().addAll(button1, button2);
+        profileButton.setMaxWidth(10000);
+        vBox.getChildren().addAll(profileButton,button1, button2);
         return vBox;
 
 
