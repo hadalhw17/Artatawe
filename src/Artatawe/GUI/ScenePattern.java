@@ -1,7 +1,5 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Artwork;
-import Artatawe.Data.Auction;
 import Artatawe.Data.Painting;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
