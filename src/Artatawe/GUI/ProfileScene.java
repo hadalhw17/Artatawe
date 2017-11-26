@@ -9,28 +9,44 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ *  @author Aleksandr Slobodov
+ *
+ * ProfileScene.java
+ *
+ *  Scene made to display profile information.
+ *  Inherits all of the elements from ScenePattern.java
+ *
+ */
+
 public class ProfileScene extends ScenePattern{
 
-    private ImageView imgView;
-    Profile p = new Profile();
+    //Profile to be displayed
+    private Profile p;
 
-
+    /**
+     * Constructor for ProfileScene
+     * @param p profile to be displayed
+     */
     public ProfileScene(Profile p){
-
          this.p = p;
          setNameLabel("Aleksandr Slobodov");
+         setContentPane();
 
     }
 
 
     //For now all of the paths are hard cored, but further all of the images gonna be fetched from Profile p.
 
+    /**
+     * Generates central content pane for profile.
+     * @return profile page.
+     */
     @Override
+    //TODO Once Profile.java is finished, remove all of that hard-coded shit that is in this method and make everything automatic
     public JFXMasonryPane constructContentPane(){
         JFXMasonryPane contentPane = new JFXMasonryPane();
-        if(imgView == null){
-            imgView = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));
-        }
+        ImageView imgView = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));
         ImageView imgView2 = new ImageView(new Image(getClass().getResource("/img2.png").toExternalForm()));
         ImageView imgView3 = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));
         ImageView imgView4 = new ImageView(new Image(getClass().getResource("/img2.png").toExternalForm()));

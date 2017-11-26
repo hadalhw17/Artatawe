@@ -1,6 +1,8 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Artwork;
 import Artatawe.Data.Auction;
+import Artatawe.Data.Painting;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -10,11 +12,14 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.util.Date;
 
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
@@ -66,11 +71,13 @@ public class ScenePattern{
         border.setTop(topBox);
         drawerPane = addDrawerVBox();
         border.setLeft(leftDrawer);
-        contentPane = constructContentPane();
-        border.setCenter(contentPane);
         menuActivity();
     }
 
+    public void setContentPane(){
+        contentPane = constructContentPane();
+        border.setCenter(contentPane);
+    }
     /**
      * A getter for a main pane.
      * @return main border pane with all of the objects constructed on it.
@@ -83,6 +90,7 @@ public class ScenePattern{
      * Generates VBox with a drawer menu in it.
      * @return generated VBox
      */
+    //TODO Once files gonna be generated, remove hard-coded stuff.
     public VBox addDrawerVBox() {
         leftDrawer.setDefaultDrawerSize(300);
         leftDrawer.setOverLayVisible(false);
@@ -97,7 +105,10 @@ public class ScenePattern{
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new AuctionScene(new Auction()).getPane(),
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkScene(new Painting("Mona Lisa",
+                    "Nice Description goes here. \nAnd it can be very long. \nArtatawe layouts itself quite nicely.", new Image(getClass().getResource("/img1.png").toExternalForm()),
+                    1503,10000,5,new Date(17,07,1997),
+                            50,50)).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {

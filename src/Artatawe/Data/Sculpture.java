@@ -1,6 +1,7 @@
 package Artatawe.Data;
 
 import java.util.Date;
+import javafx.scene.image.Image;
 
 public class Sculpture extends Artwork {
 

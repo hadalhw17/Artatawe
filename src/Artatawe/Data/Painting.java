@@ -1,6 +1,8 @@
 package Artatawe.Data;
 
 import java.util.Date;
+import javafx.scene.image.Image;
+
 public class Painting extends Artwork{
 
     public Painting(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, int width, int height){
@@ -9,8 +11,8 @@ public class Painting extends Artwork{
 
     }
 
-    /*public String toString(){
+    public String toString(){
         return (getName()+" "+ getDescription() +" "+ getPhoto() +" " + getYear() +" " + getReservedPrice()
                 +" " + getAllowedBids() +" " + getDateTime() +" " + getWidth() +" " + getHeight());
-    }*/
+    }
 }
