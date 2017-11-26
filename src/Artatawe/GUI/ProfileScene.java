@@ -1,17 +1,13 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.Profile;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
-import com.jfoenix.controls.JFXTextArea;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.io.File;
 
 public class ProfileScene extends ScenePattern{
 
@@ -22,6 +18,7 @@ public class ProfileScene extends ScenePattern{
     public ProfileScene(Profile p){
 
          this.p = p;
+         setNameLabel("Aleksandr Slobodov");
 
     }
 
@@ -29,7 +26,7 @@ public class ProfileScene extends ScenePattern{
     //For now all of the paths are hard cored, but further all of the images gonna be fetched from Profile p.
 
     @Override
-    public JFXMasonryPane constructContentPane(Image img){
+    public JFXMasonryPane constructContentPane(){
         JFXMasonryPane contentPane = new JFXMasonryPane();
         if(imgView == null){
             imgView = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));

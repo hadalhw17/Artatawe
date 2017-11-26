@@ -1,5 +1,6 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Auction;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -7,44 +8,40 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.File;
 
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
 
-public class ScenePattern {
+public class ScenePattern{
     private JFXHamburger menuHamburger = new JFXHamburger();
     private Label nameField = new Label("ARTATAWE | ");
     private JFXDrawer leftDrawer = new JFXDrawer();
-    private VBox drawePane = new VBox();
+    private VBox drawerPane = new VBox();
     private BorderPane border = new BorderPane();
     private JFXMasonryPane contentPane;
+    private Label nameLabel = new Label("Welcome");
 
-    Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
-    private Image image;
-    private File file;
-    private ImageView imgView;
 
     public ScenePattern() {
-        file = new File("src/res/img1.png");
-        image = new Image(file.toURI().toString());
         HBox hbox = addHBox();
         border.setTop(hbox);
-        drawePane = addVBox();
+        drawerPane = addDrawerVBox();
         leftDrawer.setDefaultDrawerSize(300);
         leftDrawer.setOverLayVisible(false);
-        leftDrawer.setSidePane(drawePane);
+        leftDrawer.setSidePane(drawerPane);
         leftDrawer.setPrefSize(0,0);
         border.setLeft(leftDrawer);
-        contentPane = constructContentPane(image);
+        contentPane = constructContentPane();
         border.setCenter(contentPane);
         initialize();
     }
@@ -53,7 +50,7 @@ public class ScenePattern {
         return border;
     }
 
-    public VBox addVBox() {
+    public VBox addDrawerVBox() {
         JFXButton profileButton = new JFXButton("View Profile");
         JFXButton button1 = new JFXButton("View Auctions");
         JFXButton button2 = new JFXButton("Bid artwork");
@@ -63,10 +60,12 @@ public class ScenePattern {
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            border.setCenter(new AuctionScene().constructContentPane(image));
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new AuctionScene(new Auction()).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            border.setCenter(new ProfileScene(new Profile()).constructContentPane(image));
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile()).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));
         vBox.setMargin(button1, new Insets(1, 25, 1, 25));
@@ -75,8 +74,6 @@ public class ScenePattern {
         profileButton.setMaxWidth(10000);
         vBox.getChildren().addAll(profileButton,button1, button2);
         return vBox;
-
-
     }
 
     public HBox addHBox() {
@@ -88,15 +85,26 @@ public class ScenePattern {
 
         menuHamburger.setPrefSize(100, 20);
         nameField.setStyle("-fx-font-size: 30; -fx-color-label-visible: false; -fx-text-fill: #FFFFFF");
+        nameLabel.setStyle("-fx-font-size: 30; -fx-color-label-visible: false; -fx-text-fill: #FFFFFF");
 
-        hbox.getChildren().addAll(menuHamburger, nameField);
+        hbox.getChildren().addAll(menuHamburger, nameField,nameLabel);
 
         return hbox;
     }
 
+    public void setNameLabel(String nameOfPage){
+        this.nameLabel.setText(nameOfPage);
+    }
+
+    public JFXMasonryPane constructContentPane(){
+
+        return contentPane;
+    }
+
+
     public void initialize() {
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(menuHamburger);
-        drawePane = addVBox();
+        drawerPane = addDrawerVBox();
         transition.setRate(-1);
         menuHamburger.addEventHandler(MOUSE_PRESSED, (e) -> {
             transition.setRate(transition.getRate() * -1);
@@ -105,20 +113,10 @@ public class ScenePattern {
             if (leftDrawer.isShown()) {
                 leftDrawer.close();
                 leftDrawer.setPrefSize(0,0);
-            } else {
+            } else if(!leftDrawer.isShown()) {
                 leftDrawer.open();
                 leftDrawer.setPrefSize(300,0);
             }
         });
-    }
-
-
-    public JFXMasonryPane constructContentPane(Image img){
-
-        return contentPane;
-    }
-
-    public void repaint(Number n){
-
     }
 }

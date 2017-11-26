@@ -1,5 +1,6 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Auction;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,12 +10,13 @@ import javafx.scene.layout.VBox;
 
 public class AuctionScene extends ScenePattern {
 
-    public AuctionScene(){
+    public AuctionScene(Auction a){
 
+        setNameLabel("Mona Lisa");
     }
 
     @Override
-    public JFXMasonryPane constructContentPane(Image img){
+    public JFXMasonryPane constructContentPane(){
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView(new Image(getClass().getResource("/img3.png").toExternalForm()));
         imgView.setFitWidth(200);
