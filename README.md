@@ -1,9 +1,9 @@
 # A3 Artatawe implementation.
 
 ## How to install it from Github
-...
+```
 git clone http://github.com/hadalhw17/Artatawe.git
-...
+```
 ## Environment Setup
 
 ### Intellij
