@@ -9,9 +9,9 @@ public class Bid {
 	private Profile buyer;
 	private int amount;
 	private Date dateTime;
-	private int auction;
+	private Auction auction;
 	
-	public Bid(Profile buyer, int amount, Date dateTime, int auction) {
+	public Bid(Profile buyer, int amount, Date dateTime, Auction auction) {
 		
 		this.buyer = buyer;
 		this.amount = amount;
