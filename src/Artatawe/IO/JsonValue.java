@@ -50,6 +50,15 @@ public class JsonValue
     }
 
     /**
+     * Get underlying value
+     * @return generic Object value
+     */
+    public Object get()
+    {
+        return this.value;
+    }
+
+    /**
      * Cast to an integer
      * @return wrapped value as integer
      * @throws ClassCastException if wrapped value is not a number

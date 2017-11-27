@@ -60,10 +60,11 @@ class Token
     public static String formatError(String expected, Token unexpected)
     {
         return String.format(
-                "Unexpected token: %s %s\nexpected: %s\nline: %d",
-                unexpected.getCode(), unexpected.getData(),
+                "Unexpected token %s\nexpected %s\nline: %d\ndata: \"%s\"\n",
+                unexpected.getCode().toString(),
                 expected,
-                unexpected.getLine()
+                unexpected.getLine(),
+                unexpected.getData()
         );
     }
 }

@@ -10,10 +10,10 @@ enum TokenCode
     UNKNOWN("unknown"),    //Unknown token
 
     //Values
-    STRING_LITERAL("string"),
-    INTEGER_CONSTANT("integer"),
-    FLOAT_CONSTANT("float"),
-    BOOLEAN("boolean"),
+    STRING_LITERAL("String"),
+    INTEGER_CONSTANT("Integer"),
+    FLOAT_CONSTANT("Float"),
+    BOOLEAN("Boolean"),
     NULL("null"),
 
     //Symbols
