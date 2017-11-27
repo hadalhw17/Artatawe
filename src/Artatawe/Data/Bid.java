@@ -1,7 +1,7 @@
 package Artatawe.Data;
 import java.util.Date;
 /**
- * @author alexisvenizelos
+ * @author Alexis Venizelos
  *
  */
 public class Bid {
