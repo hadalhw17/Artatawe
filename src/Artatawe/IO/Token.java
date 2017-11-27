@@ -41,4 +41,29 @@ class Token
      * @return the line number
      */
     int getLine() { return this.lineNumber; }
+
+    /**
+     * Helper method for formatting error messages for tokens.
+     * @see Token#formatError(String, Token)
+     */
+    public static String formatError(TokenCode expected, Token unexpected)
+    {
+        return formatError(expected.toString(), unexpected);
+    }
+
+    /**
+     * Helper method for formatting error messages for tokens.
+     * @param expected expected token type
+     * @param unexpected actual token
+     * @return a formatted error message as a string
+     */
+    public static String formatError(String expected, Token unexpected)
+    {
+        return String.format(
+                "Unexpected token: %s %s\nexpected: %s\nline: %d",
+                unexpected.getCode(), unexpected.getData(),
+                expected,
+                unexpected.getLine()
+        );
+    }
 }

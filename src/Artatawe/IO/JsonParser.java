@@ -1,9 +1,13 @@
 package Artatawe.IO;
 
+import sun.security.jgss.TokenTracker;
+
 import java.io.*;
 import java.util.InputMismatchException;
 
 /**
+ * @author Tom Street
+ *
  * JSON parser class
  *
  * contains static methods for serializing and deserializing JSON data
@@ -62,7 +66,7 @@ public class JsonParser
             if (object.has(name))
             {
                 //Stop parsing
-                //todo: JsonParserException when duplicated object entries are found
+                throw new JsonParserException(String.format("Cannot have duplicate object entry \"%s\"", name));
             }
 
             //Insert the entry into the object
@@ -124,17 +128,17 @@ public class JsonParser
         }
 
         //Stop parsing
-        //todo: JsonParserException when JSON value couldn't be parsed
-        throw new InputMismatchException(String.format("Expected <value-expression> got %s", tokens.next().getCode()));
+        throw new JsonParserException(Token.formatError("Number|Boolean|String|Object|List|null", tokens.next()));
     }
 
     /**
      * Parse a JSON file
      * @param filepath path to JSON document
      * @return a JSON value, null if parsing fails
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the JSON file could not be found
+     * @throws JsonParserException if the JSON file could not be parsed
      */
-    public static JsonValue readFrom(String filepath) throws FileNotFoundException
+    public static JsonValue readFrom(String filepath) throws FileNotFoundException, JsonParserException
     {
         return readFrom(new FileReader(filepath));
     }
@@ -143,20 +147,21 @@ public class JsonParser
      * Parse a JSON value from an abstract reader
      * @param reader reader containing a JSON document
      * @return a JSON value, null if parsing fails
+     * @throws JsonParserException if the JSON file could not be parsed
      */
-    public static JsonValue readFrom(Reader reader)
+    public static JsonValue readFrom(Reader reader) throws JsonParserException
     {
         try
         {
             //Parse the root value
             return new JsonValue(parseValue(new Tokenizer(reader)));
         }
+        //If there was a parser error
         catch (InputMismatchException e)
         {
-            e.printStackTrace();
+            //rethrow exception
+            throw new JsonParserException(e.getMessage());
         }
-
-        return null;
     }
 
     /**
