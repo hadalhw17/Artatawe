@@ -1,24 +1,24 @@
 package Artatawe.GUI;
 
-import com.jfoenix.controls.JFXAlert;
-import com.jfoenix.controls.JFXColorPicker;
-import com.jfoenix.controls.JFXMasonryPane;
-import com.jfoenix.controls.JFXSlider;
+import Artatawe.Data.Profile;
+import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.lang.model.element.Element;
 import java.io.File;
 import java.io.IOException;
 
@@ -26,11 +26,15 @@ public class CustomAvatar extends ScenePattern {
 
 
 
-    //private Canvas canvas;
+    private Canvas canvas;
+    private JFXButton saveButton;
+    private JFXButton exitButton;
+    private ProfileScene profileScene;
+    private JFXSnackbar imageSaved = new JFXSnackbar(this.getPane());
 
 
-
-    public CustomAvatar(){
+    public CustomAvatar(ProfileScene profileScene){
+        this.profileScene = profileScene;
         setNameLabel("Custom Avatar");
         setContentPane();
     }
@@ -39,42 +43,68 @@ public class CustomAvatar extends ScenePattern {
 
     }
     public void onSave(){
+        try{
+            Image snapsot = canvas.snapshot(null,null);
 
+            ImageIO.write(SwingFXUtils.fromFXImage(snapsot,null), "png",
+                    new File("src/res/avatars/paint.png"));
+        } catch(Exception e){
+            System.out.print("Unable to save image. " + e);
+        }
+        imageSaved.show("Image Saved!\n It will be updated after you restart program", 5000);
     }
 
-
     public void onExit(){
-        Platform.exit();
+        ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(profileScene.getProfile()).getPane(),
+                Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
 
     @Override
     public JFXMasonryPane constructContentPane(){
+        HBox erasebox = new HBox();
+        JFXCheckBox erase = new JFXCheckBox();
         JFXMasonryPane root = new JFXMasonryPane();
         JFXColorPicker colorPicker = new JFXColorPicker();
         JFXSlider sizeSlider = new JFXSlider();
+        saveButton = new JFXButton("Save");
+        exitButton = new JFXButton("Exit");
+        erasebox.getChildren().addAll(erase, new Label("Eraser"));
         sizeSlider.setMinWidth(200);
         sizeSlider.setMinHeight(10);
         sizeSlider.setOrientation(Orientation.HORIZONTAL);
         Pane pane1 = new Pane();
         Pane pane = new Pane();
         VBox pane2 = new VBox();
-        Canvas canvas = new Canvas(1000, 800);
+        HBox btnPane = new HBox();
+        saveButton.setOnMousePressed(e->{
+            onSave();
+        });
+        exitButton.setOnMousePressed(e->{
+            onExit();
+        });
+        canvas = new Canvas(1000, 800);
         GraphicsContext gc = canvas.getGraphicsContext2D( );
         canvas.setOnMouseDragged(e->{
             double size = sizeSlider.getValue();
             double x = e.getX() - size/2;
             double y = e.getY() - size-2;
-            gc.setFill(colorPicker.getValue());
-            gc.fillRect(x,y,size,size);
+            if(erase.isSelected()){
+                gc.clearRect(x,y,size,size);
+            }else{
+                gc.setFill(colorPicker.getValue());
+                gc.fillRect(x,y,size,size);
+            }
+
         });
-        //drawShapes(gc);
         pane.getChildren().add(canvas);
         pane1.getChildren().add(colorPicker);
-        pane2.getChildren().addAll(sizeSlider, new Label("Resize brush"));
-        root.getChildren().addAll(pane,pane1,pane2);
+        pane2.getChildren().addAll(erasebox,sizeSlider, new Label("Resize brush"));
+        btnPane.getChildren().addAll(saveButton,exitButton);
+        root.getChildren().addAll(pane,pane1,pane2,btnPane);
         return root;
     }
+
     private void drawShapes(GraphicsContext gc) {
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);

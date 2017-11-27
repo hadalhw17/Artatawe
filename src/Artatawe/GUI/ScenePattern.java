@@ -110,7 +110,7 @@ public class ScenePattern{
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile()).getPane(),
+            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile()).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));

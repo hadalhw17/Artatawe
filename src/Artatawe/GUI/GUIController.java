@@ -22,7 +22,7 @@ public class GUIController extends Application {
 
         primaryStage.setTitle("Artatawe");
 
-        root = new Scene(new CustomAvatar().getPane(), Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()-25);
+        root = new Scene(new ProfileScene(new Profile()).getPane(), Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()-25);
 
         primaryStage.setScene(root);
         primaryStage.show();
