@@ -1,17 +1,23 @@
 package Artatawe.Data;
 import java.util.Date;
 /**
- * @author Alexis Venizelos
+ * @author alexisvenizelos
  *
  */
 public class Bid {
 	
-	private Profile buyer;
-	private int amount;
-	private Date dateTime;
-	private Auction auction;
+	private Profile buyer; // Profile of the buyer
+	private int amount; // Amount spend on bid
+	private Date dateTime; // Date and time of the bid
+	private int auction; 
 	
-	public Bid(Profile buyer, int amount, Date dateTime, Auction auction) {
+	/**
+	 * @param buyer
+	 * @param amount
+	 * @param dateTime
+	 * @param auction
+	 */
+	public Bid(Profile buyer, int amount, Date dateTime, int auction) {
 		
 		this.buyer = buyer;
 		this.amount = amount;
@@ -20,34 +26,58 @@ public class Bid {
 		
 	}
 
-	public Auction getAuction() {
+	/**
+	 * @return
+	 */
+	public int getAuction() {
 		return auction;
 	}
 
-	public void setAuction(Auction auction) {
+	/**
+	 * @param auction
+	 */
+	public void setAuction(int auction) {
 		this.auction = auction;
 	}
 
-	public Profile getBuyer() {
+	/**
+	 * @return profile of the buyer
+	 */
+	public String getBuyer() {
 		return buyer;
 	}
 
-	public void setBuyer(Profile buyer) {
+	/**
+	 * @param buyer
+	 */
+	public void setBuyer(String buyer) {
 		this.buyer = buyer;
 	}
 
+	/**
+	 * @return amount spend on bid
+	 */
 	public int getAmount() {
 		return amount;
 	}
 
+	/**
+	 * @param amount
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * @return date and time of the each bid
+	 */
 	public Date getDateTime() {
 		return dateTime;
 	}
 
+	/**
+	 * @param dateTime
+	 */
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
