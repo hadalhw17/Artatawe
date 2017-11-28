@@ -2,7 +2,9 @@ package Artatawe.Data;
 
 import java.util.Date;
 import javafx.scene.image.Image;
-
+/**
+ * @author Charlie Daley
+ */
 public class Sculpture extends Artwork {
 
     private int depth;

@@ -2,7 +2,9 @@ package Artatawe.IO;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  *  @author Tom Street
@@ -13,7 +15,7 @@ import java.util.List;
  *  Represents an array of JSON values.
  *
  */
-public class JsonList
+public class JsonList implements Iterable<JsonValue>
 {
     // Internal list of JSON values.
 	private List<JsonValue> values = new ArrayList<>();
@@ -120,5 +122,16 @@ public class JsonList
     public void clear()
     {
         this.values.clear();
+    }
+
+    /**
+     * Get iterator over JSON list
+     * @see Iterable#iterator()
+     * @return
+     */
+    @Override
+    public Iterator<JsonValue> iterator()
+    {
+        return this.values.iterator();
     }
 }

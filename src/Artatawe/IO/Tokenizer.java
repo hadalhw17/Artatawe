@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.InputMismatchException;
 
 /**
@@ -13,6 +12,7 @@ import java.util.InputMismatchException;
  *  Tokenizer helper class
  *
  *  Breaks down a stream of text into a sequence of tokens for parsing.
+ *  Serves the same purpose as {@see java.util.Scanner}
  */
 class Tokenizer
 {
@@ -61,7 +61,7 @@ class Tokenizer
         //Assert that the next token is the expected type
         if (nextToken.getCode() != code)
         {
-            throw new InputMismatchException(String.format("Expected token %s got %s", code.toString(), nextToken.getCode().toString()));
+            throw new InputMismatchException(Token.formatError(code, nextToken));
         }
 
         //Return next token
@@ -241,6 +241,7 @@ class Tokenizer
                 return new Token(code, text, lineNumber);
             }
         }
+
         //If end of stream is reached or there is an IO error then return EOF token
         catch (IOException e)
         {

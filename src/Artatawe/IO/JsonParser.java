@@ -2,8 +2,11 @@ package Artatawe.IO;
 
 import java.io.*;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 
 /**
+ * @author Tom Street
+ *
  * JSON parser class
  *
  * contains static methods for serializing and deserializing JSON data
@@ -62,7 +65,7 @@ public class JsonParser
             if (object.has(name))
             {
                 //Stop parsing
-                //todo: JsonParserException when duplicated object entries are found
+                throw new JsonParserException(String.format("Cannot have duplicate object entry \"%s\"", name));
             }
 
             //Insert the entry into the object
@@ -124,17 +127,145 @@ public class JsonParser
         }
 
         //Stop parsing
-        //todo: JsonParserException when JSON value couldn't be parsed
-        throw new InputMismatchException(String.format("Expected <value-expression> got %s", tokens.next().getCode()));
+        throw new JsonParserException(Token.formatError("Number|Boolean|String|Object|List|null", tokens.next()));
+    }
+
+    /*
+        Indent helper method
+     */
+    private static void indent(Writer output, int indentLevel) throws IOException
+    {
+        for (int i = 0; i < indentLevel; i++)
+        {
+            output.write("    ");
+        }
+    }
+
+    /*
+        Convert a JSON object into a string
+     */
+    private static void stringifyObject(Writer output, JsonObject object, int indentLevel) throws IOException
+    {
+        //Begin object (no indent is needed)
+        output.write("{");
+
+        //Workaround for inserting the correct number of commas
+        int separatorCount = object.getKeys().size() - 1;
+
+        //For each object entry name
+        for (String name : object.getKeys())
+        {
+            output.write("\n");
+            indent(output, indentLevel + 1);
+
+            //Write entry name and value to output
+            output.write("\"" + name + "\" : ");
+            stringifyValue(output, object.get(name), indentLevel + 1);
+
+            if (separatorCount-- > 0)
+            {
+                //Write separator
+                output.write(",");
+            }
+            else
+            {
+                //End of line
+                output.write("\n");
+            }
+        }
+
+        if (object.getKeys().size() > 0)
+        {
+            indent(output, indentLevel);
+        }
+
+        //End object
+        output.write("}");
+    }
+
+    /*
+        Convert a JSON list into a string
+    */
+    private static void stringifyList(Writer output, JsonList list, int indentLevel) throws IOException
+    {
+        //Begin list (no indent is needed)
+        output.write("[");
+
+        //Workaround for inserting the correct number of commas
+        int separatorCount = list.size() - 1;
+
+        //Foreach list element
+        for (JsonValue value : list)
+        {
+            output.write("\n");
+            indent(output, indentLevel + 1);
+
+            //Write element to output
+            stringifyValue(output, value, indentLevel + 1);
+
+            if (separatorCount-- > 0)
+            {
+                //Write separator
+                output.write(",");
+            }
+            else
+            {
+                //End of list
+                output.write("\n");
+            }
+        }
+
+        if (list.size() > 0)
+        {
+            indent(output, indentLevel);
+        }
+
+        //End list
+        output.write("]");
+    }
+
+    /*
+        Convert a JSON data value into a string
+     */
+    private static void stringifyValue(Writer output, JsonValue value, int indentLevel) throws IOException
+    {
+        //If JSON value needs special formatting
+        if (value.isNull())
+        {
+            output.write("null");
+        }
+        else if (value.isString())
+        {
+            //Format string with quote marks
+            output.write("\"");
+            output.write(value.asString());
+            output.write("\"");
+        }
+        else if (value.isObject())
+        {
+            //Format object
+            stringifyObject(output, value.asObject(), indentLevel);
+        }
+        else if (value.isList())
+        {
+            //Format list
+            stringifyList(output, value.asList(), indentLevel);
+        }
+        else
+        {
+            //Otherwise use default toString method
+            output.write(value.get().toString());
+        }
     }
 
     /**
      * Parse a JSON file
      * @param filepath path to JSON document
      * @return a JSON value, null if parsing fails
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the JSON file could not be found
+     * @throws JsonParserException if the JSON file could not be parsed
      */
-    public static JsonValue readFrom(String filepath) throws FileNotFoundException
+    public static JsonValue readFrom(String filepath) throws FileNotFoundException, JsonParserException
     {
         return readFrom(new FileReader(filepath));
     }
@@ -143,20 +274,21 @@ public class JsonParser
      * Parse a JSON value from an abstract reader
      * @param reader reader containing a JSON document
      * @return a JSON value, null if parsing fails
+     * @throws JsonParserException if the JSON file could not be parsed
      */
-    public static JsonValue readFrom(Reader reader)
+    public static JsonValue readFrom(Reader reader) throws JsonParserException
     {
         try
         {
             //Parse the root value
             return new JsonValue(parseValue(new Tokenizer(reader)));
         }
+        //If there was a parser error
         catch (InputMismatchException e)
         {
-            e.printStackTrace();
+            //rethrow exception
+            throw new JsonParserException(e.getMessage());
         }
-
-        return null;
     }
 
     /**
@@ -174,9 +306,14 @@ public class JsonParser
      * Write a JSON value out to an abstract writer
      * @param writer abstract writer
      * @param value JSON value
+     * @throws IOException
      */
-    public static void writeTo(Writer writer, JsonValue value)
+    public static void writeTo(Writer writer, JsonValue value) throws IOException
     {
-
+        //Write root value to output
+        stringifyValue(writer, value, 0);
+        writer.write("\n");
+        //Flush output to ensure it is written properly
+        writer.flush();
     }
 }
