@@ -20,19 +20,19 @@ public class Bid {
 		
 	}
 
-	public int getAuction() {
+	public Auction getAuction() {
 		return auction;
 	}
 
-	public void setAuction(int auction) {
+	public void setAuction(Auction auction) {
 		this.auction = auction;
 	}
 
-	public String getBuyer() {
+	public Profile getBuyer() {
 		return buyer;
 	}
 
-	public void setBuyer(String buyer) {
+	public void setBuyer(Profile buyer) {
 		this.buyer = buyer;
 	}
 
