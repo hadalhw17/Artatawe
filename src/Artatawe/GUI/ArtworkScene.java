@@ -58,4 +58,5 @@ public class ArtworkScene extends ScenePattern {
         contentPane.getChildren().addAll(imgPane,aboutCard,descriptionCard,bidders);
         return contentPane;
     }
+
 }

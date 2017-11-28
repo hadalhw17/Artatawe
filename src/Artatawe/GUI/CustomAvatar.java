@@ -1,10 +1,7 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Profile;
 import com.jfoenix.controls.*;
-import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,9 +15,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import javax.lang.model.element.Element;
 import java.io.File;
-import java.io.IOException;
 
 public class CustomAvatar extends ScenePattern {
 
@@ -39,19 +34,16 @@ public class CustomAvatar extends ScenePattern {
         setContentPane();
     }
 
-    public void init(){
 
-    }
     public void onSave(){
         try{
             Image snapsot = canvas.snapshot(null,null);
-
             ImageIO.write(SwingFXUtils.fromFXImage(snapsot,null), "png",
-                    new File("src/res/avatars/paint.png"));
+                    new File("src/Artatawe/assets/avatars/img.png"));
+            imageSaved.show("Image Saved!\n It will be updated after you press exit", 5000);
         } catch(Exception e){
             System.out.print("Unable to save image. " + e);
         }
-        imageSaved.show("Image Saved!\n It will be updated after you restart program", 5000);
     }
 
     public void onExit(){
@@ -104,6 +96,7 @@ public class CustomAvatar extends ScenePattern {
         root.getChildren().addAll(pane,pane1,pane2,btnPane);
         return root;
     }
+
 
     private void drawShapes(GraphicsContext gc) {
         gc.setFill(Color.GREEN);
