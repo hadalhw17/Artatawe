@@ -1,10 +1,11 @@
+
 /**
  * @author alexisvenizelos
  *
  */
 public class Image {
 	
-	private String caption; // Each image has a caption e.g: "ImageCaption"
+	private String caption; // Each image has a caption e.g: "ImageName"
 	private int width; // Width of the image
 	private int height; // Height of the image
 	
@@ -60,5 +61,29 @@ public class Image {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
+		
+	}
+	
+	/**
+	 * @return imagePath
+	 */
+	public String getImagePath() {
+		return caption;
+	}
+	
+	/**
+	 * @param caption
+	 */
+	public void setImagePath(String caption) {
+		this.caption = caption;
+	}
+	
+	
+	/* 
+	 * A toString(); method to convert the image to String
+	 */
+	public String toString() {
+		return toString() + "Height: " + this.getHeight() + " | " + 
+				"Width: " + this.getWidth() + " | " + "Image: " + this.getImagePath();
 	}
 }
