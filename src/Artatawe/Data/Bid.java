@@ -34,7 +34,7 @@ public class Bid {
 	}
 
 	/**
-	 * @param auction
+	 * @param auction 
 	 */
 	public void setAuction(int auction) {
 		this.auction = auction;
