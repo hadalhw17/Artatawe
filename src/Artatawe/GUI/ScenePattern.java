@@ -104,7 +104,7 @@ public class ScenePattern{
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
             ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkScene(new Painting("Mona Lisa",
-                    "Nice Description goes here. \nAnd it can be very long. \nArtatawe layouts itself quite nicely.", new Image(getClass().getResource("/img1.png").toExternalForm()),
+                    "Nice Description goes here. \nAnd it can be very long. \nArtatawe layouts itself quite nicely.", new Image("data/img1.png"),
                     1503,10000,5,new Date(17,07,1997),
                             50,50)).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));

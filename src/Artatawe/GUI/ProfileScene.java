@@ -65,10 +65,10 @@ public class ProfileScene extends ScenePattern {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         HBox avatarBox = new HBox();
         JFXButton customImage = new JFXButton("Custom avatar");
-        ImageView imgView2 = new ImageView(new Image(getClass().getResource("/img2.png").toExternalForm()));
-        ImageView imgView3 = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));
-        ImageView imgView4 = new ImageView(new Image(getClass().getResource("/img2.png").toExternalForm()));
-        ImageView imgView5 = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));
+        ImageView imgView2 = new ImageView(new Image("file:data/img2.png"));
+        ImageView imgView3 = new ImageView(new Image("file:data/img1.png"));
+        ImageView imgView4 = new ImageView(new Image("file:data/img2.png"));
+        ImageView imgView5 = new ImageView(new Image("file:data/img1.png"));
         imgView.setFitWidth(300);
         imgView.setFitHeight(300);
         imgView2.setFitWidth(50);
