@@ -12,7 +12,7 @@
 
     <build>
         <sourceDirectory>src</sourceDirectory>
-        <testOutputDirectory>test</testOutputDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
 
         <resources>
             <resource>
@@ -27,6 +27,13 @@
             <artifactId>jfoenix</artifactId>
             <version>1.10.0</version>
             <scope>import</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

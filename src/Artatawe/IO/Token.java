@@ -60,7 +60,7 @@ class Token
     public static String formatError(String expected, Token unexpected)
     {
         return String.format(
-                "Unexpected token %s\nexpected %s\nline: %d\ndata: \"%s\"\n",
+                "Syntax error:\nUnexpected token %s\nexpected %s\nline %d\ndata \"%s\"\n",
                 unexpected.getCode().toString(),
                 expected,
                 unexpected.getLine(),
