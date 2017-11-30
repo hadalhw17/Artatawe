@@ -9,7 +9,7 @@ public class Bid {
 	private Profile buyer; // Profile of the buyer
 	private int amount; // Amount spend on bid
 	private Date dateTime; // Date and time of the bid
-	private int auction; 
+	private Auction auction;
 	
 	/**
 	 * @param buyer
@@ -17,7 +17,7 @@ public class Bid {
 	 * @param dateTime
 	 * @param auction
 	 */
-	public Bid(Profile buyer, int amount, Date dateTime, int auction) {
+	public Bid(Profile buyer, int amount, Date dateTime, Auction auction) {
 		
 		this.buyer = buyer;
 		this.amount = amount;
@@ -29,14 +29,14 @@ public class Bid {
 	/**
 	 * @return
 	 */
-	public int getAuction() {
+	public Auction getAuction() {
 		return auction;
 	}
 
 	/**
 	 * @param auction 
 	 */
-	public void setAuction(int auction) {
+	public void setAuction(Auction auction) {
 		this.auction = auction;
 	}
 
