@@ -41,9 +41,9 @@ public class ArtworkScene extends ScenePattern {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView();
         if(imgView == null){
-            imgView = new ImageView(new Image(getClass().getResource("/img1.png").toExternalForm()));
+            imgView = new ImageView(new Image("file:data/artworks/img2.png"));
         }
-        imgView.setImage(new Image(getClass().getResource("/img3.png").toExternalForm()));
+        imgView.setImage(new Image("file:data/artworks/img2.png"));
         imgView.setFitWidth(200);
         imgView.setFitHeight(200);
         AnchorPane imgPane = new AnchorPane(imgView);

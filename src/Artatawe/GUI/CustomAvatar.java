@@ -39,7 +39,7 @@ public class CustomAvatar extends ScenePattern {
         try{
             Image snapsot = canvas.snapshot(null,null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapsot,null), "png",
-                    new File("file:data/avatars/img.png"));
+                    new File("data/avatars/img.png"));
             imageSaved.show("Image Saved!\n It will be updated after you press exit", 5000);
         } catch(Exception e){
             System.out.print("Unable to save image. " + e);

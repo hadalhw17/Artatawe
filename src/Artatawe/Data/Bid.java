@@ -43,14 +43,14 @@ public class Bid {
 	/**
 	 * @return profile of the buyer
 	 */
-	public String getBuyer() {
+	public Profile getBuyer() {
 		return buyer;
 	}
 
 	/**
 	 * @param buyer
 	 */
-	public void setBuyer(String buyer) {
+	public void setBuyer(Profile buyer) {
 		this.buyer = buyer;
 	}
 

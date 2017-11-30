@@ -3,6 +3,7 @@ package Artatawe.GUI;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -41,7 +42,7 @@ public class ProfileScene extends ScenePattern {
 
         imagePane = new AnchorPane();
 
-        profImage = new Image("file:src/Artatawe/assets/avatars/img.png");
+        profImage = new Image("file:data/avatars/img.png");
 
 
         imgView = new ImageView();
@@ -65,10 +66,10 @@ public class ProfileScene extends ScenePattern {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         HBox avatarBox = new HBox();
         JFXButton customImage = new JFXButton("Custom avatar");
-        ImageView imgView2 = new ImageView(new Image("file:data/img2.png"));
-        ImageView imgView3 = new ImageView(new Image("file:data/img1.png"));
-        ImageView imgView4 = new ImageView(new Image("file:data/img2.png"));
-        ImageView imgView5 = new ImageView(new Image("file:data/img1.png"));
+        ImageView imgView2 = new ImageView(new Image("file:data/artworks/img2.png"));
+        ImageView imgView3 = new ImageView(new Image("file:data/artworks/img1.png"));
+        ImageView imgView4 = new ImageView(new Image("file:data/artworks/img3.png"));
+        ImageView imgView5 = new ImageView(new Image("file:data/artworks/img4.png"));
         imgView.setFitWidth(300);
         imgView.setFitHeight(300);
         imgView2.setFitWidth(50);
@@ -87,11 +88,11 @@ public class ProfileScene extends ScenePattern {
         });
         JFXMasonryPane pane2 = new JFXMasonryPane();
         pane2.getChildren().addAll(new Pane(imgView2), new Pane(imgView3), new Pane(imgView4), new Pane(imgView5));
-        pane2.setPrefSize(120, 150);
+        pane2.setPrefSize(100, 150);
         pane2.setHSpacing(-1);
         VBox pane1 = new VBox(new Label("About"), new Label("Name: Aleksandr Slobodov\nAge:20y.o."));
-        pane1.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
-        pane2.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0);-fx-background-color: #E8EAF6;");
+        pane1.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); -fx-background-color: #E8EAF6;");
+        pane2.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0);-fx-background-color: #E8EAF6;");
         contentPane.getChildren().addAll(avatarBox, pane1, pane2);
 
         return contentPane;
