@@ -55,7 +55,7 @@ public class Bid {
 	}
 
 	/**
-	 * @return amount spend on bid
+	 * @return amount spend on a bid
 	 */
 	public int getAmount() {
 		return amount;
@@ -69,7 +69,7 @@ public class Bid {
 	}
 
 	/**
-	 * @return date and time of the each bid
+	 * @return date and time of each bid
 	 */
 	public Date getDateTime() {
 		return dateTime;
