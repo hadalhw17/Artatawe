@@ -1,5 +1,6 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Auction;
 import Artatawe.Data.Painting;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
@@ -17,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
@@ -103,7 +105,7 @@ public class ScenePattern{
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer().getPane(),
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(new ArrayList<Auction>()).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
