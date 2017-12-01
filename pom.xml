@@ -19,6 +19,55 @@
                 <directory>resources</directory>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                    <execution>
+                        <id>install-javafx</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <file>${jfx-runtime}/lib/jfxrt.jar</file>
+                            <groupId>javafx</groupId>
+                            <artifactId>javafx</artifactId>
+                            <version>${jfx-version}</version>
+                            <packaging>jar</packaging>
+                            <javadoc>${jfx-runtime}/../docs/api.zip</javadoc>
+                            <!--<sources>no source available</sources>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install-javafx-bin</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${settings.localRepository}/javafx/javafx</outputDirectory>
+                            <useBuildFilters>false</useBuildFilters>
+                            <resources>
+                                <resource>
+                                    <directory>${"jfx-runtime"}</directory>
+                                    <includes>
+                                        <include>bin/*.dll</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
@@ -36,4 +85,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>
+
+
