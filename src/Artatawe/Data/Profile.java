@@ -1,7 +1,8 @@
+package Artatawe.Data;
 import java.util.ArrayList;
 
 public class Profile {
-
+/*
 	private String username; 
 	private String firstname; 
 	private String surname; 
@@ -95,6 +96,7 @@ public class Profile {
 }
 		
 	}
+	*/
 	
 }
 

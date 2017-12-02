@@ -51,15 +51,6 @@ public class ArtworkContainer extends ScenePattern {
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
             });
         }
-
-        /*imageHolder.setOnMouseClicked(e->{
-            ((Stage)imageHolder.getScene().getWindow()).setScene(new Scene(new ArtworkScene(new Painting("Mona Lisa",
-                    "Nice Description goes here. \nAnd it can be very long. \nArtatawe layouts itself quite nicely.", new Image("file:data/artworks/img2.png"),
-                    1503,10000,5,new Date(17,07,1997),
-                    50,50)).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
-        });
-*/
         return  contentPane;
     }
 
