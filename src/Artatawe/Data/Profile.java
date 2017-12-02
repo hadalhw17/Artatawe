@@ -2,30 +2,24 @@ package Artatawe.Data;
 import java.util.ArrayList;
 
 public class Profile {
-/*
-	private String username; 
+
+	private String username;
 	private String firstname; 
 	private String surname; 
 	private String mobileNo;
 	private Address address;
-	private Image profileImage ; 
-	
-	
+	private Image profileImage;
+
 	private ArrayList<Profile> favourites = new ArrayList<Profile>(); 
 	
-	private ArrayList<Artwork> artwork = new ArrayList<Artwork>(); 
-	
+	private ArrayList<Artwork> artwork = new ArrayList<Artwork>();
 
-	Profile(String username, String firstName, String surname, String mobileNo, Address address, Image profileImage){
-		
+	Profile(String username, String firstName, String surname, String mobileNo, Address address, Image profileImage) {
 		this.username = username;
 		this.firstname = firstName;
 		this.surname = surname;
 		this.mobileNo = mobileNo;
 		this.profileImage = profileImage;
-		
-		
-		
 	}
 
 	public String getUsername() {
@@ -71,7 +65,7 @@ public class Profile {
 	
 	public Artwork getArtworks(Artwork artwork) {
 		return artwork;
-	} 
+	}
 	
 	public Artwork addArt(Artwork art) {
 		return art;
@@ -89,14 +83,8 @@ public class Profile {
 		return favorites;
 	}
 	
-	public String toString(){
-		
-    return // (getName()+" "+ getDescription() +" "+ getPhoto() +" " + getYear() +" " + getReservedPrice()
-            //+" " + getAllowedBids() +" " + getDateTime() +" " + getWidth() +" " + getHeight() +" " + getDepth());
-}
-		
+	public String toString() {
+        return "";
 	}
-	*/
-	
 }
 

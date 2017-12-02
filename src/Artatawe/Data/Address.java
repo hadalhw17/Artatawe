@@ -1,24 +1,24 @@
+package Artatawe.Data;
+
 import java.util.ArrayList;
 
 public class Address {
-	 
+
 	private int houseNum;
 	private String street; 
 	private String county;
 	private String postcode; 
 	private String city;
-
 	
 	private ArrayList<Address> address = new ArrayList<Address>();
-	
-	
+
 	public Address(int houseNum, String street, String city, String county, String postcode){
 		this.houseNum = houseNum;
 		this.street  = street;
 		this.city  = city;
 		this.county = county;
 		this.postcode = postcode;
-}
+    }
 	
 	
 	public int getHouseNum() {
@@ -63,6 +63,4 @@ public class Address {
 	public void setCity(String city) {
 		this.city = city;
 	}
-
-	
 }

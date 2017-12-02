@@ -1,3 +1,4 @@
+package Artatawe.Data;
 
 /**
  * @author alexisvenizelos
@@ -61,7 +62,6 @@ public class Image {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
-		
 	}
 	
 	/**
