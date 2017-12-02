@@ -1,111 +1,115 @@
 {
-	"profiles" :
-	[
-		{
-			"username" : "dummy_user_A",
-			"firstname" : "jim",
-			"surname" : "something",
-
+    "profiles" :
+    [
+        {
+            "id" : 1,
+            "username" : "dummy_user_A",
+            "firstname" : "jim",
+            "surname" : "something",
             "avatar" : "data/avatars/img.png",
+            "mobileNo" : 123456789,
 
             "selling_auctions" : [ ],
-			"won_auctions" : [ 2 ],
+            "won_auctions" : [ 2 ],
 
-			"favourite_profiles" : [ "dummy_user_B" ],
+            "favourite_profiles" : [ 2 ],
 
-			"address" :
-			{
-				"postcode" : "SA1456"
-			}
-		},
-		{
-			"username" : "dummy_user_B",
-			"firstname" : "bob",
-			"surname" : "person",
-
+            "address" :
+            {
+                "postcode" : "SA1456"
+            }
+        },
+        {
+            "id" : 2,
+            "username" : "dummy_user_B",
+            "firstname" : "bob",
+            "surname" : "person",
             "avatar" : "data/avatars/img.png",
+            "mobileNo" : 123456789,
+
 
             "selling_auctions" : [ 1 ],
-			"won_auctions" : [],
+            "won_auctions" : [],
 
-			"favourite_profiles" : [],
+            "favourite_profiles" : [],
 
-			"address" :
-			{
-				"postcode" : "SA1321"
-			}
-		},
-		{
-			"username" : "dummy_user_C",
-			"firstname" : "jon",
-			"surname" : "snow",
-
+            "address" :
+            {
+                "postcode" : "SA1321"
+            }
+        },
+        {
+            "id" : 3,
+            "username" : "dummy_user_C",
+            "firstname" : "jon",
+            "surname" : "snow",
             "avatar" : "data/avatars/img.png",
+            "mobileNo" : 123456789,
 
             "selling_auctions" : [],
-			"won_auctions" : [],
+            "won_auctions" : [],
 
-			"favourite_profiles" : [],
+            "favourite_profiles" : [],
 
-			"address" :
-			{
-				"postcode" : "SA1351"
-			}
-		}
-	],
-	"auctions" :
-	[
-		{
-			"id" : 1,
-			"seller" : "dummy_user_B",
-			"is_complete" : false,
+            "address" :
+            {
+                "postcode" : "SA1351"
+            }
+        }
+    ],
+    "auctions" :
+    [
+        {
+            "id" : 1,
+            "seller" : "dummy_user_B",
+            "is_complete" : false,
 
             "artwork" :
             {
-				"type" : "PAINTING",
+                "type" : "PAINTING",
                 "name" : "Mona Lisa",
                 "desc" : "The title of the painting, which is known in English as Mona Lisa, comes from a description by Renaissance art historian Giorgio Vasari, who wrote 'Leonardo undertook to paint, for Francesco del Giocondo, the portrait of Mona Lisa, his wife.'",
-				"photo_path" : "data/artworks/img2.png",
-				"year" : 1503,
-				"reserve_price" : 1000000,
-				"allowed_bids" : 5,
-				"date" : "30/11/2017",
-				"width" : 0.53,
-				"height" : 0.77
+                "photo" : "data/artworks/img2.png",
+                "year" : 1503,
+                "reserve_price" : 1000000,
+                "allowed_bids" : 5,
+                "date" : "30/11/2017",
+                "width" : 0.53,
+                "height" : 0.77
             },
 
-			"bids" :
-			[
-				{ "bidder" : "dummy_user_A", "amount" : 1000020, "date" : "" }
-			]
-		},
-		{
-			"id" : 2,
-			"seller" : "dummy_user_B",
-			"is_complete" : true,
+            "bids" :
+            [
+                { "bidder" : 1, "amount" : 1000020, "date" : "" }
+            ]
+        },
+        {
+            "id" : 2,
+            "seller" : 2,
+            "is_complete" : true,
 
             "artwork" :
             {
-				"type" : "PAINTING",
+                "type" : "PAINTING",
                 "name" : "The Starry Night",
-				"desc" : "The Starry Night is an oil on canvas by the Dutch post-impressionist painter Vincent van Gogh. Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an idealized village.",
-				"photo_path" : "data/artworks/img1.png",
-				"year" : 1889,
-				"reserve_price" : 123000,
-				"allowed_bids" : 5,
-				"date" : "21/11/2017",
-				"width" : 0.92,
-				"height" : 0.74
+                "desc" : "The Starry Night is an oil on canvas by the Dutch post-impressionist painter Vincent van Gogh. Painted in June 1889, it depicts the view from the east-facing window of his asylum room at Saint-Rémy-de-Provence, just before sunrise, with the addition of an idealized village.",
+                "photo" : "data/artworks/img1.png",
+                "year" : 1889,
+                "reserve_price" : 123000,
+                "allowed_bids" : 5,
+                "date" : "21/11/2017",
+                "width" : 0.92,
+                "height" : 0.74
             },
 
-			"bids" :
-			[
-				{ "bidder" : "dummy_user_A", "amount" : 123020, "date" : "" },
-				{ "bidder" : "dummy_user_C", "amount" : 123200, "date" : "" },
-				{ "bidder" : "dummy_user_A", "amount" : 123210, "date" : "" },
-				{ "bidder" : "dummy_user_C", "amount" : 123300, "date" : "" },
-				{ "bidder" : "dummy_user_A", "amount" : 123400, "date" : "" }
-			]
-		}
-	]
+            "bids" :
+            [
+                { "bidder" : 1, "amount" : 123020, "date" : "" },
+                { "bidder" : 3, "amount" : 123200, "date" : "" },
+                { "bidder" : 1, "amount" : 123210, "date" : "" },
+                { "bidder" : 3, "amount" : 123300, "date" : "" },
+                { "bidder" : 1, "amount" : 123400, "date" : "" }
+            ]
+        }
+    ]
 }
