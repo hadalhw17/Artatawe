@@ -95,4 +95,20 @@ public class DataController {
         }
         return null;
     }
+
+    /**
+     * @return The list of auctions
+     */
+    public ArrayList<Auction> getAuctions() {
+
+        return auctionList;
+    }
+
+    /**
+     * @return The list of profiles
+     */
+    public ArrayList<Profile> getProfiles() {
+
+        return profileList;
+    }
 }
