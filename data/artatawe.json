@@ -51,7 +51,7 @@
     "auctions" : [
         {
             "seller" : "user_B",
-            "max_bids" : 4,
+            "max_bids" : 5,
             "artwork" : {
                 "date" : "08-Dec-2017",
                 "year" : 1503,
@@ -64,12 +64,12 @@
                 "height" : 0.77
             },
             "bids" : [
-                { "bidder" : "user_A", "amount" : 1000020, "date" : "" }
+                { "bidder" : "user_A", "amount" : 1000020, "date" : "08-Dec-2017" }
             ]
         },
         {
             "seller" : "user_C",
-            "max_bids" : 0,
+            "max_bids" : 5,
             "artwork" : {
                 "date" : "08-Dec-2017",
                 "year" : 1889,
@@ -82,11 +82,11 @@
                 "height" : 0.74
             },
             "bids" : [
-                { "bidder" : "user_A", "amount" : 123020, "date" : "" },
-                { "bidder" : "user_C", "amount" : 123200, "date" : "" },
-                { "bidder" : "user_A", "amount" : 123210, "date" : "" },
-                { "bidder" : "user_C", "amount" : 123300, "date" : "" },
-                { "bidder" : "user_A", "amount" : 123400, "date" : "" }
+                { "bidder" : "user_A", "amount" : 123020, "date" : "08-Dec-2017" },
+                { "bidder" : "user_C", "amount" : 123200, "date" : "08-Dec-2017" },
+                { "bidder" : "user_A", "amount" : 123210, "date" : "08-Dec-2017" },
+                { "bidder" : "user_C", "amount" : 123300, "date" : "08-Dec-2017" },
+                { "bidder" : "user_A", "amount" : 123400, "date" : "08-Dec-2017" }
             ]
         }
     ]

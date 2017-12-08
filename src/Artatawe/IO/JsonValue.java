@@ -33,20 +33,38 @@ public class JsonValue
      */
     public JsonValue(Object value) throws IllegalArgumentException
     {
-        //Check if input value is a legal type
-        if (!(
-                value instanceof Number ||
-                value instanceof Boolean ||
-                value instanceof String ||
-                value instanceof JsonObject ||
-                value instanceof JsonList ||
-                value == null
-            ))
+        //If Object is also a JSON value
+        if (value instanceof JsonValue)
         {
-            throw new IllegalArgumentException("parameter is not a Number, Boolean, String, JsonObject or JsonList");
+            //Copy constructor
+            this.value = ((JsonValue)value).value;
         }
+        else
+        {
+            //Check if input value is a legal type
+            if (!(
+                    value instanceof Number ||
+                            value instanceof Boolean ||
+                            value instanceof String ||
+                            value instanceof JsonObject ||
+                            value instanceof JsonList ||
+                            value == null
+            ))
+            {
+                throw new IllegalArgumentException("parameter is not a Number, Boolean, String, JsonObject or JsonList");
+            }
 
-        this.value = value;
+            this.value = value;
+        }
+    }
+
+    /**
+     * Copy constructor
+     * @param value a JSON value
+     */
+    public JsonValue(JsonValue value)
+    {
+        this.value = value.value;
     }
 
     /**

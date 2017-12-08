@@ -72,7 +72,7 @@ public class Auction {
     }
 
     /**
-     * @return The number of bids remaining
+     * @return The max number of allowed bids
      */
     public int getBidMax() {
 

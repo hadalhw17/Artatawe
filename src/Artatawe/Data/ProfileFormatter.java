@@ -3,6 +3,7 @@ package Artatawe.Data;
 import Artatawe.IO.JsonFormatter;
 import Artatawe.IO.JsonList;
 import Artatawe.IO.JsonObject;
+import Artatawe.IO.JsonValue;
 
 /**
  * @author Tom Street
@@ -44,7 +45,8 @@ public class ProfileFormatter implements JsonFormatter<Profile>
      * @param profile Profile object
      * @return a JSON object
      */
-    public JsonObject store(Profile profile)
+    @Override
+    public JsonValue store(Profile profile)
     {
         JsonObject json = new JsonObject();
 
@@ -75,16 +77,19 @@ public class ProfileFormatter implements JsonFormatter<Profile>
 
         json.set("favourite_profiles", favourites);
 
-        return json;
+        return new JsonValue(json);
     }
 
     /**
      * Create an Profile from JSON
-     * @param json a JSON object
+     * @param value a JSON value
      * @return an Profile object
      */
-    public Profile load(JsonObject json)
+    @Override
+    public Profile load(JsonValue value)
     {
+        JsonObject json = value.asObject();
+
         //Construct a profile
         return data.createProfile(
                 json.getString("username"),

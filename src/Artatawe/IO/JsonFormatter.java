@@ -11,15 +11,15 @@ public interface JsonFormatter<E>
 {
     /**
      * Creates an object of type E from a given JSON object
-     * @param json a JSON object
+     * @param json a JSON data type
      * @return an object of type E
      */
-    E load(JsonObject json);
+    E load(JsonValue json);
 
     /**
      * Creates a JSON object from an object of type E
      * @param object an object
      * @return a JSON object
      */
-    JsonObject store(E object);
+    JsonValue store(E object);
 }

@@ -210,7 +210,7 @@ public class DataController {
         {
             JsonObject jsonProfile = value.asObject();
 
-            Profile p = formatter.load(jsonProfile);
+            Profile p = formatter.load(value);
 
             //Cache favourite profiles
             ArrayList<String> favouriteUsernames = new ArrayList<>();
@@ -246,7 +246,7 @@ public class DataController {
         //For each auction entry
         for (JsonValue value : jsonAuctions)
         {
-            formatter.load(value.asObject());
+            Auction auction = formatter.load(value);
         }
     }
 

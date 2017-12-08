@@ -127,9 +127,9 @@ public class AuctionFormatter implements JsonFormatter<Auction>
     /**
      * Convert an Auction to JSON
      * @param auction Auction object
-     * @return a JSON object
+     * @return a JSON value
      */
-    public JsonObject store(Auction auction)
+    public JsonValue store(Auction auction)
     {
         JsonObject jsonAuction = new JsonObject();
 
@@ -152,16 +152,18 @@ public class AuctionFormatter implements JsonFormatter<Auction>
 
         jsonAuction.set("bids", jsonBids);
 
-        return jsonAuction;
+        return new JsonValue(jsonAuction);
     }
 
     /**
      * Create an Auction from JSON
-     * @param json a JSON object
+     * @param value a JSON value
      * @return an Auction object
      */
-    public Auction load(JsonObject json)
+    public Auction load(JsonValue value)
     {
+        JsonObject json = value.asObject();
+
         //Construct an auction
         Auction auction = data.createAuction(
                 data.searchByUsername(json.getString("seller")),
