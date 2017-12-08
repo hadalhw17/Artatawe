@@ -9,7 +9,7 @@ public class Sculpture extends Artwork {
 
     private double depth;
 
-    public Sculpture(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height, double depth){
+    public Sculpture(String name, String description, Picture photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height, double depth){
         super(name, description, photo, year, reservedPrice, allowedBids, dateTime, width, height);
 
         this.depth = depth;

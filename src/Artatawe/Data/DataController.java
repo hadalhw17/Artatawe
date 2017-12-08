@@ -11,8 +11,6 @@ import Artatawe.IO.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -62,7 +60,7 @@ public class DataController {
      * @param profImg The user's profile image
      * @return The new profile
      */
-    public Profile createProfile(String uName, String fName, String sName, String mobileNo, Address address, Image profImg) {
+    public Profile createProfile(String uName, String fName, String sName, String mobileNo, Address address, Picture profImg) {
 
 	    Profile newProfile = new Profile(uName,fName, sName, mobileNo, address, profImg);
 	    profileList.add(newProfile);

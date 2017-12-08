@@ -9,7 +9,7 @@ public class Artwork {
 
     private String name; // Name of the artwork
     private String description; // Description of the artwork
-    private Image photo; // Photo of the artwork
+    private Picture photo; // Photo of the artwork
     private int year; // Year the artwork was made
     private int reservedPrice; // Price of artwork before bids are placed
     private int allowedBids; // How many allowed bids for the artwork
@@ -28,7 +28,7 @@ public class Artwork {
      * @param width
      * @param height
      */
-    public Artwork(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height) {
+    public Artwork(String name, String description, Picture photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height) {
 
         this.name = name;
         this.description = description;
@@ -61,7 +61,7 @@ public class Artwork {
      *
      * @return photo of artwork
      */
-    public Image getPhoto() {
+    public Picture getPhoto() {
         return photo;
     }
 

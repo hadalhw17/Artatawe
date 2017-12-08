@@ -1,19 +1,13 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Address;
 import Artatawe.Data.DataController;
-import Artatawe.Data.Image;
 import Artatawe.Data.Profile;
 
-import Artatawe.IO.JsonObject;
-import Artatawe.IO.JsonParser;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;

@@ -47,8 +47,8 @@ public class ProfileScene extends ScenePattern {
         this.dc = dc;
         imagePane = new AnchorPane();
 
-        profImage = new Image(p.getProfileImg().getImagePath());
-        System.out.print(p.getProfileImg().getImagePath());
+        profImage = new Image(p.getProfileImg().getPath());
+        System.out.print(p.getProfileImg().getPath());
 
 
         imgView = new ImageView();
@@ -76,7 +76,7 @@ public class ProfileScene extends ScenePattern {
         for(Auction auction: dc.getAuctions()){
             for(Bid bid:auction.getBidList()){
                 if(bid.getBuyer().getUsername().equals(p.getUsername())){
-                    ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getImagePath()));
+                    ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getPath()));
                     imgView2.setFitWidth(50);
                     imgView2.setFitHeight(50);
                     pane2.getChildren().add(new Pane(imgView2));

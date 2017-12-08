@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Painting extends Artwork{
 
-    public Painting(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height){
+    public Painting(String name, String description, Picture photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height){
         super(name, description, photo, year, reservedPrice, allowedBids, dateTime, width, height);
 
 

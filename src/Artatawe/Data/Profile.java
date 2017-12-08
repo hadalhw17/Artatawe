@@ -9,7 +9,7 @@ public class Profile {
 	private String surname; 
 	private String mobileNo;
 	private Address address;
-	private Image profileImage;
+	private Picture profilePicture;
 
 	private ArrayList<Profile> favourites = new ArrayList<Profile>(); 
 	
@@ -18,13 +18,13 @@ public class Profile {
 	public Profile(){
 
     }
-	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Image profileImage) {
+	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Picture profilePicture) {
 		this.username = username;
 		this.firstname = firstName;
 		this.surname = surname;
 		this.mobileNo = mobileNo;
 		this.address = address;
-		this.profileImage = profileImage;
+		this.profilePicture = profilePicture;
 	}
 
 	public String getUsername() {
@@ -59,12 +59,12 @@ public class Profile {
 		this.mobileNo = mobileNo;
 	}
 	
-	public void setProfileImg(Image profileImage) {
-		this.profileImage = profileImage;
+	public void setProfileImg(Picture profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 	
-	public Image getProfileImg() {
-		return profileImage;
+	public Picture getProfileImg() {
+		return profilePicture;
 		
 	}
 	
