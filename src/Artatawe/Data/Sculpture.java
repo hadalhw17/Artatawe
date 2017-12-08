@@ -1,24 +1,22 @@
 package Artatawe.Data;
 
 import java.util.Date;
-import javafx.scene.image.Image;
+
 /**
  * @author Charlie Daley
  */
 public class Sculpture extends Artwork {
 
-    private int depth;
+    private double depth;
 
-
-
-    public Sculpture(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, int width, int height, int depth){
+    public Sculpture(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height, double depth){
         super(name, description, photo, year, reservedPrice, allowedBids, dateTime, width, height);
 
         this.depth = depth;
 
     }
 
-    public int getDepth() {
+    public double getDepth() {
         return depth;
     }
 

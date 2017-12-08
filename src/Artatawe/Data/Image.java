@@ -83,7 +83,7 @@ public class Image {
 	 * A toString(); method to convert the image to String
 	 */
 	public String toString() {
-		return toString() + "Height: " + this.getHeight() + " | " + 
+		return "Height: " + this.getHeight() + " | " +
 				"Width: " + this.getWidth() + " | " + "Image: " + this.getImagePath();
 	}
 }

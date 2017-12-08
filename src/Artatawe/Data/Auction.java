@@ -15,25 +15,29 @@ import java.util.Date;
  */
 public class Auction {
 
+    // seller of the artwork
+    private Profile seller;
+
     // list of bids placed on the auction
     private ArrayList<Bid> bidList;
 
     // the artwork being sold on the auction
     private Artwork artwork;
 
-    // the number of available bids remaining for the auction
-    private int bidCount;
+    // the number of available bids for the auction
+    private int bidMax;
 
     /**
      * Creates an Auction object
      * @param artwork The artwork being sold
-     * @param bidCount Max no. of bids on the auction
+     * @param bidMax Max no. of bids on the auction
      */
-    public Auction (Artwork artwork, int bidCount) {
+    public Auction (Profile seller, Artwork artwork, int bidMax) {
 
         this.bidList = new ArrayList<>();
+        this.seller = seller;
         this.artwork = artwork;
-        this.bidCount = bidCount;
+        this.bidMax = bidMax;
     }
 
     /**
@@ -49,10 +53,7 @@ public class Auction {
      */
     public Boolean isCompleted() {
 
-        if (bidCount <= 0) {
-            return true;
-        }
-        return false;
+        return bidList.size() == bidMax;
     }
 
     /**
@@ -64,22 +65,28 @@ public class Auction {
     }
 
     /**
+     * @return The seller of the artwork in this auction
+     */
+    public Profile getSeller() {
+        return seller;
+    }
+
+    /**
      * @return The number of bids remaining
      */
-    public int getBidCount() {
+    public int getBidMax() {
 
-        return bidCount;
+        return bidMax;
     }
 
     /**
      * Places a new bid on the auction
      * @param buyer Profile of the buyer
      * @param amount Amount of money being bidded
-     * @param dateTime Time of the bid
-     * @param auction Auction being bidded on
+     * @param dateTime Date of the bid
      * @return false if the bid was unsuccessful, true if the bid was successful
      */
-    public Boolean placeBid(Profile buyer, int amount, Date dateTime, Auction auction) {
+    public Boolean placeBid(Profile buyer, int amount, Date dateTime) {
 
         // Creates and adds a new bid to the bidList if the auction is not completed
         Bid newBid = new Bid(buyer, amount, dateTime, this);
@@ -87,7 +94,6 @@ public class Auction {
             return false;
         }
         else {
-            bidCount--;     // Decrements no. of bids remaining
             bidList.add(newBid);
             return true;
         }

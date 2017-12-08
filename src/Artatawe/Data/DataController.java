@@ -6,7 +6,13 @@ package Artatawe.Data;
  * Written for CS-230 A3 - Artatawe
  */
 
-import java.util.ArrayList;
+import Artatawe.IO.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * Stores and manipulates the list of auctions and profiles. Can get profiles by
@@ -14,21 +20,32 @@ import java.util.ArrayList;
  */
 public class DataController {
 
+    // Path to JSON document containing program data
+    private final String ROOT_JSON_FILE = "data/artatawe.json";
+
     // List of auctions
-    private ArrayList<Auction> auctionList;
+    private ArrayList<Auction> auctionList = new ArrayList<>();
 
     // List of user profiles
-    private ArrayList<Profile> profileList;
+    private ArrayList<Profile> profileList = new ArrayList<>();
+
+    /**
+     * Construct a Data Controller object and load associated data from disk
+     */
+    public DataController() {
+        load(); //load persistent data
+    }
 
     /**
      * Creates a new auction and adds it to the list of auctions
+     * @param seller The seller of the artwork
      * @param artwork The artwork being sold
      * @param bidCount The max no. of bids on the auction
      * @return The new auction
      */
-	public Auction createAuction(Artwork artwork, int bidCount) {
+	public Auction createAuction(Profile seller, Artwork artwork, int bidCount) {
 
-	    Auction newAuction = new Auction(artwork, bidCount);
+	    Auction newAuction = new Auction(seller, artwork, bidCount);
 	    auctionList.add(newAuction);
 	    return newAuction;
     }
@@ -110,5 +127,151 @@ public class DataController {
     public ArrayList<Profile> getProfiles() {
 
         return profileList;
+    }
+
+    /**
+     * Save changes made to program data to persistent storage
+     */
+    public void save()
+    {
+        JsonObject root = new JsonObject();
+
+        //Save profile and auction info
+        root.set("auctions", saveAuctions());
+        root.set("profiles", saveProfiles());
+
+        try
+        {
+            JsonParser.writeTo(ROOT_JSON_FILE, new JsonValue(root));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+        Save profiles to JSON object
+     */
+    private JsonList saveProfiles()
+    {
+        JsonList jsonProfileList = new JsonList();
+
+        ProfileFormatter formatter = new ProfileFormatter(this);
+
+        //For each profile save to jsonProfileList
+        for (Profile profile : this.profileList)
+        {
+            jsonProfileList.add(formatter.store(profile));
+        }
+
+        return jsonProfileList;
+    }
+
+    /*
+        Save auctions to JSON object
+     */
+    private JsonList saveAuctions()
+    {
+        JsonList jsonAuctionList = new JsonList();
+
+        AuctionFormatter formatter = new AuctionFormatter(this);
+
+        //For each auction save to jsonAuctionList
+        for (Auction auction : this.auctionList)
+        {
+            //Append auction
+            jsonAuctionList.add(formatter.store(auction));
+        }
+
+        return jsonAuctionList;
+    }
+
+
+    /*
+        Construct the profile list from a list of JSON profiles
+     */
+    private void loadProfiles(JsonList jsonProfiles)
+    {
+        //We can't add favourite users in one pass
+        //All profiles must be loaded first so we cache the usernames of favourite users here
+        TreeMap<Profile,List<String>> favouriteProfileMap = new TreeMap<>(new Comparator<Profile>() {
+            //Custom comparator for profiles
+            @Override
+            public int compare(Profile o1, Profile o2) {
+                return o1.getUsername().compareTo(o2.getUsername());
+            }
+        });
+
+        ProfileFormatter formatter = new ProfileFormatter(this);
+
+        //For each profile entry
+        for (JsonValue value : jsonProfiles)
+        {
+            JsonObject jsonProfile = value.asObject();
+
+            Profile p = formatter.load(jsonProfile);
+
+            //Cache favourite profiles
+            ArrayList<String> favouriteUsernames = new ArrayList<>();
+
+            for (JsonValue fav : jsonProfile.getList("favourite_profiles"))
+            {
+                favouriteUsernames.add(fav.asString());
+            }
+
+            favouriteProfileMap.put(p, favouriteUsernames);
+        }
+
+        //For each profile add their favourite users
+        for (Map.Entry<Profile,List<String>> favourites : favouriteProfileMap.entrySet())
+        {
+            Profile p = favourites.getKey();
+
+            //Look up profile object by name and add to favourites
+            for (String favUsername : favourites.getValue())
+            {
+                p.addFavourite(this.searchByUsername(favUsername));
+            }
+        }
+    }
+
+    /*
+        Construct the profile list from a list of JSON profiles
+     */
+    private void loadAuctions(JsonList jsonAuctions)
+    {
+        AuctionFormatter formatter = new AuctionFormatter(this);
+
+        //For each auction entry
+        for (JsonValue value : jsonAuctions)
+        {
+            formatter.load(value.asObject());
+        }
+    }
+
+    /*
+     * Load program data from persistent storage
+     *
+     * Called once on construction of the Data Controller
+     */
+    private void load()
+    {
+        try
+        {
+            //Parse document
+            JsonObject root = JsonParser.readFrom(ROOT_JSON_FILE).asObject();
+
+            loadProfiles(root.getList("profiles"));
+            loadAuctions(root.getList("auctions"));
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (JsonParserException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,7 +1,6 @@
 package Artatawe.Data;
 
 import java.util.Date;
-import javafx.scene.image.Image;
 
 /**
  * @author Charlie Daley
@@ -15,12 +14,11 @@ public class Artwork {
     private int reservedPrice; // Price of artwork before bids are placed
     private int allowedBids; // How many allowed bids for the artwork
     private Date dateTime; // Date and time of the artwork
-    private int width; // Width of the artwork
-    private int height; // Height of the artwork
+    private double width; // Width of the artwork
+    private double height; // Height of the artwork
 
     /**
-     *
-     * @param name
+     *  @param name
      * @param description
      * @param photo
      * @param year
@@ -30,7 +28,7 @@ public class Artwork {
      * @param width
      * @param height
      */
-    public Artwork(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, int width, int height) {
+    public Artwork(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height) {
 
         this.name = name;
         this.description = description;
@@ -103,7 +101,7 @@ public class Artwork {
      *
      * @return width of the artwork
      */
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
@@ -111,7 +109,7 @@ public class Artwork {
      *
      * @return height of the artwork
      */
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 }

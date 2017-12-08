@@ -1,5 +1,6 @@
 package Artatawe.Data;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Profile {
 
@@ -19,6 +20,7 @@ public class Profile {
 		this.firstname = firstName;
 		this.surname = surname;
 		this.mobileNo = mobileNo;
+		this.address = address;
 		this.profileImage = profileImage;
 	}
 
@@ -58,7 +60,7 @@ public class Profile {
 		this.profileImage = profileImage;
 	}
 	
-	public Image getProfileImg(Image profileImage) {
+	public Image getProfileImg() {
 		return profileImage;
 		
 	}
@@ -75,14 +77,22 @@ public class Profile {
 		return art;
 	}
 	
-	public Profile addFav(Profile favorites) {
-		return favorites;
+	public void addFavourite(Profile favourite) {
+		this.favourites.add(favourite);
 	}
 	
-	public Profile removeFav(Profile favorites) {
-		return favorites;
+	public void removeFavourite(Profile favourite) {
+        this.favourites.remove(favourite);
 	}
-	
+
+	public List<Profile> getAllFavourites() {
+	    return this.favourites;
+	}
+
+	public Address getAddress() {
+        return this.address;
+    }
+
 	public String toString() {
         return "";
 	}
