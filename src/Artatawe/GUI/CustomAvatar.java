@@ -1,7 +1,6 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.DataController;
-import Artatawe.Data.Picture;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
@@ -11,7 +10,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Screen;
@@ -65,13 +66,16 @@ public class CustomAvatar extends ScenePattern {
     @Override
     public JFXMasonryPane constructContentPane(){
         HBox erasebox = new HBox();
+        HBox lineBox = new HBox();
         JFXCheckBox erase = new JFXCheckBox();
+        JFXCheckBox line = new JFXCheckBox();
         JFXMasonryPane root = new JFXMasonryPane();
         JFXColorPicker colorPicker = new JFXColorPicker();
         JFXSlider sizeSlider = new JFXSlider();
         saveButton = new JFXButton("Save");
         exitButton = new JFXButton("Exit");
         erasebox.getChildren().addAll(erase, new Label("Eraser"));
+        lineBox.getChildren().addAll(line, new Label("Straight Line"));
         sizeSlider.setMinWidth(200);
         sizeSlider.setMinHeight(10);
         sizeSlider.setOrientation(Orientation.HORIZONTAL);
@@ -86,22 +90,41 @@ public class CustomAvatar extends ScenePattern {
             onExit();
         });
         canvas = new Canvas(1000, 800);
-        GraphicsContext gc = canvas.getGraphicsContext2D( );
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         canvas.setOnMouseDragged(e->{
             double size = sizeSlider.getValue();
             double x = e.getX() - size/2;
             double y = e.getY() - size-2;
             if(erase.isSelected()){
                 gc.clearRect(x,y,size,size);
-            }else{
+            }else if(!line.isSelected()) {
                 gc.setFill(colorPicker.getValue());
-                gc.fillOval(x,y,size,size);
+                gc.fillOval(x, y, size, size);
             }
-
         });
+        line.setOnMouseClicked(e1->{
+            canvas.setOnMousePressed(e->{
+                if(line.isSelected()){
+                    canvas.setOnMousePressed(event->{
+                        if(line.isSelected()) {
+                            gc.setStroke(colorPicker.getValue());
+                            gc.setLineWidth(sizeSlider.getValue());
+                            double x1 = e.getX();
+                            double y1 = e.getY();
+                            double x2 = event.getX();
+                            double y2 = event.getY();
+                            gc.strokeLine(x1,y1,x2,y2);
+                            line.setSelected(false);
+                        }
+                    });
+                }
+            });
+        });
+
+        pane.setStyle("-fx-background-color: WHITE; ");
         pane.getChildren().add(canvas);
         pane1.getChildren().add(colorPicker);
-        pane2.getChildren().addAll(erasebox,sizeSlider, new Label("Resize brush"));
+        pane2.getChildren().addAll(erasebox,sizeSlider, new Label("Resize brush"), lineBox);
         btnPane.getChildren().addAll(saveButton,exitButton);
         root.getChildren().addAll(pane,pane1,pane2,btnPane);
         return root;
