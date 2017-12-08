@@ -52,7 +52,7 @@ public class Bid {
 	}
 
 	/**
-	 * @param buyer is set
+	 * @param buyer is set.
 	 */
 	public void setBuyer(Profile buyer) {
 		this.buyer = buyer;
