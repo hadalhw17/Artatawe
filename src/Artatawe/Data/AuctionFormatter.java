@@ -17,7 +17,7 @@ import javafx.scene.image.Image;
  *
  * Converts Auction objects from/to JSON
  */
-public class AuctionFormatter implements JsonFormatter<Auction>
+class AuctionFormatter implements JsonFormatter<Auction>
 {
     //Data controller object - allows access to data in the system
     private DataController data;

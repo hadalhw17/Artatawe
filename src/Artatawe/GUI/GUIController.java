@@ -1,11 +1,12 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.DataController;
-import Artatawe.Data.Profile;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class GUIController extends Application {
 
@@ -22,16 +23,24 @@ public class GUIController extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        artataweDatabase = new DataController();
+
+        try
+        {
+            //Load persistent data
+            artataweDatabase = new DataController();
+        }
+        catch (IOException e)
+        {
+            //If there was some error loading the data
+            //Exit early
+            System.err.println(e.getMessage());
+            return;
+        }
 
         primaryStage.setTitle(TITLE);
         root = new Scene(new LoginScene(artataweDatabase).getPane(), Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()-25);
 
         primaryStage.setScene(root);
         primaryStage.show();
-
     }
-
-
-
 }

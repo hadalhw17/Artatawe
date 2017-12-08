@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
  *
  * Converts Profile objects from/to JSON
  */
-public class ProfileFormatter implements JsonFormatter<Profile>
+class ProfileFormatter implements JsonFormatter<Profile>
 {
     //Data controller object - allows access to data in the system
     private DataController data;
