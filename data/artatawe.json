@@ -1,56 +1,63 @@
 {
     "profiles" : [
         {
-            "username" : "user_A",
-            "firstname" : "jim",
-            "surname" : "something",
-            "avatar" : "data/avatars/img.png",
-            "mobileNo" : "123456789",
             "favourite_profiles" : [
                 "user_B"
             ],
+            "firstname" : "jim",
             "address" : {
                 "country" : "",
                 "city" : "",
                 "street" : "",
                 "postcode" : "SA1456",
                 "houseNo" : 1
-            }
-        },
-        {
-            "username" : "user_B",
-            "firstname" : "bob",
-            "surname" : "person",
+            },
+            "surname" : "something",
             "avatar" : "data/avatars/img.png",
             "mobileNo" : "123456789",
+            "username" : "user_A"
+        },
+        {
             "favourite_profiles" : [],
+            "firstname" : "bob",
             "address" : {
                 "country" : "",
                 "city" : "",
                 "street" : "",
                 "postcode" : "SA1321",
                 "houseNo" : 1
-            }
-        },
-        {
-            "username" : "user_C",
-            "firstname" : "jon",
-            "surname" : "snow",
+            },
+            "surname" : "person",
             "avatar" : "data/avatars/img.png",
             "mobileNo" : "123456789",
+            "username" : "user_B"
+        },
+        {
             "favourite_profiles" : [],
+            "firstname" : "jon",
             "address" : {
                 "country" : "",
                 "city" : "",
                 "street" : "",
                 "postcode" : "SA1351",
                 "houseNo" : 1
-            }
+            },
+            "surname" : "snow",
+            "avatar" : "data/avatars/img.png",
+            "mobileNo" : "123456789",
+            "username" : "user_C"
         }
     ],
     "auctions" : [
         {
             "seller" : "user_B",
+            "bids" : [
+                {
+                    "date" : "08-Dec-2017",
+                    "amount" : 1000020,
+                    "bidder" : "user_A"
+                }
+            ],
             "max_bids" : 5,
             "artwork" : {
                 "date" : "08-Dec-2017",
@@ -62,13 +69,37 @@
                 "type" : "PAINTING",
                 "desc" : "Mona Lisa",
                 "height" : 0.77
-            },
-            "bids" : [
-                { "bidder" : "user_A", "amount" : 1000020, "date" : "08-Dec-2017" }
-            ]
+            }
         },
         {
             "seller" : "user_C",
+            "bids" : [
+                {
+                    "date" : "08-Dec-2017",
+                    "amount" : 123020,
+                    "bidder" : "user_A"
+                },
+                {
+                    "date" : "08-Dec-2017",
+                    "amount" : 123200,
+                    "bidder" : "user_C"
+                },
+                {
+                    "date" : "08-Dec-2017",
+                    "amount" : 123210,
+                    "bidder" : "user_A"
+                },
+                {
+                    "date" : "08-Dec-2017",
+                    "amount" : 123300,
+                    "bidder" : "user_C"
+                },
+                {
+                    "date" : "08-Dec-2017",
+                    "amount" : 123400,
+                    "bidder" : "user_A"
+                }
+            ],
             "max_bids" : 5,
             "artwork" : {
                 "date" : "08-Dec-2017",
@@ -80,14 +111,7 @@
                 "type" : "PAINTING",
                 "desc" : "The Starry Night",
                 "height" : 0.74
-            },
-            "bids" : [
-                { "bidder" : "user_A", "amount" : 123020, "date" : "08-Dec-2017" },
-                { "bidder" : "user_C", "amount" : 123200, "date" : "08-Dec-2017" },
-                { "bidder" : "user_A", "amount" : 123210, "date" : "08-Dec-2017" },
-                { "bidder" : "user_C", "amount" : 123300, "date" : "08-Dec-2017" },
-                { "bidder" : "user_A", "amount" : 123400, "date" : "08-Dec-2017" }
-            ]
+            }
         }
     ]
 }

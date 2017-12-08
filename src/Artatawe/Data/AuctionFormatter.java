@@ -1,5 +1,4 @@
 package Artatawe.Data;
-
 import Artatawe.IO.JsonFormatter;
 import Artatawe.IO.JsonList;
 import Artatawe.IO.JsonObject;

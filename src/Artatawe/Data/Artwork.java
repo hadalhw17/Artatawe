@@ -2,11 +2,12 @@ package Artatawe.Data;
 
 import java.util.Date;
 
+
+
 /**
  * @author Charlie Daley
  */
 public class Artwork {
-
     private String name; // Name of the artwork
     private String description; // Description of the artwork
     private Image photo; // Photo of the artwork
@@ -16,9 +17,8 @@ public class Artwork {
     private Date dateTime; // Date and time of the artwork
     private double width; // Width of the artwork
     private double height; // Height of the artwork
-
     /**
-     *  @param name
+     * @param name
      * @param description
      * @param photo
      * @param year
@@ -28,7 +28,9 @@ public class Artwork {
      * @param width
      * @param height
      */
-    public Artwork(String name, String description, Image photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height) {
+    public Artwork(String name, String description, Image photo, int year,
+                   int reservedPrice, int allowedBids, Date dateTime,
+                   double width, double height) {
 
         this.name = name;
         this.description = description;
@@ -42,7 +44,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return name of artwork
      */
     public String getName() {
@@ -50,7 +51,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return description of artwork
      */
     public String getDescription() {
@@ -58,7 +58,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return photo of artwork
      */
     public Image getPhoto() {
@@ -66,7 +65,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return year of artwork
      */
     public int getYear() {
@@ -74,7 +72,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return reservedPrice of artwork
      */
     public int getReservedPrice() {
@@ -82,7 +79,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return allowedBids for the artwork
      */
     public int getAllowedBids() {
@@ -90,7 +86,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return dateTime of artwork
      */
     public Date getDateTime() {
@@ -98,7 +93,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return width of the artwork
      */
     public double getWidth() {
@@ -106,7 +100,6 @@ public class Artwork {
     }
 
     /**
-     *
      * @return height of the artwork
      */
     public double getHeight() {
