@@ -80,7 +80,7 @@ public class Bid {
 	}
 
 	/**
-	 * @param dateTime is set
+	 * @param dateTime is set.
 	 */
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
