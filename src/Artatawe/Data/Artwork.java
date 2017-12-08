@@ -1,6 +1,7 @@
 package Artatawe.Data;
 
 import java.util.Date;
+import javafx.scene.image.Image;
 
 /**
  * @author Charlie Daley
@@ -111,5 +112,10 @@ public class Artwork {
      */
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public String toString() {
+        return null;
     }
 }

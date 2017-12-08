@@ -1,7 +1,9 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.Auction;
+import Artatawe.Data.DataController;
 import Artatawe.Data.Painting;
+import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,8 +22,13 @@ public class ArtworkContainer extends ScenePattern {
 
     private ArrayList<Auction> auctions;
 
-    public ArtworkContainer(ArrayList<Auction> auctions){
-        this.auctions = auctions;
+    private DataController dc;
+    private Profile p;
+    public ArtworkContainer(DataController dc, Profile p){
+        super(dc,p);
+        this.auctions = dc.getAuctions();
+        this.dc = dc;
+        this.p = p;
         setNameLabel(PAGE_NAME);
         setContentPane();
 
@@ -35,19 +42,16 @@ public class ArtworkContainer extends ScenePattern {
         imgView.setFitHeight(20);
         int Low = 50;
         int High = 250;
-        for(int i = 0; i<25; i++){//Gonna iterate over auctions list
+        for(Auction auction: auctions){//Gonna iterate over auctions list
             VBox imageHolder;
             int wh = r.nextInt(High - Low) + Low;
-            imgView = new ImageView(new Image("file:data/artworks/img2.png"));
+            imgView = new ImageView(auction.getArtwork().getPhoto());
             imgView.setFitHeight(wh);
             imgView.setFitWidth(wh);
-            imageHolder = new VBox(imgView, new Label("Mona Lisa"));
+            imageHolder = new VBox(imgView, new Label(auction.getArtwork().getName()));
             contentPane.getChildren().addAll(imageHolder);
             imageHolder.setOnMouseClicked(e->{
-                ((Stage)imageHolder.getScene().getWindow()).setScene(new Scene(new ArtworkScene(new Painting("Mona Lisa",
-                        "Nice Description goes here. \nAnd it can be very long. \nArtatawe layouts itself quite nicely.", new Artatawe.Data.Image("file:data/artworks/img2.png",0,0),
-                        1503,10000,5,new Date(17,07,1997),
-                        50,50)).getPane(),
+                ((Stage)imageHolder.getScene().getWindow()).setScene(new Scene(new ArtworkScene(dc,p, auction).getPane(),
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
             });
 

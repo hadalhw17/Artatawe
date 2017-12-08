@@ -1,6 +1,7 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.Address;
+import Artatawe.Data.DataController;
 import Artatawe.Data.Image;
 import Artatawe.Data.Profile;
 
@@ -31,8 +32,10 @@ public class LoginScene {
 
     private Pane headerPane = new Pane();
 
+    private DataController dc;
 
-    public LoginScene(){
+    public LoginScene(DataController dc){
+        this.dc = dc;
         loginPane = constructLogin();
         mainPane.setCenter(loginPane);
     }
@@ -68,9 +71,11 @@ public class LoginScene {
 
 
         loginButton.setOnMousePressed(e -> {
-            if(loginField.getText().equals("id1")){
-                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile()).getPane(),
-                        Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
+            for(Profile p: dc.getProfiles()){
+                if(p.getUsername().equals(loginField.getText())){
+                    ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
+                            Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
+                }
             }
         });
         content.getChildren().addAll(headerPane,loginField,buttonPane);

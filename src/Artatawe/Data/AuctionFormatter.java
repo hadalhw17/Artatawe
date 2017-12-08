@@ -8,6 +8,7 @@ import Artatawe.IO.JsonValue;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import javafx.scene.image.Image;
 
 /**
  * @author Tom Street
@@ -68,13 +69,13 @@ public class AuctionFormatter implements JsonFormatter<Auction>
 
         if (type.equals("PAINTING"))
         {
-            return new Painting(name,desc,new Image(photo,0,0), year, reserve, 0,dateTime, width, height);
+            return new Painting(name,desc,new Image(photo), year, reserve, 0,dateTime, width, height);
         }
         else if (type.equals("SCULPTURE"))
         {
             double depth = object.getDouble("depth");
 
-            return new Sculpture(name,desc,new Image(photo,0,0), year, reserve, 0,dateTime, width, height, depth);
+            return new Sculpture(name,desc,new Image(photo), year, reserve, 0,dateTime, width, height, depth);
         }
         else
         {
@@ -94,7 +95,7 @@ public class AuctionFormatter implements JsonFormatter<Auction>
         //Artwork properties
         jsonArt.set("name", artwork.getName());
         jsonArt.set("desc", artwork.getName());
-        jsonArt.set("photo", artwork.getPhoto().getCaption());
+        jsonArt.set("photo", artwork.getPhoto());
         jsonArt.set("year", artwork.getYear());
         jsonArt.set("reserve_price", artwork.getReservedPrice());
         jsonArt.set("date", dateToString(artwork.getDateTime()));

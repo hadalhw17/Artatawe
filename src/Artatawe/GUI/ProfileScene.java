@@ -1,5 +1,8 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.Auction;
+import Artatawe.Data.Bid;
+import Artatawe.Data.DataController;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
@@ -31,24 +34,26 @@ public class ProfileScene extends ScenePattern {
     private ImageView imgView;
     private AnchorPane imagePane;
     private Image profImage;
+    private DataController dc;
 
     /**
      * Constructor for ProfileScene
      *
      * @param p profile to be displayed
      */
-    public ProfileScene(Profile p) {
+    public ProfileScene(DataController dc, Profile p) {
+        super(dc,p);
         this.p = p;
-
+        this.dc = dc;
         imagePane = new AnchorPane();
 
-        profImage = new Image("file:data/avatars/img.png");
+        profImage = p.getProfileImg();
 
 
         imgView = new ImageView();
         imgView.setImage(profImage);
         imgView.setCache(false);
-        setNameLabel("Aleksandr Slobodov");
+        setNameLabel(p.getFirstname() + " " + p.getSurname());
         setContentPane();
     }
 
@@ -65,32 +70,30 @@ public class ProfileScene extends ScenePattern {
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         HBox avatarBox = new HBox();
+        JFXMasonryPane pane2 = new JFXMasonryPane();
         JFXButton customImage = new JFXButton("Custom avatar");
-        ImageView imgView2 = new ImageView(new Image("file:data/artworks/img2.png"));
-        ImageView imgView3 = new ImageView(new Image("file:data/artworks/img1.png"));
-        ImageView imgView4 = new ImageView(new Image("file:data/artworks/img3.png"));
-        ImageView imgView5 = new ImageView(new Image("file:data/artworks/img4.png"));
+        for(Auction auction: dc.getAuctions()){
+            for(Bid bid:auction.getBidList()){
+                if(bid.getBuyer().getUsername().equals(p.getUsername())){
+                    ImageView imgView2 = new ImageView(auction.getArtwork().getPhoto());
+                    imgView2.setFitWidth(50);
+                    imgView2.setFitHeight(50);
+                    pane2.getChildren().add(new Pane(imgView2));
+                }
+            }
+        }
+
         imgView.setFitWidth(300);
         imgView.setFitHeight(300);
-        imgView2.setFitWidth(50);
-        imgView2.setFitHeight(50);
-        imgView3.setFitWidth(50);
-        imgView3.setFitHeight(50);
-        imgView4.setFitWidth(50);
-        imgView4.setFitHeight(50);
-        imgView5.setFitWidth(50);
-        imgView5.setFitHeight(50);
         imagePane.getChildren().add(imgView);
         avatarBox.getChildren().addAll(imagePane, customImage);
         customImage.setOnMousePressed(e -> {
-            ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(this).getPane(),
+            ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(dc,p,this).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
         });
-        JFXMasonryPane pane2 = new JFXMasonryPane();
-        pane2.getChildren().addAll(new Pane(imgView2), new Pane(imgView3), new Pane(imgView4), new Pane(imgView5));
         pane2.setPrefSize(100, 150);
         pane2.setHSpacing(-1);
-        VBox pane1 = new VBox(new Label("About"), new Label("Name: Aleksandr Slobodov\nAge:20y.o."));
+        VBox pane1 = new VBox(new Label("About"), new Label("Name: " + p.getFirstname() + " " + p.getSurname() +"\nPhone#: " + p.getMobileNo()));
         pane1.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); -fx-background-color: #E8EAF6;");
         pane2.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0);-fx-background-color: #E8EAF6;");
         contentPane.getChildren().addAll(avatarBox, pane1, pane2);

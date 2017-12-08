@@ -1,6 +1,7 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.Auction;
+import Artatawe.Data.DataController;
 import Artatawe.Data.Painting;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
@@ -53,13 +54,17 @@ public class ScenePattern{
     private Label nameLabel;
     //Header panel
     private HBox topBox;
+    private DataController dc;
+    private Profile p;
 
 
     /**
      * A constructor for ScenePattern.
      * Adds all of the main elements to the scene.
      */
-    public ScenePattern() {
+    public ScenePattern(DataController dc, Profile p) {
+        this.p = p;
+        this.dc = dc;
         nameLabel = new Label();
         border = new BorderPane();
         leftDrawer = new JFXDrawer();
@@ -105,11 +110,11 @@ public class ScenePattern{
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(new ArrayList<Auction>()).getPane(),
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(dc,p).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile("", "", "", "", null, null)).getPane(),
+            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));

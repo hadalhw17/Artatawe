@@ -4,7 +4,7 @@
             "username" : "user_A",
             "firstname" : "jim",
             "surname" : "something",
-            "avatar" : "data/avatars/img.png",
+            "avatar" : "file:data/artworks/img1.png",
             "mobileNo" : "123456789",
             "favourite_profiles" : [
                 "user_B"
@@ -21,7 +21,7 @@
             "username" : "user_B",
             "firstname" : "bob",
             "surname" : "person",
-            "avatar" : "data/avatars/img.png",
+            "avatar" : "file:data/artworks/img1.png",
             "mobileNo" : "123456789",
             "favourite_profiles" : [],
             "address" : {
@@ -36,7 +36,7 @@
             "username" : "user_C",
             "firstname" : "jon",
             "surname" : "snow",
-            "avatar" : "data/avatars/img.png",
+            "avatar" : "file:data/artworks/img1.png",
             "mobileNo" : "123456789",
             "favourite_profiles" : [],
             "address" : {
@@ -57,7 +57,7 @@
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
-                "photo" : "data/artworks/img2.png",
+                "photo" : "file:data/artworks/img2.png",
                 "reserve_price" : 1000000,
                 "type" : "PAINTING",
                 "desc" : "Mona Lisa",
@@ -75,7 +75,7 @@
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
-                "photo" : "data/artworks/img1.png",
+                "photo" : "file:data/artworks/img1.png",
                 "reserve_price" : 123000,
                 "type" : "PAINTING",
                 "desc" : "The Starry Night",

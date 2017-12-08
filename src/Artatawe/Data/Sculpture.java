@@ -1,6 +1,7 @@
 package Artatawe.Data;
 
 import java.util.Date;
+import javafx.scene.image.Image;
 
 /**
  * @author Charlie Daley
@@ -20,9 +21,10 @@ public class Sculpture extends Artwork {
         return depth;
     }
 
-    /*public String toString(){
-        return (getName()+" "+ getDescription() +" "+ getPhoto() +" " + getYear() +" " + getReservedPrice()
-                +" " + getAllowedBids() +" " + getDateTime() +" " + getWidth() +" " + getHeight() +" " + getDepth());
-    }*/
+    @Override
+    public String toString(){
+        return ("Name: "+getName()+ "\nYear: " + getYear() +"\nReserved price: " + getReservedPrice()
+                +"\nAllowed bids " + getAllowedBids()+"\nWidth: " + getWidth() +"\nHeight: " + getHeight() + "\nDepth:" + getDepth());
+    }
 
 }

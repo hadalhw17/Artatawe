@@ -4,6 +4,7 @@ import Artatawe.IO.JsonFormatter;
 import Artatawe.IO.JsonList;
 import Artatawe.IO.JsonObject;
 import Artatawe.IO.JsonValue;
+import javafx.scene.image.Image;
 
 /**
  * @author Tom Street
@@ -54,7 +55,7 @@ public class ProfileFormatter implements JsonFormatter<Profile>
         json.set("username", profile.getUsername());
         json.set("firstname", profile.getFirstname());
         json.set("surname", profile.getSurname());
-        json.set("avatar", profile.getProfileImg().getCaption());
+        json.set("avatar", profile.getProfileImg());
         json.set("mobileNo", profile.getMobileNo());
 
         //Address info
@@ -97,7 +98,7 @@ public class ProfileFormatter implements JsonFormatter<Profile>
                 json.getString("surname"),
                 json.getString("mobileNo"),
                 loadAddress(json.getObject("address")),
-                new Image(json.getString("avatar"),0,0)
+                new Image(json.getString("avatar"))
         );
     }
 }
