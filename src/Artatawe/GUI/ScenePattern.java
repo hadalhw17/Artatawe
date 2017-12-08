@@ -54,16 +54,16 @@ public class ScenePattern{
     private Label nameLabel;
     //Header panel
     private HBox topBox;
-    private DataController dc;
-    private Profile p;
 
+    protected DataController dc;
+    protected Profile curProfile;
 
     /**
      * A constructor for ScenePattern.
      * Adds all of the main elements to the scene.
      */
     public ScenePattern(DataController dc, Profile p) {
-        this.p = p;
+        this.curProfile = p;
         this.dc = dc;
         nameLabel = new Label();
         border = new BorderPane();
@@ -103,18 +103,23 @@ public class ScenePattern{
         leftDrawer.setPrefSize(0,0);
         JFXButton profileButton = new JFXButton("View Profile");
         JFXButton button1 = new JFXButton("View Auctions");
-        JFXButton button2 = new JFXButton("Bid artwork");
+        JFXButton button2 = new JFXButton("View Favourites");
         VBox vBox = new VBox();
         vBox.setStyle("-fx-background-color: #E91E63; -fx-padding: -10;");
         vBox.setPadding(new Insets(15, 12, 15, 0));
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(dc,p).getPane(),
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(dc,curProfile).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
+        });
+        button2.setMaxWidth(10000);
+        button2.addEventHandler(MOUSE_CLICKED, e -> {
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new FavouriteProfileScene(dc,curProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
+            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,curProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));
