@@ -11,13 +11,12 @@ public class Profile {
 	private Address address;
 	private Picture profilePicture;
 
-	private ArrayList<Profile> favourites = new ArrayList<Profile>(); 
+	private ArrayList<Profile> favourites = new ArrayList<>();
 	
-	private ArrayList<Artwork> artwork = new ArrayList<Artwork>();
+	private ArrayList<Auction> sellingAuctions = new ArrayList<>();
 
-	public Profile(){
+	private ArrayList<Bid> bids = new ArrayList<>();
 
-    }
 	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Picture profilePicture) {
 		this.username = username;
 		this.firstname = firstName;
@@ -65,24 +64,23 @@ public class Profile {
 	public void setProfileImg(Picture profilePicture) {
 		this.profilePicture = profilePicture;
 	}
-	
-	public Picture getProfileImg() {
+
+    public Picture getProfileImg() {
 		return profilePicture;
-		
 	}
-	
-	public Artwork getArtworks(Artwork artwork) {
-		return artwork;
-	}
-	
-	public Artwork addArt(Artwork art) {
-		return art;
-	}
-	
-	public Artwork removeArt(Artwork art) {
-		return art;
-	}
-	
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public List<Auction> getAuctions() {
+	    return this.sellingAuctions;
+    }
+
+    public List<Bid> getBids() {
+	    return this.bids;
+    }
+
 	public void addFavourite(Profile favourite) {
 		this.favourites.add(favourite);
 	}
@@ -95,9 +93,6 @@ public class Profile {
 	    return this.favourites;
 	}
 
-	public Address getAddress() {
-        return this.address;
-    }
 
 	public String toString() {
         return "";

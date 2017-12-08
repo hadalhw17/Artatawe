@@ -1,8 +1,11 @@
 package Artatawe.Data;
 import java.util.Date;
 /**
+ * Bid class for Artatawe
+ *
  * @author alexisvenizelos
  *
+ * Creates a bid for the system
  */
 public class Bid {
 	
@@ -12,6 +15,7 @@ public class Bid {
 	private Auction auction;
 	
 	/**
+	 * constructs a bid for the user
 	 * @param buyer
 	 * @param amount
 	 * @param dateTime
@@ -27,7 +31,7 @@ public class Bid {
 	}
 
 	/**
-	 * @return
+	 * @return the auction
 	 */
 	public Auction getAuction() {
 		return auction;
@@ -48,7 +52,7 @@ public class Bid {
 	}
 
 	/**
-	 * @param buyer
+	 * @param buyer is set.
 	 */
 	public void setBuyer(Profile buyer) {
 		this.buyer = buyer;
@@ -69,14 +73,14 @@ public class Bid {
 	}
 
 	/**
-	 * @return date and time of each bid
+	 * @return date and time of each bid.
 	 */
 	public Date getDateTime() {
 		return dateTime;
 	}
 
 	/**
-	 * @param dateTime
+	 * @param dateTime is set.
 	 */
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;

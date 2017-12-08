@@ -68,13 +68,13 @@ class AuctionFormatter implements JsonFormatter<Auction>
 
         if (type.equals("PAINTING"))
         {
-            return new Painting(name,desc,new Picture(photo), year, reserve, 0,dateTime, width, height);
+            return new Painting(name,desc,new Picture(photo), year, reserve, dateTime, width, height);
         }
         else if (type.equals("SCULPTURE"))
         {
             double depth = object.getDouble("depth");
 
-            return new Sculpture(name,desc,new Picture(photo), year, reserve, 0,dateTime, width, height, depth);
+            return new Sculpture(name,desc,new Picture(photo), year, reserve, dateTime, width, height, depth);
         }
         else
         {

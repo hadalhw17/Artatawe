@@ -7,15 +7,13 @@ import java.util.Date;
  */
 public class Painting extends Artwork{
 
-    public Painting(String name, String description, Picture photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height){
-        super(name, description, photo, year, reservedPrice, allowedBids, dateTime, width, height);
-
-
+    public Painting(String name, String description, Picture photo, int year, int reservedPrice, Date dateTime, double width, double height) {
+        super(name, description, photo, year, reservedPrice, dateTime, width, height);
     }
 
     @Override
     public String toString(){
         return ("Name: "+getName()+ "\nYear: " + getYear() +"\nReserved price: " + getReservedPrice()
-                +"\nAllowed bids " + getAllowedBids()+"\nWidth: " + getWidth() +"\nHeight: " + getHeight());
+                +"\nWidth: " + getWidth() +"\nHeight: " + getHeight());
     }
 }
