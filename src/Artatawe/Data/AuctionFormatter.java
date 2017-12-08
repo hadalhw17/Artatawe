@@ -150,7 +150,19 @@ class AuctionFormatter implements JsonFormatter<Auction>
             jsonBids.add(jsonBid);
         }
 
+        //Comment list
+        JsonList jsonComments = new JsonList();
+
+        for (AuctionComment comment : auction.getCommentList())
+        {
+            JsonObject jsonComment = new JsonObject();
+            jsonComment.set("profile", comment.getCommenter().getUsername());
+            jsonAuction.set("text", comment.getText());
+            jsonComments.add(jsonComment);
+        }
+
         jsonAuction.set("bids", jsonBids);
+        jsonAuction.set("comments", jsonComments);
 
         return new JsonValue(jsonAuction);
     }
@@ -180,6 +192,17 @@ class AuctionFormatter implements JsonFormatter<Auction>
                     data.searchByUsername(jsonBid.getString("bidder")),
                     jsonBid.getInteger("amount"),
                     dateFromString(jsonBid.getString("date"))
+            );
+        }
+
+        //Construct comment list
+        for (JsonValue cmValue : json.getList("comments"))
+        {
+            JsonObject jsonComment = cmValue.asObject();
+
+            auction.makeComment(
+                    data.searchByUsername(jsonComment.getString("profile")),
+                    jsonComment.getString("text")
             );
         }
 
