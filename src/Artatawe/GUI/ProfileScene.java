@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXMasonryPane;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -47,8 +48,7 @@ public class ProfileScene extends ScenePattern {
         this.dc = dc;
         imagePane = new AnchorPane();
 
-        profImage = new Image(p.getProfileImg().getImagePath());
-        System.out.print(p.getProfileImg().getImagePath());
+        profImage = new Image(p.getProfileImg().getPath());
 
 
         imgView = new ImageView();
@@ -71,29 +71,31 @@ public class ProfileScene extends ScenePattern {
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         HBox avatarBox = new HBox();
-        JFXMasonryPane pane2 = new JFXMasonryPane();
+        ScrollPane pane2 = new ScrollPane();
+        HBox biddedPane = new HBox();
+        biddedPane.setSpacing(10);
+        pane2.setContent(biddedPane);
         JFXButton customImage = new JFXButton("Custom avatar");
         for(Auction auction: dc.getAuctions()){
             for(Bid bid:auction.getBidList()){
                 if(bid.getBuyer().getUsername().equals(p.getUsername())){
-                    ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getImagePath()));
-                    imgView2.setFitWidth(50);
-                    imgView2.setFitHeight(50);
-                    pane2.getChildren().add(new Pane(imgView2));
+                    ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getPath()));
+                    imgView2.setFitWidth(200);
+                    imgView2.setFitHeight(200);
+                    biddedPane.getChildren().addAll(new Pane(imgView2));
                 }
             }
         }
 
-        imgView.setFitWidth(300);
-        imgView.setFitHeight(300);
+        imgView.setFitWidth(500);
+        imgView.setFitHeight(500);
         imagePane.getChildren().add(imgView);
         avatarBox.getChildren().addAll(imagePane, customImage);
         customImage.setOnMousePressed(e -> {
             ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(dc,p,this).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
         });
-        pane2.setPrefSize(100, 150);
-        pane2.setHSpacing(-1);
+        pane2.setPrefSize(600, 200);
         VBox pane1 = new VBox(new Label("About"), new Label("Name: " + p.getFirstname() + " " + p.getSurname() +"\nPhone#: " + p.getMobileNo()));
         pane1.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); -fx-background-color: #E8EAF6;");
         pane2.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0);-fx-background-color: #E8EAF6;");

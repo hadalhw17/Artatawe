@@ -1,19 +1,13 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Address;
 import Artatawe.Data.DataController;
-import Artatawe.Data.Image;
 import Artatawe.Data.Profile;
 
-import Artatawe.IO.JsonObject;
-import Artatawe.IO.JsonParser;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -32,6 +26,8 @@ public class LoginScene {
 
     private DataController dc;
 
+    private JFXButton signInButton = new JFXButton("Create new profile");
+
     public LoginScene(DataController dc){
         this.dc = dc;
         loginPane = constructLogin();
@@ -40,18 +36,20 @@ public class LoginScene {
 
     private VBox constructLogin(){
         VBox content = new VBox();
-        Pane buttonPane = new Pane();
+        HBox buttonPane = new HBox();
         Label welcomeField = new Label("Welcome");
         content.setPrefHeight(900);
         content.setMaxWidth(500);
         content.setPadding(new Insets(50,50,50,50));
         welcomeField.setStyle("-fx-font-size: 30; -fx-color-label-visible: false; -fx-text-fill: #FFFFFF");
+        buttonPane.setPadding(new Insets(20,10,0,70));
         headerPane.setPrefHeight(100);
         headerPane.setStyle("-fx-background-color: #336699;");
         headerPane.getChildren().addAll(welcomeField);
-        loginField.setPromptText("Username: id1");
+        loginField.setPromptText("Username");
         loginButton.getStyleClass().add("button-raised");
-        buttonPane.getChildren().addAll(loginButton);
+        signInButton.getStyleClass().add("button-raised");
+        buttonPane.getChildren().addAll(loginButton, signInButton);
         loginButton.setLayoutX(150);
         loginButton.setLayoutY(50);
 
@@ -64,6 +62,12 @@ public class LoginScene {
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
                 ));
             }
+        });
+
+        signInButton.setOnMousePressed(e->{
+            ((Stage)signInButton.getScene().getWindow()).setScene(new Scene(new SignInScene(dc).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
+            ));
         });
 
         content.getChildren().addAll(headerPane,loginField,buttonPane);

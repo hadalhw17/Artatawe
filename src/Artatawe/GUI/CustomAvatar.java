@@ -1,6 +1,7 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.DataController;
+import Artatawe.Data.Picture;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
@@ -46,14 +47,16 @@ public class CustomAvatar extends ScenePattern {
         try{
             Image snapsot = canvas.snapshot(null,null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapsot,null), "png",
-                    new File("data/avatars/img.png"));
-            imageSaved.show("Image Saved!\n It will be updated after you press exit", 5000);
+                    new File("data/avatars/"+p.getUsername()+"Avatar.png"));
+            imageSaved.show("Picture Saved!\n It will be updated after you press exit", 5000);
         } catch(Exception e){
             System.out.print("Unable to save image. " + e);
         }
     }
 
     public void onExit(){
+        p.setPicture("file:data/avatars/"+p.getUsername()+"Avatar.png");
+        dc.save();
         ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,profileScene.getProfile()).getPane(),
                 Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
     }

@@ -2,49 +2,37 @@ package Artatawe.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Profile class for Artatawe
- *
- * @author Richard Marton
- *
- * This creates a profile for the system
- */
 public class Profile {
 
-	private String username; // users username
-	private String firstname; // users firstname
-	private String surname; // users surname
-	private String mobileNo; // users mobile number
-	private Address address;// users address
-	private Image profileImage; // users profile image
+	private String username;
+	private String firstname; 
+	private String surname; 
+	private String mobileNo;
+	private Address address;
+	private Picture profilePicture;
 
-    /**
-     * Arraylist which creates a list of favourite users for Artatawe.
-     */
-	private ArrayList<Profile> favourites = new ArrayList<Profile>();
+	private ArrayList<Profile> favourites = new ArrayList<>();
+	
+	private ArrayList<Auction> sellingAuctions = new ArrayList<>();
 
-    /**
-     * arraylist that creates a list of artworks for the users.
-     */
-	private ArrayList<Artwork> artwork = new ArrayList<Artwork>();
+	private ArrayList<Bid> bids = new ArrayList<>();
 
-	public Profile(){
-
-    }
-	public Profile(String username, String firstName, String surname,
-                   String mobileNo, Address address, Image profileImage) {
+	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Picture profilePicture) {
 		this.username = username;
 		this.firstname = firstName;
 		this.surname = surname;
 		this.mobileNo = mobileNo;
 		this.address = address;
-		this.profileImage = profileImage;
+		this.profilePicture = profilePicture;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
+	public void setPicture(String path){
+		this.profilePicture = new Picture(path);
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -73,27 +61,26 @@ public class Profile {
 		this.mobileNo = mobileNo;
 	}
 	
-	public void setProfileImg(Image profileImage) {
-		this.profileImage = profileImage;
+	public void setProfileImg(Picture profilePicture) {
+		this.profilePicture = profilePicture;
 	}
-	
-	public Image getProfileImg() {
-		return profileImage;
-		
+
+    public Picture getProfileImg() {
+		return profilePicture;
 	}
-	
-	public Artwork getArtworks(Artwork artwork) {
-		return artwork;
-	}
-	
-	public Artwork addArt(Artwork art) {
-		return art;
-	}
-	
-	public Artwork removeArt(Artwork art) {
-		return art;
-	}
-	
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public List<Auction> getAuctions() {
+	    return this.sellingAuctions;
+    }
+
+    public List<Bid> getBids() {
+	    return this.bids;
+    }
+
 	public void addFavourite(Profile favourite) {
 		this.favourites.add(favourite);
 	}
@@ -106,9 +93,6 @@ public class Profile {
 	    return this.favourites;
 	}
 
-	public Address getAddress() {
-        return this.address;
-    }
 
 	public String toString() {
         return "";

@@ -54,7 +54,7 @@ class ProfileFormatter implements JsonFormatter<Profile>
         json.set("username", profile.getUsername());
         json.set("firstname", profile.getFirstname());
         json.set("surname", profile.getSurname());
-        json.set("avatar", profile.getProfileImg());
+        json.set("avatar", profile.getProfileImg().getPath());
         json.set("mobileNo", profile.getMobileNo());
 
         //Address info
@@ -97,7 +97,7 @@ class ProfileFormatter implements JsonFormatter<Profile>
                 json.getString("surname"),
                 json.getString("mobileNo"),
                 loadAddress(json.getObject("address")),
-                new Image(json.getString("avatar"),0,0)
+                new Picture(json.getString("avatar"))
         );
     }
 }

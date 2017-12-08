@@ -38,6 +38,8 @@ public class Auction {
         this.seller = seller;
         this.artwork = artwork;
         this.bidMax = bidMax;
+
+        this.seller.getAuctions().add(this);
     }
 
     /**
@@ -97,6 +99,7 @@ public class Auction {
         }
         else {
             bidList.add(newBid);
+            buyer.getBids().add(newBid);
             return true;
         }
     }
@@ -108,5 +111,4 @@ public class Auction {
 
         return bidList.get(bidList.size() -1);
     }
-
 }

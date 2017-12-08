@@ -45,7 +45,7 @@ public class ArtworkContainer extends ScenePattern {
         for(Auction auction: auctions){//Gonna iterate over auctions list
             VBox imageHolder;
             int wh = r.nextInt(High - Low) + Low;
-            imgView = new ImageView(new Image(auction.getArtwork().getPhoto().getImagePath()));
+            imgView = new ImageView(new Image(auction.getArtwork().getPhoto().getPath()));
             imgView.setFitHeight(wh);
             imgView.setFitWidth(wh);
             imageHolder = new VBox(imgView, new Label(auction.getArtwork().getName()));
