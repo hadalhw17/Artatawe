@@ -1,6 +1,7 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.Address;
+import Artatawe.Data.DataController;
 import Artatawe.Data.Image;
 import Artatawe.Data.Profile;
 
@@ -17,8 +18,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
-
 public class LoginScene {
 
     private JFXTextField loginField = new JFXTextField();
@@ -31,8 +30,10 @@ public class LoginScene {
 
     private Pane headerPane = new Pane();
 
+    private DataController dc;
 
-    public LoginScene(){
+    public LoginScene(DataController dc){
+        this.dc = dc;
         loginPane = constructLogin();
         mainPane.setCenter(loginPane);
     }
@@ -54,26 +55,19 @@ public class LoginScene {
         loginButton.setLayoutX(150);
         loginButton.setLayoutY(50);
 
-        JsonObject profileObj = null;
-
-        try
-        {
-            profileObj = JsonParser.readFrom("data/artatawe.json").asObject().getList("profiles").get(0).asObject();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-
-
         loginButton.setOnMousePressed(e -> {
-            if(loginField.getText().equals("id1")){
-                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile()).getPane(),
-                        Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
+
+            Profile p = dc.searchByUsername(loginField.getText());
+
+            if (p != null) {
+                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
+                        Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
+                ));
             }
         });
+
         content.getChildren().addAll(headerPane,loginField,buttonPane);
+
         return content;
     }
     public BorderPane getPane() {

@@ -1,12 +1,17 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Artwork;
+import Artatawe.Data.*;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *  @author Aleksandr Slobodov
@@ -20,15 +25,22 @@ import javafx.scene.layout.VBox;
 public class ArtworkScene extends ScenePattern {
 
     //Artwork to be displayed
-    private Artwork a;
+    private Auction a;
+    private Artwork art;
+    Profile p;
+    DataController dc;
 
     /**
      * Constructor for ArtworkScene.java
      * @param a
      */
-    public ArtworkScene(Artwork a){
+    public ArtworkScene(DataController dc, Profile p, Auction a){
+        super(dc,p);
         this.a = a;
-        setNameLabel(a.getName());
+        this.p = p;
+        this.art = a.getArtwork();
+        this.dc = dc;
+        setNameLabel(art.getName());
         setContentPane();
     }
 
@@ -40,22 +52,31 @@ public class ArtworkScene extends ScenePattern {
     public JFXMasonryPane constructContentPane(){
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView();
-        if(imgView == null){
-            imgView = new ImageView(new Image("file:data/artworks/img2.png"));
+        ArrayList<String> biddersName = new ArrayList<>();
+        JFXButton bidButton = new JFXButton("Bid this work");
+        bidButton.setOnMousePressed(e->{
+            a.placeBid(p,1,new Date(12,9,1997));
+            dc.save();
+        });
+        for(Bid bid:a.getBidList()){
+            biddersName.add(bid.getBuyer().getUsername() + "\n");
         }
-        imgView.setImage(new Image("file:data/artworks/img2.png"));
+        if(imgView == null){
+            imgView = new ImageView(art.getPhoto());
+        }
+        imgView.setImage(art.getPhoto());
         imgView.setFitWidth(200);
         imgView.setFitHeight(200);
         AnchorPane imgPane = new AnchorPane(imgView);
-        VBox aboutCard = new VBox(new Label("ABOUT"), new Label("Name: " + a.getName() + "\nYear: " + a.getYear()
-        + "\nWidth: " + a.getWidth() + "\nHeight: " + a.getHeight()));
-        VBox descriptionCard = new VBox(new Label("Description\n"), new Label(a.getDescription()));
+        Pane bidPane = new Pane();
+        bidPane.getChildren().add(bidButton);
+        VBox aboutCard = new VBox(new Label("ABOUT"), new Label(a.toString()));
+        VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
         aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
         descriptionCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6; -fx-max-width: 200px;");
-        VBox bidders = new VBox(new Label("BIDDERS: "), new Label("1.Freddia Mercury\n2.James Hatfield," +
-                "\nJimmie Hendrix\nRonnie James Dio\nDimebag Darell"));
+        VBox bidders = new VBox(new Label("BIDDERS: "), new Label(biddersName.toString()));
         bidders.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
-        contentPane.getChildren().addAll(imgPane,aboutCard,descriptionCard,bidders);
+        contentPane.getChildren().addAll(imgPane,aboutCard,bidPane,descriptionCard,bidders);
         return contentPane;
     }
 

@@ -8,11 +8,13 @@ package Artatawe.Data;
 
 import Artatawe.IO.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.*;
+import javafx.scene.image.Image;
 
 /**
  * Stores and manipulates the list of auctions and profiles. Can get profiles by
@@ -31,8 +33,9 @@ public class DataController {
 
     /**
      * Construct a Data Controller object and load associated data from disk
+     * @throws IOException if the data could not be loaded for whatever reason
      */
-    public DataController() {
+    public DataController() throws IOException {
         load(); //load persistent data
     }
 
@@ -262,7 +265,7 @@ public class DataController {
      *
      * Called once on construction of the Data Controller
      */
-    private void load()
+    private void load() throws IOException
     {
         try
         {
@@ -272,13 +275,18 @@ public class DataController {
             loadProfiles(root.getList("profiles"));
             loadAuctions(root.getList("auctions"));
         }
+        //If file not found
         catch (FileNotFoundException e)
         {
-            e.printStackTrace();
+            //Create empty JSON file
+            File f = new File(ROOT_JSON_FILE);
+            f.createNewFile();
         }
+        //If JSON data is corrupt
         catch (JsonParserException e)
         {
-            e.printStackTrace();
+            //Pass exception up the call stack
+            throw new IOException(e.getMessage(), e);
         }
     }
 }

@@ -1,5 +1,7 @@
 package Artatawe.GUI;
 
+import Artatawe.Data.DataController;
+import Artatawe.Data.Profile;
 import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Orientation;
@@ -26,9 +28,14 @@ public class CustomAvatar extends ScenePattern {
     private JFXButton exitButton;
     private ProfileScene profileScene;
     private JFXSnackbar imageSaved = new JFXSnackbar(this.getPane());
+    private DataController dc;
+    private Profile p;
 
 
-    public CustomAvatar(ProfileScene profileScene){
+    public CustomAvatar(DataController dc, Profile p, ProfileScene profileScene){
+        super(dc,p);
+        this.p = p;
+        this.dc = dc;
         this.profileScene = profileScene;
         setNameLabel("Custom Avatar");
         setContentPane();
@@ -47,7 +54,7 @@ public class CustomAvatar extends ScenePattern {
     }
 
     public void onExit(){
-        ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(profileScene.getProfile()).getPane(),
+        ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,profileScene.getProfile()).getPane(),
                 Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
