@@ -84,11 +84,13 @@ public class Auction {
      * @param buyer Profile of the buyer
      * @param amount Amount of money being bidded
      * @param dateTime Date of the bid
-     * @return false if the bid was unsuccessful, true if the bid was successful
+     * @return false if the bid was unsuccessful, true if the
+     * bid was successful
      */
     public Boolean placeBid(Profile buyer, int amount, Date dateTime) {
 
-        // Creates and adds a new bid to the bidList if the auction is not completed
+        /* Creates and adds a new bid to the bidList if the auction is
+        not completed*/
         Bid newBid = new Bid(buyer, amount, dateTime, this);
         if (this.isCompleted()) {
             return false;

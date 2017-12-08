@@ -2,23 +2,37 @@ package Artatawe.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Profile class for Artatawe
+ *
+ * @author Richard Marton
+ *
+ * This creates a profile for the system
+ */
 public class Profile {
 
-	private String username;
-	private String firstname; 
-	private String surname; 
-	private String mobileNo;
-	private Address address;
-	private Image profileImage;
+	private String username; // users username
+	private String firstname; // users firstname
+	private String surname; // users surname
+	private String mobileNo; // users mobile number
+	private Address address;// users address
+	private Image profileImage; // users profile image
 
-	private ArrayList<Profile> favourites = new ArrayList<Profile>(); 
-	
+    /**
+     * Arraylist which creates a list of favourite users for Artatawe.
+     */
+	private ArrayList<Profile> favourites = new ArrayList<Profile>();
+
+    /**
+     * arraylist that creates a list of artworks for the users.
+     */
 	private ArrayList<Artwork> artwork = new ArrayList<Artwork>();
 
 	public Profile(){
 
     }
-	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Image profileImage) {
+	public Profile(String username, String firstName, String surname,
+                   String mobileNo, Address address, Image profileImage) {
 		this.username = username;
 		this.firstname = firstName;
 		this.surname = surname;

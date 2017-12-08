@@ -1,8 +1,11 @@
 package Artatawe.Data;
 
 /**
+ * Image class for Artatawe
+ *
  * @author alexisvenizelos
  *
+ * creates an image for the system
  */
 public class Image {
 	

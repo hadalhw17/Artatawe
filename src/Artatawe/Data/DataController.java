@@ -1,7 +1,7 @@
 package Artatawe.Data;
 
 /**
- * DataController.java
+ * DataController class for Artatawe
  * @author Jamie Hammond
  * Written for CS-230 A3 - Artatawe
  */
@@ -43,7 +43,7 @@ public class DataController {
      * @param bidCount The max no. of bids on the auction
      * @return The new auction
      */
-	public Auction createAuction(Profile seller, Artwork artwork, int bidCount) {
+	public Auction createAuction(Profile seller, Artwork artwork, int bidCount){
 
 	    Auction newAuction = new Auction(seller, artwork, bidCount);
 	    auctionList.add(newAuction);
@@ -60,9 +60,13 @@ public class DataController {
      * @param profImg The user's profile image
      * @return The new profile
      */
-    public Profile createProfile(String uName, String fName, String sName, String mobileNo, Address address, Image profImg) {
+    public Profile createProfile(String uName,
+                                 String fName, String sName,
+                                 String mobileNo,
+                                 Address address, Image profImg) {
 
-	    Profile newProfile = new Profile(uName,fName, sName, mobileNo, address, profImg);
+	    Profile newProfile = new Profile(uName,fName,
+                sName, mobileNo, address, profImg);
 	    profileList.add(newProfile);
 	    return newProfile;
     }
@@ -193,9 +197,11 @@ public class DataController {
      */
     private void loadProfiles(JsonList jsonProfiles)
     {
-        //We can't add favourite users in one pass
-        //All profiles must be loaded first so we cache the usernames of favourite users here
-        TreeMap<Profile,List<String>> favouriteProfileMap = new TreeMap<>(new Comparator<Profile>() {
+        /*We can't add favourite users in one pass.
+        All profiles must be loaded first so we cache
+        the usernames of favourite users here*/
+        TreeMap<Profile,List<String>> favouriteProfileMap =
+                new TreeMap<>(new Comparator<Profile>() {
             //Custom comparator for profiles
             @Override
             public int compare(Profile o1, Profile o2) {
@@ -224,7 +230,8 @@ public class DataController {
         }
 
         //For each profile add their favourite users
-        for (Map.Entry<Profile,List<String>> favourites : favouriteProfileMap.entrySet())
+        for (Map.Entry<Profile,List<String>> favourites :
+                favouriteProfileMap.entrySet())
         {
             Profile p = favourites.getKey();
 
