@@ -8,7 +8,6 @@ import Artatawe.IO.JsonValue;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import javafx.scene.image.Image;
 
 /**
  * @author Tom Street
@@ -69,13 +68,13 @@ class AuctionFormatter implements JsonFormatter<Auction>
 
         if (type.equals("PAINTING"))
         {
-            return new Painting(name,desc,new Image(photo), year, reserve, 0,dateTime, width, height);
+            return new Painting(name,desc,new Image(photo,0,0), year, reserve, 0,dateTime, width, height);
         }
         else if (type.equals("SCULPTURE"))
         {
             double depth = object.getDouble("depth");
 
-            return new Sculpture(name,desc,new Image(photo), year, reserve, 0,dateTime, width, height, depth);
+            return new Sculpture(name,desc,new Image(photo,0,0), year, reserve, 0,dateTime, width, height, depth);
         }
         else
         {

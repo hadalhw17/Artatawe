@@ -1,7 +1,6 @@
 package Artatawe.Data;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.image.Image;
 
 public class Profile {
 

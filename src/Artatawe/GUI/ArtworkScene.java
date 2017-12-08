@@ -62,9 +62,9 @@ public class ArtworkScene extends ScenePattern {
             biddersName.add(bid.getBuyer().getUsername() + "\n");
         }
         if(imgView == null){
-            imgView = new ImageView(art.getPhoto());
+            imgView = new ImageView(art.getPhoto().getImagePath());
         }
-        imgView.setImage(art.getPhoto());
+        imgView.setImage(new Image(art.getPhoto().getImagePath()));
         imgView.setFitWidth(200);
         imgView.setFitHeight(200);
         AnchorPane imgPane = new AnchorPane(imgView);
