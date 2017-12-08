@@ -15,6 +15,9 @@ public class Profile {
 	
 	private ArrayList<Artwork> artwork = new ArrayList<Artwork>();
 
+	public Profile(){
+
+    }
 	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Image profileImage) {
 		this.username = username;
 		this.firstname = firstName;

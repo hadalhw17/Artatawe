@@ -50,6 +50,7 @@ public class ArtworkContainer extends ScenePattern {
                         50,50)).getPane(),
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
             });
+
         }
         return  contentPane;
     }

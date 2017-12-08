@@ -65,26 +65,11 @@ public class LoginScene {
             e.printStackTrace();
         }
 
-        JsonObject addrObj = profileObj.getObject("address");
 
-        Profile p = new Profile(
-                profileObj.getString("username"),
-                profileObj.getString("firstname"),
-                profileObj.getString("surname"),
-                Integer.toString(profileObj.getInteger("mobileNo")),
-                new Address(
-                        1,
-                        "",
-                        "",
-                        "",
-                        addrObj.getString("postcode")
-                ),
-                new Image("avatars/img.png", 1,1)
-        );
 
         loginButton.setOnMousePressed(e -> {
             if(loginField.getText().equals("id1")){
-                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(p).getPane(),
+                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile()).getPane(),
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
             }
         });

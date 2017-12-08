@@ -85,7 +85,7 @@ public class CustomAvatar extends ScenePattern {
                 gc.clearRect(x,y,size,size);
             }else{
                 gc.setFill(colorPicker.getValue());
-                gc.fillRect(x,y,size,size);
+                gc.fillOval(x,y,size,size);
             }
 
         });

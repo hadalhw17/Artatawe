@@ -106,7 +106,7 @@ public class ScenePattern{
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
             ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(new ArrayList<Auction>()).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth() / 2,Screen.getPrimary().getVisualBounds().getHeight() / 2));
+                    Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
             ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(new Profile("", "", "", "", null, null)).getPane(),
