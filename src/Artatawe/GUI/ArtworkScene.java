@@ -54,10 +54,17 @@ public class ArtworkScene extends ScenePattern {
         ImageView imgView = new ImageView();
         ArrayList<String> biddersName = new ArrayList<>();
         JFXButton bidButton = new JFXButton("Bid this work");
-        bidButton.setOnMousePressed(e->{
-            a.placeBid(p,1,new Date(12,9,1997));
-            dc.save();
-        });
+        if(!a.isCompleted()){
+            bidButton.setOnMousePressed(e->{
+                a.placeBid(p,1,new Date(12,9,1997));
+                dc.save();
+                setContentPane();
+            });
+        } else {
+            bidButton.setText("Winner is " + a.getLastBid().getBuyer().getFirstname() + " " +
+                    a.getLastBid().getBuyer().getSurname());
+        }
+
         for(Bid bid:a.getBidList()){
             biddersName.add(bid.getBuyer().getUsername() + "\n");
         }
