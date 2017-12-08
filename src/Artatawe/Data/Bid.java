@@ -73,7 +73,7 @@ public class Bid {
 	}
 
 	/**
-	 * @return date and time of each bid
+	 * @return date and time of each bid.
 	 */
 	public Date getDateTime() {
 		return dateTime;
