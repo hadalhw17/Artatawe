@@ -31,6 +31,9 @@ public class Profile {
 		return username;
 	}
 
+	public void setPicture(String path){
+		this.profilePicture = new Picture(path);
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}

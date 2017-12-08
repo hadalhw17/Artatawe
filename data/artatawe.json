@@ -46,6 +46,21 @@
             "avatar" : "file:data/avatars/img.png",
             "mobileNo" : "123456789",
             "username" : "user_C"
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "Aleksandr",
+            "address" : {
+                "country" : "",
+                "city" : "",
+                "street" : "",
+                "postcode" : "",
+                "houseNo" : 0
+            },
+            "surname" : "Slobov",
+            "avatar" : "file:data/avatars/hadalhw17Avatar.png",
+            "mobileNo" : "89257382222",
+            "username" : "hadalhw17"
         }
     ],
     "auctions" : [
