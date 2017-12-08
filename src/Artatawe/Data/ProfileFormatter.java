@@ -4,7 +4,6 @@ import Artatawe.IO.JsonFormatter;
 import Artatawe.IO.JsonList;
 import Artatawe.IO.JsonObject;
 import Artatawe.IO.JsonValue;
-import javafx.scene.image.Image;
 
 /**
  * @author Tom Street
@@ -98,7 +97,7 @@ class ProfileFormatter implements JsonFormatter<Profile>
                 json.getString("surname"),
                 json.getString("mobileNo"),
                 loadAddress(json.getObject("address")),
-                new Image(json.getString("avatar"))
+                new Image(json.getString("avatar"),0,0)
         );
     }
 }

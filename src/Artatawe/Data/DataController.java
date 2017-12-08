@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.*;
-import javafx.scene.image.Image;
 
 /**
  * Stores and manipulates the list of auctions and profiles. Can get profiles by
