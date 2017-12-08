@@ -12,7 +12,6 @@ public class Artwork {
     private Picture photo; // Photo of the artwork
     private int year; // Year the artwork was made
     private int reservedPrice; // Price of artwork before bids are placed
-    private int allowedBids; // How many allowed bids for the artwork
     private Date dateTime; // Date and time of the artwork
     private double width; // Width of the artwork
     private double height; // Height of the artwork
@@ -23,19 +22,17 @@ public class Artwork {
      * @param photo
      * @param year
      * @param reservedPrice
-     * @param allowedBids
      * @param dateTime
      * @param width
      * @param height
      */
-    public Artwork(String name, String description, Picture photo, int year, int reservedPrice, int allowedBids, Date dateTime, double width, double height) {
+    public Artwork(String name, String description, Picture photo, int year, int reservedPrice, Date dateTime, double width, double height) {
 
         this.name = name;
         this.description = description;
         this.photo = photo;
         this.year = year;
         this.reservedPrice = reservedPrice;
-        this.allowedBids = allowedBids;
         this.dateTime = dateTime;
         this.width = width;
         this.height = height;
@@ -83,14 +80,6 @@ public class Artwork {
 
     /**
      *
-     * @return allowedBids for the artwork
-     */
-    public int getAllowedBids() {
-        return allowedBids;
-    }
-
-    /**
-     *
      * @return dateTime of artwork
      */
     public Date getDateTime() {
@@ -111,10 +100,5 @@ public class Artwork {
      */
     public double getHeight() {
         return height;
-    }
-
-    @Override
-    public String toString() {
-        return null;
     }
 }

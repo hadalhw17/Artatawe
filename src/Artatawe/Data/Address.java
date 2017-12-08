@@ -9,8 +9,6 @@ public class Address {
 	private String county;
 	private String postcode; 
 	private String city;
-	
-	private ArrayList<Address> address = new ArrayList<Address>();
 
 	public Address(int houseNum, String street, String city, String county, String postcode){
 		this.houseNum = houseNum;
