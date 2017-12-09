@@ -4,7 +4,6 @@ import Artatawe.Data.DataController;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
-import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,10 +19,12 @@ public class SearchScene extends ScenePattern {
     private Profile logedInProfile;
 
     public SearchScene(DataController dc, Profile p, Profile logedInProfile){
+
         super(dc, p, logedInProfile);
         this.logedInProfile = logedInProfile;
         this.setNameLabel("ArtaSearchAwe");
         setContentPane();
+
     }
 
     @Override
@@ -36,8 +37,15 @@ public class SearchScene extends ScenePattern {
         JFXTextField searchAre = new JFXTextField();
         JFXButton searchButton = new JFXButton("Search");
         searchAre.setPromptText("Username here");
-        searchBar.getChildren().addAll(searchAre,searchButton);
-        searchCard.getChildren().add(searchBar);
+
+        searchBar
+                .getChildren()
+                .addAll(searchAre,searchButton);
+
+        searchCard
+                .getChildren()
+                .add(searchBar);
+
         searchAre.setMinWidth(500);
 
         searchButton.setOnMousePressed(e -> {
@@ -49,23 +57,33 @@ public class SearchScene extends ScenePattern {
                 searchAre.setPromptText("Type username here!!");
             }
             if(searchRes != null){
-                ImageView avatar = new ImageView(new Image(searchRes.getProfileImg().getPath()));
+                ImageView avatar = new ImageView(
+                        new Image(searchRes
+                                .getProfileImg()
+                                .getPath()));
                 avatar.setFitWidth(200);
                 avatar.setFitHeight(200);
                 Label username = new Label(searchRes.getUsername());
                 username.setMinWidth(1000);
                 result.getChildren().addAll(avatar, username);
-                result.setOnMouseClicked(event -> {
-                    GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,searchRes,logedInProfile).getPane(),
-                            GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
-                });
+                result.setOnMouseClicked(event ->
+                    GUIController
+                            .getPrimaryStage()
+                            .setScene(new Scene(
+                                    new ProfileScene(dc,searchRes,logedInProfile)
+                                            .getPane()
+                                    ,GUIConstants.SCENE_WIDTH
+                                    ,GUIConstants.SCENE_HEIGHT)));
+
             } else {
                 searchAre.setText("");
                 searchAre.setPromptText("404 User not found");
             }
         });
 
-        content.getChildren().addAll(searchCard, result);
+        content
+                .getChildren()
+                .addAll(searchCard, result);
         return content;
 
     }

@@ -8,10 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -103,7 +101,19 @@ public class ArtworkScene extends ScenePattern {
         descriptionCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6; -fx-max-width: 200px;");
         VBox bidders = new VBox(new Label("BIDDERS: "), new Label(biddersName.toString()));
         bidders.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
-        contentPane.getChildren().addAll(imgPane,aboutCard,bidPane,descriptionCard,bidders);
+        VBox comments = new VBox();
+        for(AuctionComment ac: a.getCommentList()){
+            HBox commentBlock = new HBox();
+            Label usrName = new Label();
+            Label comment = new Label();
+            comments.getChildren().addAll(usrName, comment);
+            usrName.setText(ac.getCommenter().getUsername());
+            comment.setText(ac.getText());
+            commentBlock.getChildren().addAll(usrName,new Label("\t"),comment,new Label("\n"));
+            comments.getChildren().addAll(commentBlock);
+        }
+
+        contentPane.getChildren().addAll(imgPane,aboutCard,bidPane,descriptionCard,bidders,comments);
         return contentPane;
     }
 

@@ -26,7 +26,7 @@ public class AuctionComment {
     /**
      * @return The profile of the commmenter
      */
-    Profile getCommenter()
+    public Profile getCommenter()
     {
         return this.commenter;
     }
@@ -34,7 +34,7 @@ public class AuctionComment {
     /**
      * @return The comment text
      */
-    String getText()
+    public String getText()
     {
         return this.text;
     }
