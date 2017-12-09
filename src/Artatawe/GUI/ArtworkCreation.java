@@ -51,7 +51,7 @@ public class ArtworkCreation extends ScenePattern {
         reservedPrice.setPromptText("Reserved price");
         reservedPrice.setPadding(new Insets(10,0,10,0));
         isSculpture.setPadding(new Insets(10,0,10,0));
-        width.setPromptText("With");
+        width.setPromptText("Width");
         width.setPadding(new Insets(10,0,10,0));
         height.setPromptText("Height");
         height.setPadding(new Insets(10,0,10,0));
