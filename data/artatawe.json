@@ -48,7 +48,10 @@
             "username" : "user_C"
         },
         {
-            "favourite_profiles" : [],
+            "favourite_profiles" : [
+                "user_B",
+                "user_C"
+            ],
             "firstname" : "Aleksandr",
             "address" : {
                 "country" : "",

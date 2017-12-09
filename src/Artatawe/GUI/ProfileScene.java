@@ -87,6 +87,7 @@ public class ProfileScene extends ScenePattern {
     //TODO Once Profile.java is finished, remove all of that hard-coded shit that is in this method and make everything automatic
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
+        JFXButton favButton = new JFXButton("Mark as favourite.");
         ImageView imgView;
         imgView = new ImageView();
         imgView.setImage(profImage);
@@ -122,10 +123,14 @@ public class ProfileScene extends ScenePattern {
             }
         }
 
+        favButton.setOnMousePressed(e -> {
+            logedInProfile.addFavourite(p);
+            dc.save();
+        });
         if(logedInProfile.getUsername().equals(p.getUsername())){
             avatarBox.getChildren().addAll(imagePane, customImage, chooseImage,combo);
         } else {
-            avatarBox.getChildren().addAll(imagePane);
+            avatarBox.getChildren().addAll(imagePane, favButton);
         }
         imgView.setFitWidth(GUIConstants.PROFILE_WIDTH);
         imgView.setFitHeight(GUIConstants.PROFILE_HEIGHT);

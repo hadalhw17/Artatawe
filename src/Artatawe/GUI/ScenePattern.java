@@ -120,7 +120,7 @@ public class ScenePattern {
         });
         button2.setMaxWidth(10000);
         button2.addEventHandler(MOUSE_CLICKED, e -> {
-            GUIController.getPrimaryStage().setScene(new Scene(new FavouriteProfileScene(dc,curProfile,logedInProfile).getPane(),
+            GUIController.getPrimaryStage().setScene(new Scene(new FavouriteProfileScene(dc,logedInProfile,logedInProfile).getPane(),
                     getPane().getWidth(), getPane().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
