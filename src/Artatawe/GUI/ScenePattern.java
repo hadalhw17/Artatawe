@@ -107,33 +107,42 @@ public class ScenePattern {
         JFXButton profileButton = new JFXButton("View Profile");
         JFXButton button1 = new JFXButton("View Auctions");
         JFXButton button2 = new JFXButton("View Favourites");
+        JFXButton searchButton = new JFXButton("Search profiles");
 
         VBox vBox = new VBox();
         vBox.setStyle("-fx-background-color: #E91E63; -fx-padding: -10;");
         vBox.setPadding(new Insets(15, 12, 15, 0));
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
+        searchButton.setMaxWidth(10000);
 
         button1.addEventHandler(MOUSE_CLICKED, e -> {
             GUIController.getPrimaryStage().setScene(new Scene(new ArtworkContainer(dc,curProfile,logedInProfile).getPane(),
                     getPane().getWidth(), getPane().getHeight()));
         });
+
         button2.setMaxWidth(10000);
         button2.addEventHandler(MOUSE_CLICKED, e -> {
             GUIController.getPrimaryStage().setScene(new Scene(new FavouriteProfileScene(dc,logedInProfile,logedInProfile).getPane(),
                     getPane().getWidth(), getPane().getHeight()));
         });
+
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,curProfile,logedInProfile).getPane(),
+            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,logedInProfile,logedInProfile).getPane(),
                     getPane().getWidth(), getPane().getHeight()));
         });
 
+        searchButton.addEventHandler(MOUSE_CLICKED, e -> {
+            GUIController.getPrimaryStage().setScene(new Scene(new SearchScene(dc,curProfile,logedInProfile).getPane(),
+                    getPane().getWidth(), getPane().getHeight()));
+        });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));
         vBox.setMargin(button1, new Insets(1, 25, 1, 25));
         vBox.setMargin(button2, new Insets(1, 25, 25, 25));
+        vBox.setMargin(searchButton,new Insets(1,25,25,25));
         button2.setMaxWidth(10000);
         profileButton.setMaxWidth(10000);
-        vBox.getChildren().addAll(profileButton,button1, button2);
+        vBox.getChildren().addAll(profileButton,button1, button2, searchButton);
         return vBox;
     }
 
