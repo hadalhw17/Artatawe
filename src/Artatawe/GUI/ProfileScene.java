@@ -43,6 +43,7 @@ public class ProfileScene extends ScenePattern {
     private Image profImage;
     private DataController dc;
     private Profile logedInProfile;
+    private JFXButton createArtwork = new JFXButton("Create Artwork");
 
     /**
      * Constructor for ProfileScene
@@ -93,6 +94,7 @@ public class ProfileScene extends ScenePattern {
         HBox avatarBox = new HBox();
         ScrollPane pane2 = new ScrollPane();
         HBox biddedPane = new HBox();
+        createArtwork.setOnMousePressed( e -> initCreateArtwork(createArtwork));
         JFXButton chooseImage = new JFXButton("Choose profile image");
         chooseImage.setOnMousePressed(e->{
             FileChooser fileChooser = new FileChooser();
@@ -112,13 +114,11 @@ public class ProfileScene extends ScenePattern {
         pane2.setContent(biddedPane);
         JFXButton customImage = new JFXButton("Custom avatar");
         for(Auction auction: dc.getAuctions()){
-            for(Bid bid:auction.getBidList()){
-                if(bid.getBuyer().getUsername().equals(p.getUsername())){
-                    ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getPath()));
-                    imgView2.setFitWidth(200);
-                    imgView2.setFitHeight(200);
-                    biddedPane.getChildren().addAll(new Pane(imgView2));
-                }
+            if(auction.getSeller().getUsername().equals(p.getUsername())){
+                ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getPath()));
+                imgView2.setFitWidth(200);
+                imgView2.setFitHeight(200);
+                biddedPane.getChildren().addAll(new Pane(imgView2));
             }
         }
 
@@ -138,7 +138,8 @@ public class ProfileScene extends ScenePattern {
         VBox pane1 = new VBox(new Label("About"), new Label("Name: " + p.getFirstname() + " " + p.getSurname() +"\nPhone#: " + p.getMobileNo()));
         pane1.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); -fx-background-color: #E8EAF6;");
         pane2.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0);-fx-background-color: #E8EAF6;");
-        contentPane.getChildren().addAll(avatarBox, pane1, pane2);
+
+        contentPane.getChildren().addAll(avatarBox, pane1, pane2, createArtwork);
 
         return contentPane;
     }
@@ -180,6 +181,11 @@ public class ProfileScene extends ScenePattern {
 
 
         return avatars;
+    }
+
+    private void initCreateArtwork(JFXButton btn){
+        ((Stage) btn.getScene().getWindow()).setScene(new Scene(new ArtworkCreation(dc,p, logedInProfile).getPane(),
+                Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
 

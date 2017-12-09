@@ -167,6 +167,40 @@
                 "desc" : "The Starry Night",
                 "height" : 0.74
             }
+        },
+        {
+            "seller" : "hadalhw17",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 123,
+            "artwork" : {
+                "date" : "Jan 12, 1913",
+                "year" : 123,
+                "name" : "Mona",
+                "width" : 2.0,
+                "photo" : "file:data/avatars/hadalhw170Avatar.png",
+                "reserve_price" : 123,
+                "type" : "PAINTING",
+                "desc" : "Mona",
+                "height" : 2.0
+            }
+        },
+        {
+            "seller" : "hadalhw17",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 123,
+            "artwork" : {
+                "date" : "Jan 12, 1913",
+                "year" : 123,
+                "name" : "asd",
+                "width" : 123.0,
+                "photo" : "file:data/avatars/hadalhw171Avatar.png",
+                "reserve_price" : 123,
+                "type" : "PAINTING",
+                "desc" : "asd",
+                "height" : 123.0
+            }
         }
     ]
 }
