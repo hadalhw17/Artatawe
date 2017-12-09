@@ -1,16 +1,15 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.*;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXMasonryPane;
+import com.jfoenix.controls.*;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -55,7 +54,6 @@ public class ArtworkScene extends ScenePattern {
     public JFXMasonryPane constructContentPane(){
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView();
-        ArrayList<String> biddersName = new ArrayList<>();
         JFXButton buyNow = new JFXButton("Buy now");
         buyNow.setOnMousePressed(e->{
             while(!a.isCompleted()){
@@ -77,44 +75,104 @@ public class ArtworkScene extends ScenePattern {
                     a.getLastBid().getBuyer().getSurname());
         }
 
-        for(Bid bid:a.getBidList()){
-            biddersName.add(bid.getBuyer().getUsername() + "\n");
-        }
         if(imgView == null){
             imgView = new ImageView(art.getPhoto().getPath());
         }
+
         sellerButton.setText("Seller is " + a.getSeller().getFirstname() + " " + a.getSeller().getSurname());
         sellerButton.setStyle(" -fx-text-fill: rgb(49, 89, 23)");
         sellerButton.setOnMousePressed(e -> {
             GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,a.getSeller(), logedInProfile).getPane(),
                     GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
+
         imgView.setImage(new Image(art.getPhoto().getPath()));
         imgView.setFitWidth(200);
         imgView.setFitHeight(200);
+
         AnchorPane imgPane = new AnchorPane(imgView);
+
         VBox bidPane = new VBox();
         bidPane.getChildren().addAll(bidButton, buyNow);
+
         VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"), new Label(a.toString()));
-        VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
         aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
+
+        VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
         descriptionCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6; -fx-max-width: 200px;");
-        VBox bidders = new VBox(new Label("BIDDERS: "), new Label(biddersName.toString()));
-        bidders.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
-        VBox comments = new VBox();
-        for(AuctionComment ac: a.getCommentList()){
-            HBox commentBlock = new HBox();
-            Label usrName = new Label();
-            Label comment = new Label();
-            comments.getChildren().addAll(usrName, comment);
-            usrName.setText(ac.getCommenter().getUsername());
-            comment.setText(ac.getText());
-            commentBlock.getChildren().addAll(usrName,new Label("\t"),comment,new Label("\n"));
-            comments.getChildren().addAll(commentBlock);
+
+        //Bids
+        JFXListView<String> bidListView = new JFXListView<>();
+        bidListView.setPrefSize(200, 50 * a.getBidMax());
+
+        for(Bid bid : a.getBidList()) {
+            bidListView.getItems().add(String.format("%s: £%d", bid.getBuyer().getUsername(), bid.getAmount()));
         }
 
-        contentPane.getChildren().addAll(imgPane,aboutCard,bidPane,descriptionCard,bidders,comments);
+        //VBox bidders = new VBox(new Label("BIDDERS: "), new Label(biddersName.toString()));
+        //bidders.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
+
+        //Comments
+        Pane commentSection = createCommentSection();
+
+        contentPane.getChildren().addAll(imgPane, aboutCard, bidPane, descriptionCard, bidListView);
+        contentPane.getChildren().add(commentSection);
+
         return contentPane;
+    }
+
+    private Pane createCommentSection() {
+
+        //Header
+        Label commentHeader = new Label("Comments");
+        commentHeader.setFont(Font.font("Tahoma", FontWeight.NORMAL, 16));
+
+        //Actual comments
+        VBox commentList = new VBox();
+
+        //Construct comment list
+        for (AuctionComment comment : a.getCommentList()) {
+            fillCommentLabel(commentList, comment);
+        }
+
+        //Comment field
+        TextArea commentArea = new TextArea();
+        commentArea.setMaxWidth(Double.MAX_VALUE);
+        commentArea.setMinHeight(100);
+        commentArea.setMaxHeight(100);
+
+        //Comment submit button
+        JFXButton commentSubmit = new JFXButton("submit");
+
+        commentSubmit.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            //Get comment text
+            String c = commentArea.getText().trim();
+            commentArea.clear();
+            //Update auction
+            a.makeComment(curProfile, c);
+            //Update comment pane
+            fillCommentLabel(commentList, new AuctionComment(curProfile, c));
+            //Persist
+            dc.save();
+        });
+
+        //Put comment list in scroll pane
+        ScrollPane scroll = new ScrollPane(commentList);
+        scroll.setMinHeight(100);
+        scroll.setMaxHeight(250);
+
+        return new VBox(commentHeader, scroll, commentArea, commentSubmit);
+    }
+
+    private void fillCommentLabel(VBox container, AuctionComment comment) {
+
+        Label commentLabel = new Label();
+        commentLabel.setText(String.format("%s: %s", comment.getCommenter().getUsername(), comment.getText()));
+        commentLabel.setWrapText(true);
+        commentLabel.setMaxWidth(1000);
+
+        container.getChildren().add(commentLabel);
+        container.setMargin(commentLabel, new Insets(0,20,10,10));
     }
 
 }
