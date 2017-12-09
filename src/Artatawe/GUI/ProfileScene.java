@@ -101,14 +101,14 @@ public class ProfileScene extends ScenePattern {
             configureFileChooser(fileChooser);
             Window stage = GUIController.getPrimaryStage();
             changeImage(fileChooser.showOpenDialog(stage));
-            ((Stage) chooseImage.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p,logedInProfile).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,p,logedInProfile).getPane(),
+                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
         combo.setOnAction(e -> {
             p.setProfileImg(new Picture(getClass().getResource("/"+combo.getValue()).toExternalForm()));
             dc.save();
-            ((Stage) chooseImage.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p, logedInProfile).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,p,logedInProfile).getPane(),
+                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
         biddedPane.setSpacing(10);
         pane2.setContent(biddedPane);
@@ -127,12 +127,14 @@ public class ProfileScene extends ScenePattern {
         } else {
             avatarBox.getChildren().addAll(imagePane);
         }
-        imgView.setFitWidth(500);
-        imgView.setFitHeight(500);
+        imgView.setFitWidth(GUIConstants.PROFILE_WIDTH);
+        imgView.setFitHeight(GUIConstants.PROFILE_HEIGHT);
+
         imagePane.getChildren().addAll(imgView);
         customImage.setOnMousePressed(e -> {
-            ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(dc,p,this, logedInProfile).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+
+            GUIController.getPrimaryStage().setScene(new Scene(new CustomAvatar(dc,p,this, logedInProfile).getPane(),
+                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
         pane2.setPrefSize(600, 200);
         VBox pane1 = new VBox(new Label("About"), new Label("Name: " + p.getFirstname() + " " + p.getSurname() +"\nPhone#: " + p.getMobileNo()));

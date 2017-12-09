@@ -58,15 +58,16 @@ public class LoginScene {
             Profile p = dc.searchByUsername(loginField.getText());
 
             if (p != null) {
-                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p,p).getPane(),
-                        Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
+                GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,p,p).getPane(),
+                        GUIConstants.SCENE_WIDTH,GUIConstants.SCENE_HEIGHT
                 ));
+                GUIController.centerize();
             }
         });
 
         signInButton.setOnMousePressed(e->{
             ((Stage)signInButton.getScene().getWindow()).setScene(new Scene(new SignInScene(dc).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
+                    GUIConstants.SIGNUP_WIDTH,GUIConstants.SIGNUP_HEIGHT
             ));
         });
 

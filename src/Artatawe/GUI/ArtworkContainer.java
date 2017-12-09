@@ -34,7 +34,6 @@ public class ArtworkContainer extends ScenePattern {
         this.p = p;
         setNameLabel(PAGE_NAME);
         setContentPane();
-
     }
 
     public JFXMasonryPane constructContentPane() {
@@ -54,8 +53,8 @@ public class ArtworkContainer extends ScenePattern {
             imageHolder = new VBox(imgView, new Label(auction.getArtwork().getName()));
             contentPane.getChildren().addAll(imageHolder);
             imageHolder.setOnMouseClicked(e->{
-                ((Stage)imageHolder.getScene().getWindow()).setScene(new Scene(new ArtworkScene(dc,p, auction, logedInProfie).getPane(),
-                        Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
+                GUIController.getPrimaryStage().setScene(new Scene(new ArtworkScene(dc,p, auction, logedInProfie).getPane(),
+                        GUIConstants.SCENE_WIDTH,GUIConstants.SCENE_HEIGHT));
             });
 
         }

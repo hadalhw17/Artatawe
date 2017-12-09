@@ -72,9 +72,10 @@ public class SignInScene {
         signInButton.setOnMousePressed(e -> {
             dc.createProfile(usernameField.getText(),firstNameField.getText(),secondNameField.getText(),mobileNumberField.getText(),new Address(0,"","","",""),new Picture("file:data/avatars/img.png"));
             dc.save();
-            ((Stage)signInButton.getScene().getWindow()).setScene(new Scene(new LoginScene(dc).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
+            GUIController.getPrimaryStage().setScene(new Scene(new LoginScene(dc).getPane(),
+                    GUIConstants.LOGIN_WIDTH,GUIConstants.LOGIN_HEIGHT
             ));
+            GUIController.centerize();
         });
 
         content.getChildren().addAll(headerPane,signIn,buttonPane);
