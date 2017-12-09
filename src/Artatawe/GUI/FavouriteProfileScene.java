@@ -5,10 +5,13 @@ import Artatawe.Data.Profile;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+
+import java.awt.event.MouseEvent;
 
 /**
  * @author Tom Street
@@ -37,18 +40,25 @@ public class FavouriteProfileScene extends ScenePattern {
 
         for (Profile fav : curProfile.getAllFavourites())
         {
-            StackPane box = new StackPane();
-            box.setStyle("-fx-background-color: #d3ecff;");
+            BorderPane tile = new BorderPane();
+            tile.setStyle("-fx-background-color: #d3ecff;");
 
             ImageView profilePicView = new ImageView(fav.getProfileImg());
-            profilePicView.setFitHeight(300);
-            profilePicView.setFitWidth(300);
+            profilePicView.setFitHeight(GUIConstants.PROFILE_HEIGHT / 1.5);
+            profilePicView.setFitWidth(GUIConstants.PROFILE_WIDTH / 1.5);
 
             Label label  = new Label(fav.getUsername());
             label.setStyle("-fx-font-weight: bold; -fx-font-size: 16pt;");
 
-            box.getChildren().addAll(profilePicView, label);
-            pane.getChildren().add(box);
+            tile.setCenter(profilePicView);
+            tile.setBottom(new StackPane(label));
+
+            tile.setOnMouseClicked( e -> {
+                GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,fav,logedInProfile).getPane(),
+                        GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
+            });
+
+            pane.getChildren().add(tile);
         }
 
         return pane;
