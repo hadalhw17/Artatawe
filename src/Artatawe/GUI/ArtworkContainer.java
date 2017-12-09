@@ -24,8 +24,11 @@ public class ArtworkContainer extends ScenePattern {
 
     private DataController dc;
     private Profile p;
-    public ArtworkContainer(DataController dc, Profile p){
-        super(dc,p);
+    private Profile logedInProfie;
+
+    public ArtworkContainer(DataController dc, Profile p, Profile logedInProfile){
+        super(dc,p, logedInProfile);
+        this.logedInProfie = logedInProfile;
         this.auctions = dc.getAuctions();
         this.dc = dc;
         this.p = p;
@@ -51,7 +54,7 @@ public class ArtworkContainer extends ScenePattern {
             imageHolder = new VBox(imgView, new Label(auction.getArtwork().getName()));
             contentPane.getChildren().addAll(imageHolder);
             imageHolder.setOnMouseClicked(e->{
-                ((Stage)imageHolder.getScene().getWindow()).setScene(new Scene(new ArtworkScene(dc,p, auction).getPane(),
+                ((Stage)imageHolder.getScene().getWindow()).setScene(new Scene(new ArtworkScene(dc,p, auction, logedInProfie).getPane(),
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
             });
 

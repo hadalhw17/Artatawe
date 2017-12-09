@@ -58,7 +58,7 @@ public class LoginScene {
             Profile p = dc.searchByUsername(loginField.getText());
 
             if (p != null) {
-                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
+                ((Stage)loginButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p,p).getPane(),
                         Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()
                 ));
             }

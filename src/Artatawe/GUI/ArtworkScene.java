@@ -32,13 +32,15 @@ public class ArtworkScene extends ScenePattern {
     private Artwork art;
     Profile p;
     DataController dc;
+    private Profile logedInProfile;
 
     /**
      * Constructor for ArtworkScene.java
      * @param a
      */
-    public ArtworkScene(DataController dc, Profile p, Auction a){
-        super(dc,p);
+    public ArtworkScene(DataController dc, Profile p, Auction a, Profile logedInProfile){
+        super(dc,p, logedInProfile);
+        this.logedInProfile = logedInProfile;
         this.a = a;
         this.p = p;
         this.art = a.getArtwork();
@@ -78,7 +80,7 @@ public class ArtworkScene extends ScenePattern {
         sellerButton.setText("Seller is " + a.getSeller().getFirstname() + " " + a.getSeller().getSurname());
         sellerButton.setStyle(" -fx-text-fill: rgb(49, 89, 23)");
         sellerButton.setOnMousePressed(e -> {
-            ((Stage) sellerButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,a.getSeller()).getPane(),
+            ((Stage) sellerButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,a.getSeller(),logedInProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
         });
         imgView.setImage(new Image(art.getPhoto().getPath()));

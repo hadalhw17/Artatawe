@@ -32,10 +32,11 @@ public class CustomAvatar extends ScenePattern {
     private JFXSnackbar imageSaved = new JFXSnackbar(this.getPane());
     private DataController dc;
     private Profile p;
+    private Profile logedInProfile;
 
-
-    public CustomAvatar(DataController dc, Profile p, ProfileScene profileScene){
-        super(dc,p);
+    public CustomAvatar(DataController dc, Profile p, ProfileScene profileScene, Profile logedInProfile){
+        super(dc,p, logedInProfile);
+        this.logedInProfile = logedInProfile;
         this.p = p;
         this.dc = dc;
         this.profileScene = profileScene;
@@ -58,7 +59,7 @@ public class CustomAvatar extends ScenePattern {
     public void onExit(){
         p.setPicture("file:data/avatars/"+p.getUsername()+"Avatar.png");
         dc.save();
-        ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,profileScene.getProfile()).getPane(),
+        ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,profileScene.getProfile(),logedInProfile).getPane(),
                 Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
     }
 

@@ -2,6 +2,7 @@ package Artatawe.GUI;
 
 import Artatawe.Data.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -34,20 +35,27 @@ import java.nio.file.StandardCopyOption;
 
 public class ProfileScene extends ScenePattern {
 
+    final JFXComboBox<String> combo = new JFXComboBox<>();
+
     //Profile to be displayed
     private Profile p;
     private AnchorPane imagePane;
     private Image profImage;
     private DataController dc;
+    private Profile logedInProfile;
 
     /**
      * Constructor for ProfileScene
      *
      * @param p profile to be displayed
      */
-    public ProfileScene(DataController dc, Profile p) {
-        super(dc,p);
+    public ProfileScene(DataController dc, Profile p, Profile logedInProfile) {
+        super(dc,p,logedInProfile);
+        this.logedInProfile = logedInProfile;
         this.p = p;
+        if(logedInProfile.getUsername().equals(p.getUsername())){
+            this.p = this.logedInProfile;
+        }
         this.dc = dc;
         imagePane = new AnchorPane();
 
@@ -56,6 +64,14 @@ public class ProfileScene extends ScenePattern {
 
         setNameLabel(p.getFirstname() + " " + p.getSurname());
         setContentPane();
+
+        combo.setPromptText("Sample avatars");
+        combo.getItems().addAll("img1.png",
+                "img2.png",
+                "img3.png",
+                "img4.png",
+                "img5.png",
+                "img6.png");
     }
 
 
@@ -83,7 +99,13 @@ public class ProfileScene extends ScenePattern {
             configureFileChooser(fileChooser);
             Window stage = GUIController.getPrimaryStage();
             changeImage(fileChooser.showOpenDialog(stage));
-            ((Stage) chooseImage.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
+            ((Stage) chooseImage.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p,logedInProfile).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+        });
+        combo.setOnAction(e -> {
+            p.setProfileImg(new Picture(getClass().getResource("/"+combo.getValue()).toExternalForm()));
+            dc.save();
+            ((Stage) chooseImage.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p, logedInProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
         });
         biddedPane.setSpacing(10);
@@ -100,12 +122,16 @@ public class ProfileScene extends ScenePattern {
             }
         }
 
+        if(logedInProfile.getUsername().equals(p.getUsername())){
+            avatarBox.getChildren().addAll(imagePane, customImage, chooseImage,combo);
+        } else {
+            avatarBox.getChildren().addAll(imagePane);
+        }
         imgView.setFitWidth(500);
         imgView.setFitHeight(500);
         imagePane.getChildren().addAll(imgView);
-        avatarBox.getChildren().addAll(imagePane, customImage, chooseImage);
         customImage.setOnMousePressed(e -> {
-            ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(dc,p,this).getPane(),
+            ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(dc,p,this, logedInProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
         });
         pane2.setPrefSize(600, 200);
@@ -142,6 +168,18 @@ public class ProfileScene extends ScenePattern {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private JFXComboBox sampleAvatars(){
+        JFXComboBox<String> avatars =  new JFXComboBox<>();
+        avatars.setPromptText("Use sample images");
+        for(int i = 1; i <=6; i++){
+            String img = new String("img" + i + ".png");
+            avatars.getItems().addAll(img);
+        }
+
+
+        return avatars;
     }
 
 

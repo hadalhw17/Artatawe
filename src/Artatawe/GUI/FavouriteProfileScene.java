@@ -15,14 +15,15 @@ import javafx.scene.layout.StackPane;
  */
 public class FavouriteProfileScene extends ScenePattern {
 
+    private Profile logedInProfile;
     /**
      * Construct a FavouriteProfileScene
      * @param dc Data Controller
      * @param curProfile Profile of logged-in user
      */
-    public FavouriteProfileScene(DataController dc, Profile curProfile) {
-        super(dc,curProfile);
-
+    public FavouriteProfileScene(DataController dc, Profile curProfile, Profile logedInProfile) {
+        super(dc,curProfile, logedInProfile);
+        this.logedInProfile = logedInProfile;
         this.setNameLabel("Favourites");
         setContentPane();
     }

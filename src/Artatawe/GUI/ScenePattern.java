@@ -54,6 +54,7 @@ public class ScenePattern{
     private Label nameLabel;
     //Header panel
     private HBox topBox;
+    private Profile logedInProfile;
 
     protected DataController dc;
     protected Profile curProfile;
@@ -62,8 +63,9 @@ public class ScenePattern{
      * A constructor for ScenePattern.
      * Adds all of the main elements to the scene.
      */
-    public ScenePattern(DataController dc, Profile p) {
+    public ScenePattern(DataController dc, Profile p, Profile logedInProfile) {
         this.curProfile = p;
+        this.logedInProfile = logedInProfile;
         this.dc = dc;
         nameLabel = new Label();
         border = new BorderPane();
@@ -110,16 +112,16 @@ public class ScenePattern{
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(dc,curProfile).getPane(),
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(dc,curProfile, logedInProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
         });
         button2.setMaxWidth(10000);
         button2.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new FavouriteProfileScene(dc,curProfile).getPane(),
+            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new FavouriteProfileScene(dc,curProfile, logedInProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
         });
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,curProfile).getPane(),
+            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,logedInProfile,logedInProfile).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
         });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));
