@@ -200,10 +200,10 @@ class AuctionFormatter implements JsonFormatter<Auction>
         {
             JsonObject jsonComment = cmValue.asObject();
 
-            auction.makeComment(
-                    data.searchByUsername(jsonComment.getString("profile")),
-                    jsonComment.getString("text")
-            );
+           // auction.makeComment(
+                    //                   data.searchByUsername(jsonComment.getString("profile")),
+//                    jsonComment.getString("text")
+           // );
         }
 
         return auction;

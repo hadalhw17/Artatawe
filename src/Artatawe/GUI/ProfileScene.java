@@ -1,9 +1,6 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Auction;
-import Artatawe.Data.Bid;
-import Artatawe.Data.DataController;
-import Artatawe.Data.Profile;
+import Artatawe.Data.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.geometry.Insets;
@@ -16,8 +13,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 /**
  * @author Aleksandr Slobodov
@@ -32,7 +36,6 @@ public class ProfileScene extends ScenePattern {
 
     //Profile to be displayed
     private Profile p;
-    private ImageView imgView;
     private AnchorPane imagePane;
     private Image profImage;
     private DataController dc;
@@ -51,9 +54,6 @@ public class ProfileScene extends ScenePattern {
         profImage = new Image(p.getProfileImg().getPath());
 
 
-        imgView = new ImageView();
-        imgView.setImage(profImage);
-        imgView.setCache(false);
         setNameLabel(p.getFirstname() + " " + p.getSurname());
         setContentPane();
     }
@@ -70,9 +70,22 @@ public class ProfileScene extends ScenePattern {
     //TODO Once Profile.java is finished, remove all of that hard-coded shit that is in this method and make everything automatic
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
+        ImageView imgView;
+        imgView = new ImageView();
+        imgView.setImage(profImage);
+        imgView.setCache(false);
         HBox avatarBox = new HBox();
         ScrollPane pane2 = new ScrollPane();
         HBox biddedPane = new HBox();
+        JFXButton chooseImage = new JFXButton("Choose profile image");
+        chooseImage.setOnMousePressed(e->{
+            FileChooser fileChooser = new FileChooser();
+            configureFileChooser(fileChooser);
+            Window stage = GUIController.getPrimaryStage();
+            changeImage(fileChooser.showOpenDialog(stage));
+            ((Stage) chooseImage.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+        });
         biddedPane.setSpacing(10);
         pane2.setContent(biddedPane);
         JFXButton customImage = new JFXButton("Custom avatar");
@@ -89,8 +102,8 @@ public class ProfileScene extends ScenePattern {
 
         imgView.setFitWidth(500);
         imgView.setFitHeight(500);
-        imagePane.getChildren().add(imgView);
-        avatarBox.getChildren().addAll(imagePane, customImage);
+        imagePane.getChildren().addAll(imgView);
+        avatarBox.getChildren().addAll(imagePane, customImage, chooseImage);
         customImage.setOnMousePressed(e -> {
             ((Stage) customImage.getScene().getWindow()).setScene(new Scene(new CustomAvatar(dc,p,this).getPane(),
                     Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
@@ -107,5 +120,29 @@ public class ProfileScene extends ScenePattern {
     public Profile getProfile() {
         return p;
     }
+
+    private static void configureFileChooser(
+            final FileChooser fileChooser) {
+        fileChooser.setTitle("View Pictures");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+        fileChooser.getExtensionFilters().addAll(
+                //new FileChooser.ExtensionFilter("All Images", "*."),
+                new FileChooser.ExtensionFilter("All Images", "*.jpg", "*.png"));
+                //new FileChooser.ExtensionFilter("PNG", "*.png")
+
+    }
+
+    private void changeImage(File f){
+        try{
+            Files.copy(f.toPath(), new File("data/avatars/"+p.getUsername()+"Avatar.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+            p.setProfileImg(new Picture("file:data/avatars/"+p.getUsername()+"Avatar.png"));
+            dc.save();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }

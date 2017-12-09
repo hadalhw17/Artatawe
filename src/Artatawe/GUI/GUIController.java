@@ -16,9 +16,14 @@ public class GUIController extends Application {
     private static Scene root;
 
     private DataController artataweDatabase;
+    private static Stage primaryStage;
 
     public static void main(String[] args) {
         Application.launch(args);
+    }
+
+    public static  Stage getPrimaryStage() {
+        return GUIController.primaryStage;
     }
 
     @Override

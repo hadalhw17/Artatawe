@@ -3,12 +3,15 @@ package Artatawe.GUI;
 import Artatawe.Data.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,6 +56,7 @@ public class ArtworkScene extends ScenePattern {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView();
         ArrayList<String> biddersName = new ArrayList<>();
+        JFXButton sellerButton = new JFXButton();
         JFXButton bidButton = new JFXButton("Bid this work");
         if(!a.isCompleted()){
             bidButton.setOnMousePressed(e->{
@@ -71,13 +75,19 @@ public class ArtworkScene extends ScenePattern {
         if(imgView == null){
             imgView = new ImageView(art.getPhoto().getPath());
         }
+        sellerButton.setText("Seller is " + a.getSeller().getFirstname() + " " + a.getSeller().getSurname());
+        sellerButton.setStyle(" -fx-text-fill: rgb(49, 89, 23)");
+        sellerButton.setOnMousePressed(e -> {
+            ((Stage) sellerButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,a.getSeller()).getPane(),
+                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+        });
         imgView.setImage(new Image(art.getPhoto().getPath()));
         imgView.setFitWidth(200);
         imgView.setFitHeight(200);
         AnchorPane imgPane = new AnchorPane(imgView);
         Pane bidPane = new Pane();
         bidPane.getChildren().add(bidButton);
-        VBox aboutCard = new VBox(new Label("ABOUT"), new Label(a.toString()));
+        VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"), new Label(a.toString()));
         VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
         aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
         descriptionCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6; -fx-max-width: 200px;");

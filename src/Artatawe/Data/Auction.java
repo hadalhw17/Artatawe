@@ -132,4 +132,8 @@ public class Auction {
 
         return bidList.get(bidList.size() -1);
     }
+
+    public String toString(){
+        return getArtwork().toString();
+    }
 }
