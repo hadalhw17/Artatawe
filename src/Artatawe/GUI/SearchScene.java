@@ -38,6 +38,7 @@ public class SearchScene extends ScenePattern {
         searchAre.setPromptText("Username here");
         searchBar.getChildren().addAll(searchAre,searchButton);
         searchCard.getChildren().add(searchBar);
+        searchAre.setMinWidth(500);
 
         searchButton.setOnMousePressed(e -> {
             Profile searchRes;
@@ -47,16 +48,21 @@ public class SearchScene extends ScenePattern {
                 searchRes = null;
                 searchAre.setPromptText("Type username here!!");
             }
-            ImageView avatar = new ImageView(new Image(searchRes.getProfileImg().getPath()));
-            avatar.setFitWidth(200);
-            avatar.setFitHeight(200);
-            Label username = new Label(searchRes.getUsername());
-            username.setMinWidth(1000);
-            result.getChildren().addAll(avatar, username);
-            result.setOnMouseClicked(event -> {
-                GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,searchRes,logedInProfile).getPane(),
-                        GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
-            });
+            if(searchRes != null){
+                ImageView avatar = new ImageView(new Image(searchRes.getProfileImg().getPath()));
+                avatar.setFitWidth(200);
+                avatar.setFitHeight(200);
+                Label username = new Label(searchRes.getUsername());
+                username.setMinWidth(1000);
+                result.getChildren().addAll(avatar, username);
+                result.setOnMouseClicked(event -> {
+                    GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,searchRes,logedInProfile).getPane(),
+                            GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
+                });
+            } else {
+                searchAre.setText("");
+                searchAre.setPromptText("404 User not found");
+            }
         });
 
         content.getChildren().addAll(searchCard, result);
