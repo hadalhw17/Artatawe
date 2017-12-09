@@ -13,7 +13,7 @@
                 "houseNo" : 1
             },
             "surname" : "something",
-            "avatar" : "file:data/avatars/img.png",
+            "avatar" : "file:data/avatars/user_AAvatar.png",
             "mobileNo" : "123456789",
             "username" : "user_A"
         },
@@ -28,7 +28,7 @@
                 "houseNo" : 1
             },
             "surname" : "person",
-            "avatar" : "file:data/avatars/img.png",
+            "avatar" : "file:data/avatars/user_BAvatar.png",
             "mobileNo" : "123456789",
             "username" : "user_B"
         },
@@ -61,6 +61,26 @@
             "avatar" : "file:data/avatars/hadalhw17Avatar.png",
             "mobileNo" : "89257382222",
             "username" : "hadalhw17"
+        },
+        {
+            "favourite_profiles" : [
+                "user_A",
+                "user_B",
+                "user_C",
+                "hadalhw17"
+            ],
+            "firstname" : "Tom",
+            "address" : {
+                "country" : "",
+                "city" : "",
+                "street" : "",
+                "postcode" : "",
+                "houseNo" : 0
+            },
+            "surname" : "Street",
+            "avatar" : "file:data/avatars/BrotherhoodOfHamAvatar.png",
+            "mobileNo" : "123456678",
+            "username" : "BrotherhoodOfHam"
         }
     ],
     "auctions" : [
@@ -68,34 +88,34 @@
             "seller" : "user_B",
             "bids" : [
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "08-Dec-2017",
                     "amount" : 1000020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "08-Dec-2017",
                     "amount" : 1,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "08-Dec-2017",
                     "amount" : 1,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "08-Dec-2017",
                     "amount" : 1,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "08-Dec-2017",
                     "amount" : 1,
                     "bidder" : "user_A"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 8, 2017",
+                "date" : "08-Dec-2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -104,40 +124,43 @@
                 "type" : "PAINTING",
                 "desc" : "Mona Lisa",
                 "height" : 0.77
-            }
+            },
+            "comments" : [
+              { "profile" : "user_B", "text" : "very unhelpful comment that serves no purpose at all." }
+            ]
         },
         {
             "seller" : "user_C",
             "bids" : [
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "08-Dec-2017",
                     "amount" : 123020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "08-Dec-2017",
                     "amount" : 123200,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "08-Dec-2017",
                     "amount" : 123210,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "08-Dec-2017",
                     "amount" : 123300,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "08-Dec-2017",
                     "amount" : 123400,
                     "bidder" : "user_A"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 8, 2017",
+                "date" : "08-Dec-2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
@@ -146,7 +169,12 @@
                 "type" : "PAINTING",
                 "desc" : "The Starry Night",
                 "height" : 0.74
-            }
+            },
+            "comments" : [
+                { "profile" : "user_A", "text" : "some comment about the auction" },
+                { "profile" : "user_C", "text" : "some other comment about the auction" },
+                { "profile" : "user_A", "text" : "12348923948 238947923 89 239" }
+            ]
         }
     ]
 }
