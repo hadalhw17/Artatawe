@@ -58,13 +58,14 @@ public class CustomAvatar extends ScenePattern {
     public void onExit(){
         p.setPicture("file:data/avatars/"+p.getUsername()+"Avatar.png");
         dc.save();
-        ((Stage)exitButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,profileScene.getProfile()).getPane(),
-                Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
+        GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,profileScene.getProfile()).getPane(),
+                GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
+        GUIController.centerize();
     }
 
 
     @Override
-    public JFXMasonryPane constructContentPane(){
+    public JFXMasonryPane constructContentPane() {
         HBox erasebox = new HBox();
         HBox lineBox = new HBox();
         JFXCheckBox erase = new JFXCheckBox();
@@ -89,7 +90,7 @@ public class CustomAvatar extends ScenePattern {
         exitButton.setOnMousePressed(e->{
             onExit();
         });
-        canvas = new Canvas(1000, 800);
+        canvas = new Canvas(GUIConstants.PROFILE_WIDTH * 2, GUIConstants.PROFILE_HEIGHT * 2);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         canvas.setOnMouseDragged(e->{
             double size = sizeSlider.getValue();

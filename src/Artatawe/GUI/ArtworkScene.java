@@ -78,8 +78,8 @@ public class ArtworkScene extends ScenePattern {
         sellerButton.setText("Seller is " + a.getSeller().getFirstname() + " " + a.getSeller().getSurname());
         sellerButton.setStyle(" -fx-text-fill: rgb(49, 89, 23)");
         sellerButton.setOnMousePressed(e -> {
-            ((Stage) sellerButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,a.getSeller()).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,a.getSeller()).getPane(),
+                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
         imgView.setImage(new Image(art.getPhoto().getPath()));
         imgView.setFitWidth(200);

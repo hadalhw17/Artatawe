@@ -4,8 +4,10 @@ import Artatawe.Data.DataController;
 import Artatawe.Data.Profile;
 
 import com.jfoenix.controls.JFXMasonryPane;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -38,8 +40,8 @@ public class FavouriteProfileScene extends ScenePattern {
             box.setStyle("-fx-background-color: #d3ecff;");
 
             ImageView profilePicView = new ImageView(fav.getProfileImg());
-            profilePicView.setFitHeight(350);
-            profilePicView.setFitWidth(350);
+            profilePicView.setFitHeight(300);
+            profilePicView.setFitWidth(300);
 
             Label label  = new Label(fav.getUsername());
             label.setStyle("-fx-font-weight: bold; -fx-font-size: 16pt;");
