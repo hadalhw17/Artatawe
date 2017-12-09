@@ -58,6 +58,14 @@ public class ArtworkScene extends ScenePattern {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView();
         ArrayList<String> biddersName = new ArrayList<>();
+        JFXButton buyNow = new JFXButton("Buy now");
+        buyNow.setOnMousePressed(e->{
+            while(!a.isCompleted()){
+                a.placeBid(logedInProfile,a.getBidMax(),new Date(12,9,1997));
+            }
+            dc.save();
+            setContentPane();
+        });
         JFXButton sellerButton = new JFXButton();
         JFXButton bidButton = new JFXButton("Bid this work");
         if(!a.isCompleted()){
@@ -87,8 +95,8 @@ public class ArtworkScene extends ScenePattern {
         imgView.setFitWidth(200);
         imgView.setFitHeight(200);
         AnchorPane imgPane = new AnchorPane(imgView);
-        Pane bidPane = new Pane();
-        bidPane.getChildren().add(bidButton);
+        VBox bidPane = new VBox();
+        bidPane.getChildren().addAll(bidButton, buyNow);
         VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"), new Label(a.toString()));
         VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
         aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");

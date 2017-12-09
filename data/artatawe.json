@@ -94,14 +94,14 @@
             ],
             "bids" : [
                 {
-                    "date" : "08-Dec-2017",
+                    "date" : "Dec 9, 2017",
                     "amount" : 1000020,
                     "bidder" : "user_A"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "08-Dec-2017",
+                "date" : "Dec 9, 2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -130,34 +130,34 @@
             ],
             "bids" : [
                 {
-                    "date" : "08-Dec-2017",
+                    "date" : "Dec 9, 2017",
                     "amount" : 123020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "08-Dec-2017",
+                    "date" : "Dec 9, 2017",
                     "amount" : 123200,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "08-Dec-2017",
+                    "date" : "Dec 9, 2017",
                     "amount" : 123210,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "08-Dec-2017",
+                    "date" : "Dec 9, 2017",
                     "amount" : 123300,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "08-Dec-2017",
+                    "date" : "Dec 9, 2017",
                     "amount" : 123400,
                     "bidder" : "user_A"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "08-Dec-2017",
+                "date" : "Dec 9, 2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
