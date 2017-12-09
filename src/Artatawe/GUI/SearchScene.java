@@ -22,7 +22,7 @@ public class SearchScene extends ScenePattern {
 
         super(dc, p, logedInProfile);
         this.logedInProfile = logedInProfile;
-        this.setNameLabel("ArtaSearchAwe");
+        this.setNameLabel("ArtaSearchTawe");
         setContentPane();
 
     }
