@@ -157,7 +157,7 @@ class AuctionFormatter implements JsonFormatter<Auction>
         {
             JsonObject jsonComment = new JsonObject();
             jsonComment.set("profile", comment.getCommenter().getUsername());
-            jsonAuction.set("text", comment.getText());
+            jsonComment.set("text", comment.getText());
             jsonComments.add(jsonComment);
         }
 
@@ -200,10 +200,10 @@ class AuctionFormatter implements JsonFormatter<Auction>
         {
             JsonObject jsonComment = cmValue.asObject();
 
-           // auction.makeComment(
-                    //                   data.searchByUsername(jsonComment.getString("profile")),
-//                    jsonComment.getString("text")
-           // );
+           auction.makeComment(
+                data.searchByUsername(jsonComment.getString("profile")),
+                jsonComment.getString("text")
+           );
         }
 
         return auction;
