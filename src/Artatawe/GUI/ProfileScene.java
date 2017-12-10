@@ -1,10 +1,12 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.*;
+import Artatawe.Data.Auction;
+import Artatawe.Data.DataController;
+import Artatawe.Data.Picture;
+import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXMasonryPane;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -15,12 +17,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -35,7 +35,7 @@ import java.nio.file.StandardCopyOption;
 
 public class ProfileScene extends ScenePattern {
 
-    final JFXComboBox<String> combo = new JFXComboBox<>();
+    private final JFXComboBox<String> combo = new JFXComboBox<>();
 
     //Profile to be displayed
     private Profile p;
@@ -137,7 +137,7 @@ public class ProfileScene extends ScenePattern {
         imgView.setFitHeight(GUIConstants.PROFILE_HEIGHT);
 
         imagePane.getChildren().addAll(imgView);
-        customImage.setOnMousePressed(e -> {
+        customImage.setOnMousePressed(e ->
 
             GUIController
                     .getPrimaryStage()
@@ -145,8 +145,7 @@ public class ProfileScene extends ScenePattern {
                             .getPane(), GUIConstants
                             .SCENE_WIDTH, GUIConstants
                             .SCENE_HEIGHT)
-                    );
-        });
+                    ));
 
         pane2.setPrefSize(600, 200);
 
@@ -181,7 +180,7 @@ public class ProfileScene extends ScenePattern {
     /**
      * Sets up file chooser for avatar.
      * Adds image filter and sets home directory
-     * @param fileChooser
+     * @param fileChooser file chooser that needs to be configured
      */
     private static void configureFileChooser(
             final FileChooser fileChooser) {
@@ -200,7 +199,7 @@ public class ProfileScene extends ScenePattern {
 
     /**
      * Loads image from file system and sets it as avatar
-     * @param f
+     * @param f image which is needed to be set as avatar
      */
     private void changeImage(File f){
         if(f != null) {

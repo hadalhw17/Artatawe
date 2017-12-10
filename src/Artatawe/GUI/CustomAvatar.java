@@ -22,17 +22,49 @@ import javafx.scene.shape.Rectangle;
 import javax.imageio.ImageIO;
 import java.io.File;
 
+/**
+ * @author Aleksandr Slobodov
+ * <p>
+ *      CustomAvatar.java
+ * <p>
+ * Scene made to add custom avatar creating feature.
+ * Allows to draw particle trace and a straight line on canvas
+ * Inherits it's style from ScenePattern.java
+ */
 public class CustomAvatar extends ScenePattern {
 
+    //Canvas where a user can draw custom avatars
     private Canvas canvas;
+
+    //Saves new custom avatar
     private JFXButton saveButton;
+
+    //Changes avatar and sets up profile scene
     private JFXButton exitButton;
+
+    //Scene to leave later
     private ProfileScene profileScene;
+
+    //Notification about creating new avatar
     private JFXSnackbar imageSaved;
+
+    //X-coordinate for canvas line drawing
     private double canvasLineX;
+
+    //Y-coordinate for canvas line drawing
     private double canvasLineY;
 
-    public CustomAvatar(DataController dc, Profile p, ProfileScene profileScene, Profile logedInProfile){
+    /**
+     * Constructor for <p>CustomAvatar.java</p>
+     * @param dc information about system
+     * @param p needed for interactions with different profiles
+     * @param profileScene initial scene
+     * @param logedInProfile current user
+     */
+    public CustomAvatar(DataController dc,
+                        Profile p,
+                        ProfileScene profileScene,
+                        Profile logedInProfile){
         super(dc,p, logedInProfile);
         this.profileScene = profileScene;
         setNameLabel("Custom Avatar");
@@ -40,25 +72,46 @@ public class CustomAvatar extends ScenePattern {
         imageSaved = new JFXSnackbar(this.getPane());
     }
 
-    public void onSave(){
+    /**
+     * Saves new avatar by making a snapshot of canvas
+     */
+    private void onSave(){
         try{
             Image snapsot = canvas.snapshot(null,null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapsot,null), "png",
                     new File("data/avatars/"+curProfile.getUsername()+"Avatar.png"));
-            imageSaved.show("Picture Saved!\n It will be updated after you press exit", 5000);
+            imageSaved.show("Picture Saved!" +
+                    "\n It will be updated after you press exit", 5000);
         } catch(Exception e){
             System.out.print("Unable to save image. " + e);
         }
     }
 
-    public void onExit(){
-        curProfile.setPicture("file:data/avatars/"+ curProfile.getUsername() + "Avatar.png");
+    /**
+     *Sets new avatar and leaves this nage
+     */
+    private void onExit(){
+        curProfile.setPicture("file:data/avatars/"+ curProfile
+                .getUsername() + "Avatar.png"
+        );
         dc.save();
-        GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,profileScene.getProfile(), curProfile).getPane(),
-                GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
+        GUIController
+                .getPrimaryStage()
+                .setScene(new Scene(
+                        new ProfileScene(dc,profileScene
+                                .getProfile(), curProfile)
+                                .getPane(), GUIConstants
+                        .SCENE_WIDTH, GUIConstants
+                        .SCENE_HEIGHT)
+                );
         GUIController.centerize();
     }
 
+
+     /**
+     * Generates content panel
+     * @return central panel
+     */
     @Override
     public JFXMasonryPane constructContentPane() {
 
@@ -95,16 +148,17 @@ public class CustomAvatar extends ScenePattern {
         saveButton.getStyleClass().add("button-raised");
         exitButton.getStyleClass().add("button-raised");
 
-        saveButton.setOnMouseClicked(e->{
-            onSave();
-        });
-        exitButton.setOnMouseClicked(e->{
-            onExit();
-        });
+        saveButton.setOnMouseClicked(e -> onSave());
+        exitButton.setOnMouseClicked(e -> onExit());
 
         //Drawing canvas
-        canvas = new Canvas(GUIConstants.PROFILE_WIDTH * 2, GUIConstants.PROFILE_HEIGHT * 2);
-        canvas.setStyle("-fx-border-color: black");
+        canvas = new Canvas(
+                GUIConstants.PROFILE_WIDTH * 2,
+                GUIConstants.PROFILE_HEIGHT * 2
+        );
+        canvas
+                .setStyle("" +
+                        "-fx-border-color: black");
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -163,10 +217,22 @@ public class CustomAvatar extends ScenePattern {
         //toolPane.setStyle("-fx-border-color: #336699;"); //line border around tool pane
 
         //Tool pane
-        toolPane.getChildren().add(colorPicker);
-        toolPane.getChildren().addAll(new Label("Resize brush"), sizeSlider);
-        toolPane.getChildren().addAll(toolDrawTrace, toolDrawLine, toolErase);
-        toolPane.getChildren().add(new HBox(saveButton,exitButton));
+        toolPane
+                .getChildren()
+                .add(colorPicker
+                );
+        toolPane
+                .getChildren()
+                .addAll(new Label("Resize brush"), sizeSlider
+                );
+        toolPane
+                .getChildren()
+                .addAll(toolDrawTrace, toolDrawLine, toolErase
+                );
+        toolPane
+                .getChildren()
+                .add(new HBox(saveButton,exitButton)
+                );
 
         //Wrap canvas in pane
         Rectangle canvasRect = new Rectangle(canvas.getWidth(), canvas.getHeight());
@@ -179,7 +245,10 @@ public class CustomAvatar extends ScenePattern {
         );
 
         //Set border bane canvas and tools
-        mainPane.getChildren().addAll(canvasPane,toolPane);
+        mainPane
+                .getChildren()
+                .addAll(canvasPane,toolPane
+                );
 
         return mainPane;
     }
