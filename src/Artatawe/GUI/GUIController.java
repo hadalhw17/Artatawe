@@ -1,7 +1,6 @@
 package Artatawe.GUI;
 
 import Artatawe.Data.DataController;
-import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,23 +9,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GUIController extends Application {
+public class GUIController {
 
     private final String TITLE = "Artatawe";
 
     private DataController artataweDatabase;
     private static Stage primaryStage;
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
     public static  Stage getPrimaryStage() {
         return GUIController.primaryStage;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    public GUIController(Stage primaryStage) {
 
         try
         {
