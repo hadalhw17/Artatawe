@@ -96,11 +96,10 @@ public class ProfileScene extends ScenePattern {
     @Override
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
-        JFXButton favButton = new JFXButton("Mark as favourite.");
         ImageView imgView = new ImageView();
         imgView.setImage(profImage);
         imgView.setCache(false);
-        HBox avatarBox = new HBox();
+        VBox avatarBox = new VBox();
         ScrollPane pane2 = new ScrollPane();
         HBox bidedPane = loadSellingAuctions();
         createArtwork.setOnMousePressed( e -> initCreateArtwork(createArtwork));
@@ -115,11 +114,6 @@ public class ProfileScene extends ScenePattern {
 
         JFXButton customImage = new JFXButton("Custom avatar");
 
-        favButton.setOnMousePressed(e -> {
-            loggedInProfile.addFavourite(p);
-            dc.save();
-        });
-
         if(loggedInProfile
                 .getUsername()
                 .equals(p.getUsername())){
@@ -128,6 +122,7 @@ public class ProfileScene extends ScenePattern {
                     .addAll(imagePane, customImage, chooseImage,combo
                     );
         } else {
+            ToggleSwitch favButton = new ToggleSwitch(dc,loggedInProfile,p);
             avatarBox
                     .getChildren()
                     .addAll(imagePane, favButton
