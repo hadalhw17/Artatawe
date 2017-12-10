@@ -1,10 +1,9 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.DataController;
-import Artatawe.Data.Painting;
-import Artatawe.Data.Picture;
-import Artatawe.Data.Profile;
+import Artatawe.Data.*;
 import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -127,6 +126,12 @@ public class ArtworkCreation extends ScenePattern {
         createCard
                 .getChildren()
                 .addAll(name, year, reservedPrice,chooseImage, isSculpture, width,height, depth,description, create);
+        isSculpture.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                depth.setDisable(!newValue);
+            }
+        });
         if(isSculpture.isSelected()){
             depth.setEditable(true);
         } else {
@@ -148,14 +153,32 @@ public class ArtworkCreation extends ScenePattern {
                     notification.show("Complete all of these fields!!!", 5000);
 
                 } else {
-                    dc.createAuction(loggedInProfile,new Painting(name.getText(),description.getText(),
+                    if(isSculpture.isSelected()){
+                        if(!(depth.getText().equals("")
+                                || depth.getText().matches("[0-9]*"))){
+                            notification.show("Complete all of these fields!!!", 5000);
+                        } else {
+                            dc.createAuction(loggedInProfile,new Sculpture(name.getText(),
+                                    description.getText(),
                                     artworkPic,
                                     Integer.parseInt(year.getText()),
                                     Integer.parseInt(reservedPrice.getText()),
                                     new Date(12,12,12),
                                     Integer.parseInt(width.getText()),
-                                    Integer.parseInt(height.getText())),
-                            Integer.parseInt(reservedPrice.getText()));
+                                    Integer.parseInt(height.getText()),
+                                    Integer.parseInt(depth.getText())),
+                                    Integer.parseInt(reservedPrice.getText()));
+                        }
+                    } else {
+                        dc.createAuction(loggedInProfile,new Painting(name.getText(),description.getText(),
+                                        artworkPic,
+                                        Integer.parseInt(year.getText()),
+                                        Integer.parseInt(reservedPrice.getText()),
+                                        new Date(12,12,12),
+                                        Integer.parseInt(width.getText()),
+                                        Integer.parseInt(height.getText())),
+                                Integer.parseInt(reservedPrice.getText()));
+                    }
 
                     dc.save();
                     ((Stage) create
