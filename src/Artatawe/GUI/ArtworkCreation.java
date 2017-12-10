@@ -195,14 +195,14 @@ public class ArtworkCreation extends ScenePattern {
         String path = null;
         try{
             Files.copy(f
-                    .toPath(),new File("data/avatars/"+loggedInProfile
+                    .toPath(),new File("data/artworks/"+loggedInProfile
                     .getUsername()+ loggedInProfile
                     .getAuctions()
-                    .size()+"Avatar.png")
+                    .size()+"Artwork.png")
                     .toPath(), StandardCopyOption.REPLACE_EXISTING
             );
-            path = "data/avatars/"+loggedInProfile.getUsername()+
-                    loggedInProfile.getAuctions().size()+"Avatar.png";
+            path = "data/artworks/"+loggedInProfile.getUsername()+
+                    loggedInProfile.getAuctions().size()+"Artwork.png";
 
         }catch (Exception e){
             e.printStackTrace();
