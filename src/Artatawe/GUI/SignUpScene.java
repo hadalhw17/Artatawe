@@ -41,6 +41,21 @@ public class SignUpScene {
     //Field for mobile phone number
     private JFXTextField mobileNumberField = new JFXTextField();
 
+    //Address houseNumber
+    private JFXTextField addressHouseNumberField = new JFXTextField();
+
+    //Address street
+    private JFXTextField addressStreetField = new JFXTextField();
+
+    //Address city
+    private JFXTextField addressCityField = new JFXTextField();
+
+    //Address county
+    private JFXTextField addressCountyField = new JFXTextField();
+
+    //Address postcode
+    private JFXTextField addressPostcode = new JFXTextField();
+
     //Initiates account creation
     private JFXButton signInButton = new JFXButton("Create account");
 
@@ -81,33 +96,31 @@ public class SignUpScene {
         content.setPrefHeight(900);
         content.setMaxWidth(500);
         content.setPadding(new Insets(50,50,50,50));
-        signIn
-                .getChildren()
-                .addAll(firstNameField, secondNameField, usernameField, mobileNumberField, dOB);
+        signIn.getChildren().addAll(firstNameField, secondNameField, usernameField, mobileNumberField, dOB,
+                    addressCityField, addressCountyField, addressHouseNumberField, addressStreetField, addressPostcode
+                );
         welcomeField
                 .setStyle("" +
                         "-fx-font-size: 30; " +
                         "-fx-color-label-visible: false; " +
                         "-fx-text-fill: #FFFFFF");
         headerPane.setPrefHeight(100);
-        headerPane
-                .setStyle("" +
-                        "-fx-background-color: #336699;");
-        headerPane
-                .getChildren()
-                .addAll(welcomeField
-                );
+        headerPane.setStyle("-fx-background-color: #336699;");
+        headerPane.getChildren().addAll(welcomeField);
         firstNameField.setPromptText("First Name");
         secondNameField.setPromptText("Second Name");
         usernameField.setPromptText("Username");
         mobileNumberField.setPromptText("Mobile number");
-        signInButton
-                .getStyleClass()
-                .add("button-raised");
+        addressHouseNumberField.setPromptText("House Number");
+        addressStreetField.setPromptText("Street");
+        addressCityField.setPromptText("City");
+        addressCountyField.setPromptText("County");
+        addressPostcode.setPromptText("Postcode");
+
+        signInButton.getStyleClass().add("button-raised");
         dOB.setPromptText("Date Of Birth");
-        buttonPane
-                .getChildren()
-                .addAll(signInButton);
+        buttonPane.getChildren().addAll(signInButton);
+
         signInButton.setLayoutX(150);
         signInButton.setLayoutY(50);
 
@@ -116,17 +129,28 @@ public class SignUpScene {
                     ||secondNameField.getText().equals("")
                     ||mobileNumberField.getText().equals("")
                     ||dOB.getValue() == null
-                    ||!mobileNumberField.getText().matches("[0-9]*")){
+                    ||!mobileNumberField.getText().matches("[0-9]*")
+                    ||addressCityField.getText().equals("")
+                    ||addressCountyField.getText().equals("")
+                    ||addressStreetField.getText().equals("")
+                    ||addressPostcode.getText().equals("")
+                    ||!addressHouseNumberField.getText().matches("[0-9]*")
+                    ) {
                 notification.show("Complete all of these fields!!!" +
                         "\nAnd make sure that your phone number\n is an actual number:3", 5000);
-
             } else {
-                dc.createProfile(usernameField
-                                .getText(),firstNameField
-                                .getText(),secondNameField
-                                .getText(),mobileNumberField
-                                .getText(),
-                        new Address(0,"","","",""),
+                dc.createProfile(
+                        usernameField.getText(),
+                        firstNameField.getText(),
+                        secondNameField.getText(),
+                        mobileNumberField.getText(),
+                        new Address(
+                                Integer.valueOf(addressHouseNumberField.getText()),
+                                addressStreetField.getText(),
+                                addressCityField.getText(),
+                                addressCountyField.getText(),
+                                addressPostcode.getText()
+                        ),
                         new Picture("file:data/avatars/img.png"));
                 dc.save();
                 GUIController
