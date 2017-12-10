@@ -306,12 +306,12 @@
                 "date" : "12-Jan-1913",
                 "year" : 1997,
                 "name" : "Jeff ",
-                "width" : 60.0,
+                "width" : 80.0,
                 "photo" : "file:data/artworks/charliedaley970Artwork.png",
                 "reserve_price" : 300,
                 "type" : "PAINTING",
                 "desc" : "Jeff ",
-                "height" : 50.0
+                "height" : 60.0
             }
         }
     ]
