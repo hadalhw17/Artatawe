@@ -26,7 +26,8 @@ public class Artwork {
      * @param width
      * @param height
      */
-    public Artwork(String name, String description, Picture photo, int year, int reservedPrice, Date dateTime, double width, double height) {
+    public Artwork(String name, String description, Picture photo, int year, int reservedPrice,
+                   Date dateTime, double width, double height) {
 
         this.name = name;
         this.description = description;

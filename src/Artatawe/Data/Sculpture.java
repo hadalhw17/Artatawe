@@ -25,7 +25,8 @@ public class Sculpture extends Artwork {
      * @param height
      * @param depth
      */
-    public Sculpture(String name, String description, Picture photo, int year, int reservedPrice, Date dateTime, double width, double height, double depth){
+    public Sculpture(String name, String description, Picture photo, int year, int reservedPrice,
+                     Date dateTime, double width, double height, double depth){
         super(name, description, photo, year, reservedPrice, dateTime, width, height);
 
         this.depth = depth;

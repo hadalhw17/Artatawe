@@ -44,7 +44,8 @@ public class GUIController extends Application {
         this.primaryStage = primaryStage;
 
         primaryStage.setTitle(TITLE);
-        primaryStage.setScene(new Scene(new LoginScene(artataweDatabase).getPane(), GUIConstants.LOGIN_WIDTH,GUIConstants.LOGIN_HEIGHT));
+        primaryStage.setScene(new Scene(new LoginScene(artataweDatabase).getPane(),
+                GUIConstants.LOGIN_WIDTH,GUIConstants.LOGIN_HEIGHT));
         primaryStage.show();
         centerize();
     }
