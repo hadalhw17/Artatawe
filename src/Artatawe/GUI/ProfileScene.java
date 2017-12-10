@@ -243,10 +243,7 @@ public class ProfileScene extends ScenePattern {
      * Allows to choose avatar from the list of sample avatars
      */
     private void chooseFromSample(){
-        p.setProfileImg(new Picture(getClass()
-                .getResource("/"+combo.getValue())
-                .toExternalForm())
-        );
+        p.setProfileImg(new Picture("file:data/avatars/default_avatars/"+combo.getValue()));
         dc.save();
         GUIController
                 .getPrimaryStage()
