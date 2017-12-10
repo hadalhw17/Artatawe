@@ -20,11 +20,11 @@ import javafx.stage.Stage;
 /**
  * @author Aleksandr Slobodov
  * <p>
- *     SignInScene.java
+ *     SignUpScene.java
  * </p>
  * This class constructs scene where new profile can be created
  */
-public class SignInScene {
+public class SignUpScene {
 
     //Field for first name
     private JFXTextField firstNameField = new JFXTextField();
@@ -60,10 +60,10 @@ public class SignInScene {
     private JFXSnackbar notification = new JFXSnackbar( this.getPane());
 
     /**
-     * Constructor for <p>SignInScene.java</p>
+     * Constructor for <p>SignUpScene.java</p>
      * @param dc information about system
      */
-    public SignInScene(DataController dc){
+    public SignUpScene(DataController dc){
         this.dc = dc;
         signIn = constructSignIn();
         mainPane.setCenter(signIn);
@@ -77,7 +77,7 @@ public class SignInScene {
     private VBox constructSignIn(){
         VBox content = new VBox();
         Pane buttonPane = new Pane();
-        Label welcomeField = new Label("Sign in");
+        Label welcomeField = new Label("Sign Up");
         content.setPrefHeight(900);
         content.setMaxWidth(500);
         content.setPadding(new Insets(50,50,50,50));
