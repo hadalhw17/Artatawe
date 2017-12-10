@@ -39,26 +39,37 @@ public class ProfileScene extends ScenePattern {
 
     //Profile to be displayed
     private Profile p;
-    private AnchorPane imagePane;
+    
+    //Profile avatar holder
+    private AnchorPane imagePane = new AnchorPane();
+    
+    //Avatar itself
     private Image profImage;
+    
+    //Information about the system
     private DataController dc;
-    private Profile logedInProfile;
+
+    //Current user
+    private Profile loggedInProfile;
+
+    //Button to initiate artwork creation
     private JFXButton createArtwork = new JFXButton("Create Artwork");
 
     /**
      * Constructor for ProfileScene
      *
      * @param p profile to be displayed
+     * @param dc information about system
+     * @param loggedInProfile current user
      */
-    public ProfileScene(DataController dc, Profile p, Profile logedInProfile) {
-        super(dc,p,logedInProfile);
-        this.logedInProfile = logedInProfile;
+    public ProfileScene(DataController dc, Profile p, Profile loggedInProfile) {
+        super(dc,p,loggedInProfile);
+        this.loggedInProfile = loggedInProfile;
         this.p = p;
-        if(logedInProfile.getUsername().equals(p.getUsername())){
-            this.p = this.logedInProfile;
+        if(loggedInProfile.getUsername().equals(p.getUsername())){
+            this.p = this.loggedInProfile;
         }
         this.dc = dc;
-        imagePane = new AnchorPane();
 
         profImage = new Image(p.getProfileImg().getPath());
 
@@ -76,61 +87,51 @@ public class ProfileScene extends ScenePattern {
     }
 
 
-    //For now all of the paths are hard cored, but further all of the images gonna be fetched from Profile p.
 
     /**
-     * Generates central content pane for profile.
+     * Fetches data from Profile p and generates central content pane for profile.
      *
      * @return profile page.
      */
     @Override
-    //TODO Once Profile.java is finished, remove all of that hard-coded shit that is in this method and make everything automatic
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
         JFXButton favButton = new JFXButton("Mark as favourite.");
-        ImageView imgView;
-        imgView = new ImageView();
+        ImageView imgView = new ImageView();
         imgView.setImage(profImage);
         imgView.setCache(false);
         HBox avatarBox = new HBox();
         ScrollPane pane2 = new ScrollPane();
-        HBox biddedPane = new HBox();
+        HBox bidedPane = loadSellingAuctions();
         createArtwork.setOnMousePressed( e -> initCreateArtwork(createArtwork));
+
         JFXButton chooseImage = new JFXButton("Choose profile image");
-        chooseImage.setOnMousePressed(e->{
-            FileChooser fileChooser = new FileChooser();
-            configureFileChooser(fileChooser);
-            Window stage = GUIController.getPrimaryStage();
-            changeImage(fileChooser.showOpenDialog(stage));
-            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,p,logedInProfile).getPane(),
-                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
-        });
-        combo.setOnAction(e -> {
-            p.setProfileImg(new Picture(getClass().getResource("/"+combo.getValue()).toExternalForm()));
-            dc.save();
-            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,p,logedInProfile).getPane(),
-                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
-        });
-        biddedPane.setSpacing(10);
-        pane2.setContent(biddedPane);
+        chooseImage.setOnMousePressed(e -> chooseImage());
+
+        combo.setOnAction(e -> chooseFromSample());
+
+        bidedPane.setSpacing(10);
+        pane2.setContent(bidedPane);
+
         JFXButton customImage = new JFXButton("Custom avatar");
-        for(Auction auction: dc.getAuctions()){
-            if(auction.getSeller().getUsername().equals(p.getUsername())){
-                ImageView imgView2 = new ImageView(new Image(auction.getArtwork().getPhoto().getPath()));
-                imgView2.setFitWidth(200);
-                imgView2.setFitHeight(200);
-                biddedPane.getChildren().addAll(new Pane(imgView2));
-            }
-        }
 
         favButton.setOnMousePressed(e -> {
-            logedInProfile.addFavourite(p);
+            loggedInProfile.addFavourite(p);
             dc.save();
         });
-        if(logedInProfile.getUsername().equals(p.getUsername())){
-            avatarBox.getChildren().addAll(imagePane, customImage, chooseImage,combo);
+
+        if(loggedInProfile
+                .getUsername()
+                .equals(p.getUsername())){
+            avatarBox
+                    .getChildren()
+                    .addAll(imagePane, customImage, chooseImage,combo
+                    );
         } else {
-            avatarBox.getChildren().addAll(imagePane, favButton);
+            avatarBox
+                    .getChildren()
+                    .addAll(imagePane, favButton
+                    );
         }
         imgView.setFitWidth(GUIConstants.PROFILE_WIDTH);
         imgView.setFitHeight(GUIConstants.PROFILE_HEIGHT);
@@ -138,40 +139,77 @@ public class ProfileScene extends ScenePattern {
         imagePane.getChildren().addAll(imgView);
         customImage.setOnMousePressed(e -> {
 
-            GUIController.getPrimaryStage().setScene(new Scene(new CustomAvatar(dc,p,this, logedInProfile).getPane(),
-                    GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
+            GUIController
+                    .getPrimaryStage()
+                    .setScene(new Scene(new CustomAvatar(dc,p,this, loggedInProfile)
+                            .getPane(), GUIConstants
+                            .SCENE_WIDTH, GUIConstants
+                            .SCENE_HEIGHT)
+                    );
         });
-        pane2.setPrefSize(600, 200);
-        VBox pane1 = new VBox(new Label("About"), new Label("Name: " + p.getFirstname() + " " + p.getSurname() +"\nPhone#: " + p.getMobileNo()));
-        pane1.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); -fx-background-color: #E8EAF6;");
-        pane2.setStyle("-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0);-fx-background-color: #E8EAF6;");
 
-        contentPane.getChildren().addAll(avatarBox, pane1, pane2, createArtwork);
+        pane2.setPrefSize(600, 200);
+
+        VBox pane1 = new VBox(
+                new Label("About"),
+                new Label("Name: " + p.getFirstname() + " " + p.getSurname() +
+                        "\nPhone#: " + p.getMobileNo()));
+        pane1
+                .setStyle("" +
+                        "-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); " +
+                        "-fx-background-color: #E8EAF6;");
+        pane2
+                .setStyle("" +
+                        "-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0);" +
+                        "-fx-background-color: #E8EAF6;");
+
+        contentPane
+                .getChildren()
+                .addAll(avatarBox, pane1, pane2, createArtwork);
 
         return contentPane;
     }
 
+    /**
+     * Getter for profile displayed on the page
+     * @return profile displayed
+     */
     public Profile getProfile() {
         return p;
     }
 
+    /**
+     * Sets up file chooser for avatar.
+     * Adds image filter and sets home directory
+     * @param fileChooser
+     */
     private static void configureFileChooser(
             final FileChooser fileChooser) {
         fileChooser.setTitle("View Pictures");
         fileChooser.setInitialDirectory(
                 new File(System.getProperty("user.home"))
         );
-        fileChooser.getExtensionFilters().addAll(
-                //new FileChooser.ExtensionFilter("All Images", "*."),
-                new FileChooser.ExtensionFilter("All Images", "*.jpg", "*.png"));
-                //new FileChooser.ExtensionFilter("PNG", "*.png")
+        fileChooser
+                .getExtensionFilters()
+                .addAll(
+                        new FileChooser
+                                .ExtensionFilter("All Images", "*.jpg", "*.png")
+                );
 
     }
 
+    /**
+     * Loads image from file system and sets it as avatar
+     * @param f
+     */
     private void changeImage(File f){
         if(f != null) {
             try{
-                Files.copy(f.toPath(), new File("data/avatars/"+p.getUsername()+"Avatar.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(f
+                        .toPath(), new File("data/avatars/"+p
+                        .getUsername()+"Avatar.png")
+                        .toPath(), StandardCopyOption.REPLACE_EXISTING
+                );
                 p.setProfileImg(new Picture("file:data/avatars/"+p.getUsername()+"Avatar.png"));
                 dc.save();
             } catch (Exception e){
@@ -180,22 +218,75 @@ public class ProfileScene extends ScenePattern {
         }
     }
 
-    private JFXComboBox sampleAvatars(){
-        JFXComboBox<String> avatars =  new JFXComboBox<>();
-        avatars.setPromptText("Use sample images");
-        for(int i = 1; i <=6; i++){
-            String img = new String("img" + i + ".png");
-            avatars.getItems().addAll(img);
-        }
 
-
-        return avatars;
-    }
-
+    /**
+     * Changes scene to ArtworkCreation
+     * @param btn which was pressed to call this method
+     */
     private void initCreateArtwork(JFXButton btn){
-        ((Stage) btn.getScene().getWindow()).setScene(new Scene(new ArtworkCreation(dc,p, logedInProfile).getPane(),
-                Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+        ((Stage) btn.getScene().getWindow()).setScene(new Scene(new ArtworkCreation(dc,p, loggedInProfile).getPane(),
+                getPane().getWidth(), getPane().getHeight()));
     }
 
+    /**
+     * Load fileChooser
+     */
+    private void chooseImage(){
+        FileChooser fileChooser = new FileChooser();
+        configureFileChooser(fileChooser);
+        Window stage = GUIController.getPrimaryStage();
+        changeImage(fileChooser.showOpenDialog(stage));
+        GUIController
+                .getPrimaryStage()
+                .setScene(new Scene(new ProfileScene(dc,p,loggedInProfile)
+                        .getPane(), GUIConstants
+                        .SCENE_WIDTH, GUIConstants
+                        .SCENE_HEIGHT)
+                );
+    }
 
+    /**
+     * Allows to choose avatar from the list of sample avatars
+     */
+    private void chooseFromSample(){
+        p.setProfileImg(new Picture(getClass()
+                .getResource("/"+combo.getValue())
+                .toExternalForm())
+        );
+        dc.save();
+        GUIController
+                .getPrimaryStage()
+                .setScene(new Scene(new ProfileScene(dc,p,loggedInProfile)
+                        .getPane(), GUIConstants
+                        .SCENE_WIDTH, GUIConstants
+                        .SCENE_HEIGHT)
+                );
+    }
+
+    /**
+     * Load box with artworks profile is selling
+     * @return  bidedPane
+     */
+    private HBox loadSellingAuctions(){
+        HBox bidedPane = new HBox();
+        for(Auction auction: dc.getAuctions()){
+            if(auction
+                    .getSeller()
+                    .getUsername()
+                    .equals(p.getUsername())){
+                ImageView imgView2 = new ImageView(new Image(auction
+                        .getArtwork()
+                        .getPhoto()
+                        .getPath())
+                );
+                imgView2.setFitWidth(200);
+                imgView2.setFitHeight(200);
+                bidedPane
+                        .getChildren()
+                        .addAll(new Pane(imgView2)
+                        );
+            }
+        }
+        return bidedPane;
+    }
 }
