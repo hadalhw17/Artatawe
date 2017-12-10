@@ -21,6 +21,9 @@ public class Auction {
     // list of bids placed on the auction
     private ArrayList<Bid> bidList;
 
+    // list of comments made by profiles on this auction
+    private ArrayList<AuctionComment> commentList;
+
     // the artwork being sold on the auction
     private Artwork artwork;
 
@@ -35,6 +38,7 @@ public class Auction {
     public Auction (Profile seller, Artwork artwork, int bidMax) {
 
         this.bidList = new ArrayList<>();
+        this.commentList = new ArrayList<>();
         this.seller = seller;
         this.artwork = artwork;
         this.bidMax = bidMax;
@@ -48,6 +52,13 @@ public class Auction {
     public ArrayList<Bid> getBidList() {
 
         return bidList;
+    }
+
+    /**
+     * @return The list of comments
+     */
+    public ArrayList<AuctionComment> getCommentList() {
+        return commentList;
     }
 
     /**
@@ -105,10 +116,24 @@ public class Auction {
     }
 
     /**
+     * Make a comment on this auction
+     * @param profile Commenter's profile
+     * @param comment AuctionComment text
+     */
+    public void makeComment(Profile profile, String comment)
+    {
+        commentList.add(new AuctionComment(profile, comment));
+    }
+
+    /**
      * @return The latest bid
      */
     public Bid getLastBid() {
 
         return bidList.get(bidList.size() -1);
+    }
+
+    public String toString(){
+        return getArtwork().toString();
     }
 }

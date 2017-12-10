@@ -1,8 +1,6 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.Auction;
 import Artatawe.Data.DataController;
-import Artatawe.Data.Painting;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -12,15 +10,10 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
@@ -35,43 +28,49 @@ import static javafx.scene.input.MouseEvent.MOUSE_PRESSED;
  *  Contains BorderPane as main layout, VBox as left menu, HBox as a header.
  *
  */
-public class ScenePattern{
+public class ScenePattern {
 
     //Name printed in top left corner
     private final Label NAME_FIELD = new Label("ARTATAWE | ");
 
     //Animated button for menu sliding
-    private JFXHamburger menuHamburger;
-    //Left menu
-    private JFXDrawer leftDrawer;
-    //Pane for left menu
-    private VBox drawerPane;
-    //Main pane of scene
-    private BorderPane border;
-    //Central content pane
-    private JFXMasonryPane contentPane;
-    //Label for name of the current page
-    private Label nameLabel;
-    //Header panel
-    private HBox topBox;
-    private DataController dc;
-    private Profile p;
+    private JFXHamburger menuHamburger = new JFXHamburger();
 
+    //Left menu
+    private JFXDrawer leftDrawer = new JFXDrawer();
+
+    //Pane for left menu
+    private VBox drawerPane = new VBox();
+
+    //Main pane of scene
+    private BorderPane border = new BorderPane();
+
+    //Central content pane
+    private Pane contentPane = new JFXMasonryPane();
+
+    //Label for name of the current page
+    private Label nameLabel = new Label();
+
+    //Header panel
+    private HBox topBox = new HBox();
+
+    //Current user
+    private Profile loggedInProfile;
+
+    //Information about system
+    protected DataController dc;
+
+    //Current user
+    protected   Profile curProfile;
 
     /**
      * A constructor for ScenePattern.
      * Adds all of the main elements to the scene.
      */
-    public ScenePattern(DataController dc, Profile p) {
-        this.p = p;
+    public ScenePattern(DataController dc, Profile p, Profile loggedInProfile) {
+        this.curProfile = p;
+        this.loggedInProfile = loggedInProfile;
         this.dc = dc;
-        nameLabel = new Label();
-        border = new BorderPane();
-        leftDrawer = new JFXDrawer();
-        drawerPane = new VBox();
-        border = new BorderPane();
-        contentPane = new JFXMasonryPane();
-        nameLabel = new Label();
         topBox = addHBox();
         border.setTop(topBox);
         drawerPane = addDrawerVBox();
@@ -83,6 +82,7 @@ public class ScenePattern{
         contentPane = constructContentPane();
         border.setCenter(contentPane);
     }
+    
     /**
      * A getter for a main pane.
      * @return main border pane with all of the objects constructed on it.
@@ -101,28 +101,68 @@ public class ScenePattern{
         leftDrawer.setOverLayVisible(false);
         leftDrawer.setSidePane(drawerPane);
         leftDrawer.setPrefSize(0,0);
+
         JFXButton profileButton = new JFXButton("View Profile");
         JFXButton button1 = new JFXButton("View Auctions");
-        JFXButton button2 = new JFXButton("Bid artwork");
+        JFXButton button2 = new JFXButton("View Favourites");
+        JFXButton searchButton = new JFXButton("Search profiles");
+
         VBox vBox = new VBox();
         vBox.setStyle("-fx-background-color: #E91E63; -fx-padding: -10;");
         vBox.setPadding(new Insets(15, 12, 15, 0));
         vBox.setSpacing(10);
         button1.setMaxWidth(10000);
+        searchButton.setMaxWidth(10000);
+
         button1.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)button1.getScene().getWindow()).setScene(new Scene(new ArtworkContainer(dc,p).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth() ,Screen.getPrimary().getVisualBounds().getHeight()));
+            GUIController
+                    .getPrimaryStage()
+                    .setScene(new Scene(new ArtworkContainer(dc,curProfile,loggedInProfile)
+                            .getPane(), getPane()
+                            .getWidth(), getPane()
+                            .getHeight())
+                    );
         });
+
+        button2.setMaxWidth(10000);
+        button2.addEventHandler(MOUSE_CLICKED, e -> {
+            GUIController
+                    .getPrimaryStage()
+                    .setScene(new Scene(new FavouriteProfileScene(dc,loggedInProfile,loggedInProfile)
+                            .getPane(), getPane()
+                            .getWidth(), getPane()
+                            .getHeight())
+                    );
+        });
+
         profileButton.addEventHandler(MOUSE_CLICKED, e -> {
-            ((Stage)profileButton.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,p).getPane(),
-                    Screen.getPrimary().getVisualBounds().getWidth(),Screen.getPrimary().getVisualBounds().getHeight()));
+            GUIController
+                    .getPrimaryStage()
+                    .setScene(new Scene(new ProfileScene(dc,loggedInProfile,loggedInProfile)
+                            .getPane(), getPane()
+                            .getWidth(), getPane()
+                            .getHeight())
+                    );
+        });
+
+        searchButton.addEventHandler(MOUSE_CLICKED, e -> {
+            GUIController
+                    .getPrimaryStage()
+                    .setScene(new Scene(new SearchScene(dc,curProfile,loggedInProfile)
+                            .getPane(), getPane()
+                            .getWidth(), getPane()
+                            .getHeight()));
         });
         vBox.setMargin(profileButton, new Insets(25, 25, 1, 25));
         vBox.setMargin(button1, new Insets(1, 25, 1, 25));
         vBox.setMargin(button2, new Insets(1, 25, 25, 25));
+        vBox.setMargin(searchButton,new Insets(1,25,25,25));
         button2.setMaxWidth(10000);
         profileButton.setMaxWidth(10000);
-        vBox.getChildren().addAll(profileButton,button1, button2);
+        vBox
+                .getChildren()
+                .addAll(profileButton,button1, button2, searchButton
+                );
         return vBox;
     }
 
@@ -135,12 +175,25 @@ public class ScenePattern{
         menuHamburger = new JFXHamburger();
         hbox.setPadding(new Insets(15, 12, 15, -25));
         hbox.setSpacing(10);
-        hbox.setStyle("-fx-background-color: #336699;");
+        hbox
+                .setStyle(
+                        "-fx-background-color: #336699;");
         menuHamburger.setPrefSize(100, 20);
-        NAME_FIELD.setStyle("-fx-font-size: 30; -fx-color-label-visible: false; -fx-text-fill: #FFFFFF");
-        nameLabel.setStyle("-fx-font-size: 30; -fx-color-label-visible: false; -fx-text-fill: #FFFFFF");
+        NAME_FIELD
+                .setStyle("" +
+                        "-fx-font-size: 30; " +
+                        "-fx-color-label-visible: false; " +
+                        "-fx-text-fill: #FFFFFF");
+        nameLabel
+                .setStyle("" +
+                        "-fx-font-size: 30; " +
+                        "-fx-color-label-visible: false; " +
+                        "-fx-text-fill: #FFFFFF");
 
-        hbox.getChildren().addAll(menuHamburger, NAME_FIELD,nameLabel);
+        hbox
+                .getChildren()
+                .addAll(menuHamburger, NAME_FIELD,nameLabel
+                );
 
         return hbox;
     }
@@ -157,7 +210,7 @@ public class ScenePattern{
      * Generates central content pane.
      * @return generated content pane.
      */
-    public JFXMasonryPane constructContentPane(){
+    public Pane constructContentPane(){
 
         return contentPane;
     }

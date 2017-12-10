@@ -13,7 +13,7 @@
                 "houseNo" : 1
             },
             "surname" : "something",
-            "avatar" : "file:data/avatars/img.png",
+            "avatar" : "file:data/avatars/user_AAvatar.png",
             "mobileNo" : "123456789",
             "username" : "user_A"
         },
@@ -28,7 +28,7 @@
                 "houseNo" : 1
             },
             "surname" : "person",
-            "avatar" : "file:data/avatars/img.png",
+            "avatar" : "file:data/avatars/user_BAvatar.png",
             "mobileNo" : "123456789",
             "username" : "user_B"
         },
@@ -57,45 +57,120 @@
                 "postcode" : "",
                 "houseNo" : 0
             },
-            "surname" : "Slobov",
+            "surname" : "Slobodov",
             "avatar" : "file:data/avatars/hadalhw17Avatar.png",
             "mobileNo" : "89257382222",
             "username" : "hadalhw17"
+        },
+        {
+            "favourite_profiles" : [
+                "user_A",
+                "user_B",
+                "user_C",
+                "hadalhw17"
+            ],
+            "firstname" : "Tom",
+            "address" : {
+                "country" : "",
+                "city" : "",
+                "street" : "",
+                "postcode" : "",
+                "houseNo" : 0
+            },
+            "surname" : "Street",
+            "avatar" : "file:data/avatars/BrotherhoodOfHamAvatar.png",
+            "mobileNo" : "123456678",
+            "username" : "BrotherhoodOfHam"
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "asdasd",
+            "address" : {
+                "country" : "",
+                "city" : "",
+                "street" : "",
+                "postcode" : "",
+                "houseNo" : 0
+            },
+            "surname" : "asdasfaa",
+            "avatar" : "file:data/avatars/img.png",
+            "mobileNo" : "asdfasda",
+            "username" : "asfasga"
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "",
+            "address" : {
+                "country" : "",
+                "city" : "",
+                "street" : "",
+                "postcode" : "",
+                "houseNo" : 0
+            },
+            "surname" : "",
+            "avatar" : "file:data/avatars/img.png",
+            "mobileNo" : "",
+            "username" : ""
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "sdf",
+            "address" : {
+                "country" : "",
+                "city" : "",
+                "street" : "",
+                "postcode" : "",
+                "houseNo" : 0
+            },
+            "surname" : "sdf",
+            "avatar" : "file:data/avatars/img.png",
+            "mobileNo" : "112231",
+            "username" : "sdf"
         }
     ],
     "auctions" : [
         {
             "seller" : "user_B",
+            "comments" : [
+                {
+                    "profile" : "user_B",
+                    "text" : "very unhelpful comment that serves no purpose at all."
+                },
+                {
+                    "profile" : "hadalhw17",
+                    "text" : "Fuck"
+                }
+            ],
             "bids" : [
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 1000020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Mar 20, 1918",
-                    "amount" : 1,
-                    "bidder" : "user_A"
+                    "date" : "Dec 10, 2017",
+                    "amount" : 5,
+                    "bidder" : "hadalhw17"
                 },
                 {
-                    "date" : "Mar 20, 1918",
-                    "amount" : 1,
-                    "bidder" : "user_A"
+                    "date" : "Dec 10, 2017",
+                    "amount" : 5,
+                    "bidder" : "hadalhw17"
                 },
                 {
-                    "date" : "Mar 20, 1918",
-                    "amount" : 1,
-                    "bidder" : "user_A"
+                    "date" : "Dec 10, 2017",
+                    "amount" : 5,
+                    "bidder" : "hadalhw17"
                 },
                 {
-                    "date" : "Mar 20, 1918",
-                    "amount" : 1,
-                    "bidder" : "user_A"
+                    "date" : "Dec 10, 2017",
+                    "amount" : 5,
+                    "bidder" : "hadalhw17"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 8, 2017",
+                "date" : "Dec 10, 2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -108,36 +183,50 @@
         },
         {
             "seller" : "user_C",
+            "comments" : [
+                {
+                    "profile" : "user_A",
+                    "text" : "some comment about the auction"
+                },
+                {
+                    "profile" : "user_C",
+                    "text" : "some other comment about the auction"
+                },
+                {
+                    "profile" : "user_A",
+                    "text" : "12348923948 238947923 89 239"
+                }
+            ],
             "bids" : [
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 123020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 123200,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 123210,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 123300,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "Dec 8, 2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 123400,
                     "bidder" : "user_A"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 8, 2017",
+                "date" : "Dec 10, 2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
@@ -146,6 +235,58 @@
                 "type" : "PAINTING",
                 "desc" : "The Starry Night",
                 "height" : 0.74
+            }
+        },
+        {
+            "seller" : "hadalhw17",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 123,
+            "artwork" : {
+                "date" : "Dec 10, 2017",
+                "year" : 123,
+                "name" : "Mona",
+                "width" : 2.0,
+                "photo" : "file:data/avatars/hadalhw170Avatar.png",
+                "reserve_price" : 123,
+                "type" : "PAINTING",
+                "desc" : "Mona",
+                "height" : 2.0
+            }
+        },
+        {
+            "seller" : "hadalhw17",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 123,
+            "artwork" : {
+                "date" : "Dec 10, 2017",
+                "year" : 123,
+                "name" : "asd",
+                "width" : 123.0,
+                "photo" : "file:data/avatars/hadalhw171Avatar.png",
+                "reserve_price" : 123,
+                "type" : "PAINTING",
+                "desc" : "asd",
+                "height" : 123.0
+            }
+        },
+        {
+            "seller" : "user_C",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 100,
+            "artwork" : {
+                "date" : "Dec 10, 2017",
+                "depth" : 20.0,
+                "year" : 2017,
+                "name" : "Gorilla Head",
+                "width" : 20.0,
+                "photo" : "file:data/avatars/user_C1Avatar.png",
+                "reserve_price" : 100,
+                "type" : "SCULPTURE",
+                "desc" : "Gorilla Head",
+                "height" : 20.0
             }
         }
     ]
