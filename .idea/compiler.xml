@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Artatawe" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Artatawe" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="HaskellBuildOptions">
+    <ghcPath>C:\Program Files\Haskell Platform\8.2.1\bin\ghc.exe</ghcPath>
+    <cabalPath>C:\Program Files\Haskell Platform\8.2.1\lib\extralibs\bin\cabal.exe</cabalPath>
+    <stackPath>C:\Users\shpkblz\AppData\Roaming\local\bin\stack.exe</stackPath>
+  </component>
+</project>
