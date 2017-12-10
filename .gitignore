@@ -15,11 +15,9 @@ bin-release/
 *.iml
 *.iws
 *.ipr
-idea/
 
 # Eclipse
 .settings/
-classpath
 .project
 
 # NetBeans
