@@ -49,8 +49,6 @@
         },
         {
             "favourite_profiles" : [
-                "user_B",
-                "user_C",
                 "user_A"
             ],
             "firstname" : "Aleksandr",
