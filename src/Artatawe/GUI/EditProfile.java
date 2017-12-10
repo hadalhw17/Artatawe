@@ -26,14 +26,14 @@ import java.util.Date;
  * @athor Aleksandr Slobodov
  *
  * <p>
- *     ArtworkCration.java
+ *     EditProfile.java
  * </p>
- * Constructs a page where a user is able to initiate new auction
+ * Constructs a page where a user is able to edit his profile
  * Inherits from <p>ScenePattern.java</p>
  */
 public class EditProfile extends ScenePattern{
 
-
+    //Field for first name
     private JFXTextField firstNameField = new JFXTextField();
 
     //Field for second name
@@ -63,20 +63,26 @@ public class EditProfile extends ScenePattern{
     //Notifies if data in fields is invalid
     private JFXSnackbar notification = new JFXSnackbar( this.getPane());
 
+    //Current user
     private Profile logedInProfile;
 
+    //Field for address entity
     private JFXTextField houseNoField = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField streetField  = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField cityField = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField countryField = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField postcodeField = new JFXTextField();
 
     /**
-     * Constructor for <p>SignUpScene.java</p>
+     * Constructor for <p>EditProfile.java>
      * @param dc information about system
      */
     public EditProfile(DataController dc, Profile p, Profile logedInProfile){

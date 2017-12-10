@@ -205,9 +205,19 @@
                 {
                     "profile" : "user_A",
                     "text" : "12348923948 238947923 89 239"
+                },
+                {
+                    "profile" : "hadalhw17",
+                    "text" : "Nice comments lads"
                 }
             ],
-            "bids" : [],
+            "bids" : [
+                {
+                    "date" : "Dec 10, 2017",
+                    "amount" : 1230001,
+                    "bidder" : "hadalhw17"
+                }
+            ],
             "max_bids" : 5,
             "artwork" : {
                 "date" : "Dec 10, 2017",
