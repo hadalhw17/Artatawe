@@ -26,14 +26,14 @@ import java.util.Date;
  * @athor Aleksandr Slobodov
  *
  * <p>
- *     ArtworkCration.java
+ *     EditProfile.java
  * </p>
- * Constructs a page where a user is able to initiate new auction
+ * Constructs a page where a user is able to edit his profile
  * Inherits from <p>ScenePattern.java</p>
  */
 public class EditProfile extends ScenePattern{
 
-
+    //Field for first name
     private JFXTextField firstNameField = new JFXTextField();
 
     //Field for second name
@@ -63,20 +63,26 @@ public class EditProfile extends ScenePattern{
     //Notifies if data in fields is invalid
     private JFXSnackbar notification = new JFXSnackbar( this.getPane());
 
+    //Current user
     private Profile logedInProfile;
 
+    //Field for address entity
     private JFXTextField houseNoField = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField streetField  = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField cityField = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField countryField = new JFXTextField();
 
+    //Field for address entity
     private JFXTextField postcodeField = new JFXTextField();
 
     /**
-     * Constructor for <p>SignUpScene.java</p>
+     * Constructor for <p>EditProfile.java>
      * @param dc information about system
      */
     public EditProfile(DataController dc, Profile p, Profile logedInProfile){
@@ -116,15 +122,15 @@ public class EditProfile extends ScenePattern{
                 .getChildren()
                 .addAll(welcomeField
                 );
-        firstNameField.setPromptText("First Name");
-        secondNameField.setPromptText("Second Name");
-        usernameField.setPromptText("Username");
-        mobileNumberField.setPromptText("Mobile number");
-        houseNoField.setPromptText("House#");
-        cityField.setPromptText("City");
-        streetField.setPromptText("Street");
-        postcodeField.setPromptText("Post code");
-        countryField.setPromptText("Country");
+        firstNameField.setText(logedInProfile.getFirstname());
+        secondNameField.setText(logedInProfile.getSurname());
+        usernameField.setText(logedInProfile.getUsername());
+        mobileNumberField.setText(logedInProfile.getMobileNo());
+        houseNoField.setText(Integer.toString(logedInProfile.getAddress().getHouseNum()));
+        cityField.setText(logedInProfile.getAddress().getCity());
+        streetField.setText(logedInProfile.getAddress().getStreet());
+        postcodeField.setText(logedInProfile.getAddress().getPostcode());
+        countryField.setText(logedInProfile.getAddress().getCounty());
         signInButton
                 .getStyleClass()
                 .add("button-raised");
@@ -146,7 +152,7 @@ public class EditProfile extends ScenePattern{
                     ||postcodeField.getText().equals("")
                     ||!houseNoField.getText().matches("[0-9]*")){
                 notification.show("Complete all of these fields!!!" +
-                        "\nAnd make sure that your phone number\n is an actual number:3", 5000);
+                        "\nAnd make sure that your phone number and house number\n are actual numbers:3", 5000);
 
             } else {
                 logedInProfile.setUsername(usernameField.getText());
