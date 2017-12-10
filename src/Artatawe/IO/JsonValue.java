@@ -51,7 +51,8 @@ public class JsonValue
                             value == null
             ))
             {
-                throw new IllegalArgumentException("parameter is not a Number, Boolean, String, JsonObject or JsonList");
+                throw new IllegalArgumentException("parameter is not a Number," +
+                        " Boolean, String, JsonObject or JsonList");
             }
 
             this.value = value;

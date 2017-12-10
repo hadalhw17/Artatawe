@@ -128,7 +128,9 @@
             "username" : "sdf"
         },
         {
-            "favourite_profiles" : [],
+            "favourite_profiles" : [
+                "user_B"
+            ],
             "firstname" : "charlie",
             "address" : {
                 "country" : "",
@@ -138,9 +140,54 @@
                 "houseNo" : 0
             },
             "surname" : "daley",
-            "avatar" : "file:data/avatars/default_avatars/img3.png",
+            "avatar" : "file:data/avatars/charliedaley97Avatar.png",
             "mobileNo" : "07847364757",
             "username" : "charliedaley97"
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "Bob",
+            "address" : {
+                "country" : "Cardiff",
+                "city" : "Cardiff",
+                "street" : "Will St",
+                "postcode" : "CA1 0LL",
+                "houseNo" : 47
+            },
+            "surname" : "Jones",
+            "avatar" : "file:data/avatars/default_avatars/img6.png",
+            "mobileNo" : "08574638757",
+            "username" : "bobjones97"
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "Ian",
+            "address" : {
+                "country" : "Cardiff",
+                "city" : "Cardiff",
+                "street" : "Ian St",
+                "postcode" : "CF1 8PG",
+                "houseNo" : 32
+            },
+            "surname" : "Carter",
+            "avatar" : "file:data/avatars/iancarter97Avatar.png",
+            "mobileNo" : "0758375634",
+            "username" : "iancarter97"
+        },
+        {
+            "favourite_profiles" : [],
+            "firstname" : "sfs",
+            "address" : {
+                "country" : "wrer",
+                "city" : "rwr",
+                "street" : "daddaad",
+                "postcode" : "dadad",
+                "houseNo" : 44
+            },
+            "surname" : "sfsf",
+            "avatar" : "file:data/avatars/img.png",
+            "mobileNo" : "7457547",
+            "username" : "fff"
         }
     ],
     "auctions" : [
@@ -158,29 +205,34 @@
             ],
             "bids" : [
                 {
-                    "date" : "Dec 10, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 1000001,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 10, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 1000002,
                     "bidder" : "user_B"
                 },
                 {
-                    "date" : "Dec 10, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 2000000,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 10, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 2000001,
                     "bidder" : "user_B"
+                },
+                {
+                    "date" : "10-Dec-2017",
+                    "amount" : 10000000,
+                    "bidder" : "charliedaley97"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -209,18 +261,27 @@
                 {
                     "profile" : "hadalhw17",
                     "text" : "Nice comments lads"
+                },
+                {
+                    "profile" : "charliedaley97",
+                    "text" : "i like the painting"
                 }
             ],
             "bids" : [
                 {
-                    "date" : "Dec 10, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 1230001,
                     "bidder" : "hadalhw17"
+                },
+                {
+                    "date" : "10-Dec-2017",
+                    "amount" : 50000000,
+                    "bidder" : "charliedaley97"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
@@ -237,7 +298,7 @@
             "bids" : [],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 123,
                 "name" : "Mona",
                 "width" : 2.0,
@@ -253,14 +314,14 @@
             "comments" : [],
             "bids" : [
                 {
-                    "date" : "Dec 10, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 222,
                     "bidder" : "user_B"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 123,
                 "name" : "asd",
                 "width" : 123.0,
@@ -277,7 +338,7 @@
             "bids" : [],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "depth" : 20.0,
                 "year" : 2017,
                 "name" : "Gorilla Head",
@@ -295,7 +356,7 @@
             "bids" : [],
             "max_bids" : 2,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "depth" : 123.0,
                 "year" : 12312,
                 "name" : "Sculpture1",
@@ -313,7 +374,7 @@
             "bids" : [],
             "max_bids" : 300,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1997,
                 "name" : "Jeff ",
                 "width" : 80.0,
@@ -322,6 +383,71 @@
                 "type" : "PAINTING",
                 "desc" : "Jeff ",
                 "height" : 60.0
+            }
+        },
+        {
+            "seller" : "iancarter97",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 50,
+            "artwork" : {
+                "date" : "12-Jan-1913",
+                "depth" : 80.0,
+                "year" : 2007,
+                "name" : "Cat",
+                "width" : 80.0,
+                "photo" : "file:data/artworks/iancarter970Artwork.png",
+                "reserve_price" : 50,
+                "type" : "SCULPTURE",
+                "desc" : "Cat",
+                "height" : 80.0
+            }
+        },
+        {
+            "seller" : "iancarter97",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 30,
+            "artwork" : {
+                "date" : "12-Jan-1913",
+                "depth" : 90.0,
+                "year" : 2007,
+                "name" : "Cat",
+                "width" : 80.0,
+                "photo" : "file:data/artworks/iancarter971Artwork.png",
+                "reserve_price" : 30,
+                "type" : "SCULPTURE",
+                "desc" : "Cat",
+                "height" : 90.0
+            }
+        },
+        {
+            "seller" : "iancarter97",
+            "comments" : [
+                {
+                    "profile" : "iancarter97",
+                    "text" : "Hey i made this picture"
+                }
+            ],
+            "bids" : [
+                {
+                    "date" : "10-Dec-2017",
+                    "amount" : 600,
+                    "bidder" : "charliedaley97"
+                }
+            ],
+            "max_bids" : 50,
+            "artwork" : {
+                "date" : "12-Jan-1913",
+                "depth" : 50.0,
+                "year" : 2003,
+                "name" : "blue Painting",
+                "width" : 90.0,
+                "photo" : "file:data/artworks/iancarter972Artwork.png",
+                "reserve_price" : 50,
+                "type" : "SCULPTURE",
+                "desc" : "blue Painting",
+                "height" : 90.0
             }
         }
     ]

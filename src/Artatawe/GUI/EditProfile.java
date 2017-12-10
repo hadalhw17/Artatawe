@@ -108,7 +108,8 @@ public class EditProfile extends ScenePattern{
         content.setPadding(new Insets(50,50,50,50));
         signIn
                 .getChildren()
-                .addAll(firstNameField, secondNameField, usernameField, mobileNumberField, houseNoField, streetField, cityField, countryField, postcodeField);
+                .addAll(firstNameField, secondNameField, usernameField, mobileNumberField,
+                        houseNoField, streetField, cityField, countryField, postcodeField);
         welcomeField
                 .setStyle("" +
                         "-fx-font-size: 30; " +

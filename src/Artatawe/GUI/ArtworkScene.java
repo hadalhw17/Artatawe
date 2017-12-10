@@ -53,7 +53,8 @@ public class ArtworkScene extends ScenePattern {
         HBox bidButtonPane = new HBox();
         JFXButton bidPlaceButton = new JFXButton("Place bid: ");
         TextField bidAmountInput = new TextField("");
-        Label bidStatus = new Label(String.format("%d bids remaining",  auction.getBidMax() - auction.getBidList().size()));
+        Label bidStatus = new Label(String.format("%d bids remaining",
+                auction.getBidMax() - auction.getBidList().size()));
 
         bidPlaceButton.getStyleClass().add("button-raised");
         bidPlaceButton.setStyle(GUIConstants.BUTTON_STYLE);
@@ -88,13 +89,15 @@ public class ArtworkScene extends ScenePattern {
 
         JFXButton sellerButton = new JFXButton();
 
-        sellerButton.setText("Seller is " + auction.getSeller().getFirstname() + " " + auction.getSeller().getSurname());
+        sellerButton.setText("Seller is " + auction.getSeller().getFirstname()
+                + " " + auction.getSeller().getSurname());
         sellerButton.setStyle(" -fx-text-fill: rgb(49, 89, 23)");
         sellerButton.getStyleClass().add("button-raised");
         sellerButton.setStyle(GUIConstants.BUTTON_STYLE);
 
         sellerButton.setOnMousePressed(e -> {
-            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc, auction.getSeller(), curProfile).getPane(),
+            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc, auction.getSeller(),
+                    curProfile).getPane(),
                     GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
 
@@ -104,11 +107,14 @@ public class ArtworkScene extends ScenePattern {
 
         AnchorPane imgPane = new AnchorPane(imgView);
 
-        VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"), new Label(auction.toString()));
-        aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
+        VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"),
+                new Label(auction.toString()));
+        aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); " +
+                "-fx-background-color: #E8EAF6;");
 
         VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
-        descriptionCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6; -fx-max-width: 200px;");
+        descriptionCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0);" +
+                " -fx-background-color: #E8EAF6; -fx-max-width: 200px;");
 
         //Bids
         JFXListView<String> bidListView = new JFXListView<>();

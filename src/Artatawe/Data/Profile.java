@@ -42,7 +42,8 @@ public class Profile {
     * @param profilePicture The user's profile image
 	*   <creates a template for a profile>
 	*/
-	public Profile(String username, String firstName, String surname, String mobileNo, Address address, Picture profilePicture) {
+	public Profile(String username, String firstName, String surname, String mobileNo,
+				   Address address, Picture profilePicture) {
 		this.username = username;
 		this.firstname = firstName;
 		this.surname = surname;
