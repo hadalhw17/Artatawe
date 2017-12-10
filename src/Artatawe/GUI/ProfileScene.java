@@ -169,12 +169,14 @@ public class ProfileScene extends ScenePattern {
     }
 
     private void changeImage(File f){
-        try{
-            Files.copy(f.toPath(), new File("data/avatars/"+p.getUsername()+"Avatar.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
-            p.setProfileImg(new Picture("file:data/avatars/"+p.getUsername()+"Avatar.png"));
-            dc.save();
-        } catch (Exception e){
-            e.printStackTrace();
+        if(f != null) {
+            try{
+                Files.copy(f.toPath(), new File("data/avatars/"+p.getUsername()+"Avatar.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
+                p.setProfileImg(new Picture("file:data/avatars/"+p.getUsername()+"Avatar.png"));
+                dc.save();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
