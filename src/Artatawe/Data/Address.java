@@ -22,7 +22,7 @@ public class Address {
     * Constructor for class Address
     * @param houseNum
     * @param street
-    * @param city 
+    * @param city
     * @param county 
     * @param postcode 
     * <creates a template for for an address>
