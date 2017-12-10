@@ -62,6 +62,12 @@ public class DataController {
      */
     public Profile createProfile(String uName, String fName, String sName, String mobileNo, Address address, Picture profImg) {
 
+        //Check if username already exists
+        if (searchByUsername(uName) != null)
+        {
+            return null;
+        }
+
 	    Profile newProfile = new Profile(uName,fName, sName, mobileNo, address, profImg);
 	    profileList.add(newProfile);
 	    return newProfile;
@@ -301,9 +307,15 @@ public class DataController {
         //If file not found
         catch (FileNotFoundException e)
         {
-            //Create empty JSON file
-            File f = new File(ROOT_JSON_FILE);
-            f.createNewFile();
+            //Initialize an empty document
+            JsonObject root = new JsonObject();
+            root.set("auctions", new JsonList());
+            root.set("profiles", new JsonList());
+
+            JsonParser.writeTo(ROOT_JSON_FILE, new JsonValue(root));
+
+            //Try loading again
+            load();
         }
         //If JSON data is corrupt
         catch (JsonParserException e)
