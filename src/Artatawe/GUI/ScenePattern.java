@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
@@ -45,7 +46,7 @@ public class ScenePattern {
     private BorderPane border = new BorderPane();
 
     //Central content pane
-    private JFXMasonryPane contentPane = new JFXMasonryPane();
+    private Pane contentPane = new JFXMasonryPane();
 
     //Label for name of the current page
     private Label nameLabel = new Label();
@@ -209,7 +210,7 @@ public class ScenePattern {
      * Generates central content pane.
      * @return generated content pane.
      */
-    public JFXMasonryPane constructContentPane(){
+    public Pane constructContentPane(){
 
         return contentPane;
     }

@@ -13,9 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -113,7 +111,7 @@ public class CustomAvatar extends ScenePattern {
      * @return central panel
      */
     @Override
-    public JFXMasonryPane constructContentPane() {
+    public Pane constructContentPane() {
 
         //Drawing tools
         JFXRadioButton toolErase = new JFXRadioButton("Eraser");
@@ -210,7 +208,7 @@ public class CustomAvatar extends ScenePattern {
 
 
         //Panes
-        JFXMasonryPane mainPane = new JFXMasonryPane();
+        BorderPane mainPane = new BorderPane();
         VBox toolPane = new VBox();
         toolPane.setSpacing(10);
         toolPane.setPadding(new Insets(10,10,10,10));
@@ -245,10 +243,8 @@ public class CustomAvatar extends ScenePattern {
         );
 
         //Set border bane canvas and tools
-        mainPane
-                .getChildren()
-                .addAll(canvasPane,toolPane
-                );
+        mainPane.setCenter(canvasPane);
+        mainPane.setRight(toolPane);
 
         return mainPane;
     }

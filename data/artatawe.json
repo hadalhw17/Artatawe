@@ -147,34 +147,34 @@
             ],
             "bids" : [
                 {
-                    "date" : "Dec 9, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 1000020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "10-Dec-2017",
                     "amount" : 5,
                     "bidder" : "hadalhw17"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "10-Dec-2017",
                     "amount" : 5,
                     "bidder" : "hadalhw17"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "10-Dec-2017",
                     "amount" : 5,
                     "bidder" : "hadalhw17"
                 },
                 {
-                    "date" : "Mar 20, 1918",
+                    "date" : "10-Dec-2017",
                     "amount" : 5,
                     "bidder" : "hadalhw17"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 9, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -203,34 +203,34 @@
             ],
             "bids" : [
                 {
-                    "date" : "Dec 9, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 123020,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 9, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 123200,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "Dec 9, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 123210,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 9, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 123300,
                     "bidder" : "user_C"
                 },
                 {
-                    "date" : "Dec 9, 2017",
+                    "date" : "10-Dec-2017",
                     "amount" : 123400,
                     "bidder" : "user_A"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 9, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
@@ -247,7 +247,7 @@
             "bids" : [],
             "max_bids" : 123,
             "artwork" : {
-                "date" : "Jan 12, 1913",
+                "date" : "10-Dec-2017",
                 "year" : 123,
                 "name" : "Mona",
                 "width" : 2.0,
@@ -264,7 +264,7 @@
             "bids" : [],
             "max_bids" : 123,
             "artwork" : {
-                "date" : "Jan 12, 1913",
+                "date" : "10-Dec-2017",
                 "year" : 123,
                 "name" : "asd",
                 "width" : 123.0,
@@ -273,6 +273,24 @@
                 "type" : "PAINTING",
                 "desc" : "asd",
                 "height" : 123.0
+            }
+        },
+        {
+            "seller" : "user_C",
+            "comments" : [],
+            "bids" : [],
+            "max_bids" : 100,
+            "artwork" : {
+                "date" : "12-Jan-1913",
+                "year" : 2017,
+                "name" : "Gorilla Head",
+                "width" : 20.0,
+                "photo" : "file:data/avatars/user_C1Avatar.png",
+                "reserve_price" : 100,
+                "type" : "SCULPTURE",
+                "desc" : "Gorilla Head",
+                "height" : 20.0,
+				"depth" : 20
             }
         }
     ]

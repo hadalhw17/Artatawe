@@ -72,12 +72,12 @@ public class DataController {
      * @param key The filter key
      * @return The filtered list of auctions
      */
-    public ArrayList<Auction> filterAuctions(int key) {
+    public ArrayList<Auction> filterAuctions(AuctionFilterKey key) {
 
         ArrayList<Auction> filtered = new ArrayList<>();
 
         // Filters by paintings
-        if (key == 0) {
+        if (key == AuctionFilterKey.PAINTING) {
             for (Auction elem : auctionList) {
                 if (elem.getArtwork() instanceof Painting) {
                     filtered.add(elem);
@@ -85,7 +85,7 @@ public class DataController {
             }
         }
         // Filters by sculptures
-        else if (key == 1) {
+        else if (key == AuctionFilterKey.SCULPTURE) {
             for (Auction elem : auctionList) {
                 if (elem.getArtwork() instanceof Sculpture) {
                     filtered.add(elem);
@@ -93,9 +93,10 @@ public class DataController {
             }
         }
         // No filter
-        else {
+        else if (key == AuctionFilterKey.ALL){
             return auctionList;
         }
+
         return filtered;
     }
 
