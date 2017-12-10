@@ -20,7 +20,6 @@ import java.awt.event.MouseEvent;
  */
 public class FavouriteProfileScene extends ScenePattern {
 
-    private Profile logedInProfile;
     /**
      * Construct a FavouriteProfileScene
      * @param dc Data Controller
@@ -28,7 +27,6 @@ public class FavouriteProfileScene extends ScenePattern {
      */
     public FavouriteProfileScene(DataController dc, Profile curProfile, Profile logedInProfile) {
         super(dc,curProfile, logedInProfile);
-        this.logedInProfile = logedInProfile;
         this.setNameLabel("Favourites");
         setContentPane();
     }
@@ -54,7 +52,7 @@ public class FavouriteProfileScene extends ScenePattern {
             tile.setBottom(new StackPane(label));
 
             tile.setOnMouseClicked( e -> {
-                GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,fav,logedInProfile).getPane(),
+                GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,fav,curProfile).getPane(),
                         GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
             });
 

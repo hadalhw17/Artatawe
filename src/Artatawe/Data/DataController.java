@@ -94,17 +94,49 @@ public class DataController {
         }
         // No filter
         else if (key == AuctionFilterKey.ALL){
-            return auctionList;
+            //Return copy of all auctions
+            filtered = (ArrayList<Auction>) auctionList.clone();
         }
 
         return filtered;
     }
 
     /**
-     * Searches for a profile by username
-     * @param username The username to search for
-     * @return The profile of the user if it exists
+     * Filters auctions by type of artwork
+     * @param key The filter key
+     * @param hideCompleted if true filter out completed auctions
+     * @return The filtered list of auctions
      */
+    public ArrayList<Auction> filterAuctions(AuctionFilterKey key, boolean hideCompleted) {
+
+        ArrayList<Auction> auctions = filterAuctions(key);
+
+        if (hideCompleted)
+        {
+            //Auction iterator
+            Iterator<Auction> it =  auctions.iterator();
+
+            //For each auction
+            while (it.hasNext())
+            {
+                //If this auction is complete
+                if (it.next().isCompleted())
+                {
+                    //Remove it
+                    it.remove();
+                }
+            }
+        }
+
+        return auctions;
+    }
+
+
+        /**
+         * Searches for a profile by username
+         * @param username The username to search for
+         * @return The profile of the user if it exists
+         */
     public Profile searchByUsername(String username) {
         for (Profile elem : profileList) {
             if (elem.getUsername().equals(username)) {

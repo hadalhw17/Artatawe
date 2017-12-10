@@ -139,38 +139,37 @@
                 {
                     "profile" : "hadalhw17",
                     "text" : "Fuck"
+                },
+                {
+                    "profile" : "user_A",
+                    "text" : "testing testing"
                 }
             ],
             "bids" : [
                 {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 1000020,
+                    "date" : "10-Dec-2017",
+                    "amount" : 1000001,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 5,
-                    "bidder" : "hadalhw17"
+                    "date" : "10-Dec-2017",
+                    "amount" : 1000002,
+                    "bidder" : "user_B"
                 },
                 {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 5,
-                    "bidder" : "hadalhw17"
+                    "date" : "10-Dec-2017",
+                    "amount" : 2000000,
+                    "bidder" : "user_A"
                 },
                 {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 5,
-                    "bidder" : "hadalhw17"
-                },
-                {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 5,
-                    "bidder" : "hadalhw17"
+                    "date" : "10-Dec-2017",
+                    "amount" : 2000001,
+                    "bidder" : "user_B"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -197,36 +196,10 @@
                     "text" : "12348923948 238947923 89 239"
                 }
             ],
-            "bids" : [
-                {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 123020,
-                    "bidder" : "user_A"
-                },
-                {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 123200,
-                    "bidder" : "user_C"
-                },
-                {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 123210,
-                    "bidder" : "user_A"
-                },
-                {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 123300,
-                    "bidder" : "user_C"
-                },
-                {
-                    "date" : "Dec 10, 2017",
-                    "amount" : 123400,
-                    "bidder" : "user_A"
-                }
-            ],
+            "bids" : [],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
@@ -241,9 +214,9 @@
             "seller" : "hadalhw17",
             "comments" : [],
             "bids" : [],
-            "max_bids" : 123,
+            "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 123,
                 "name" : "Mona",
                 "width" : 2.0,
@@ -258,9 +231,9 @@
             "seller" : "hadalhw17",
             "comments" : [],
             "bids" : [],
-            "max_bids" : 123,
+            "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "year" : 123,
                 "name" : "asd",
                 "width" : 123.0,
@@ -275,9 +248,9 @@
             "seller" : "user_C",
             "comments" : [],
             "bids" : [],
-            "max_bids" : 100,
+            "max_bids" : 5,
             "artwork" : {
-                "date" : "Dec 10, 2017",
+                "date" : "10-Dec-2017",
                 "depth" : 20.0,
                 "year" : 2017,
                 "name" : "Gorilla Head",

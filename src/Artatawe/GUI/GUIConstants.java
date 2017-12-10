@@ -20,4 +20,6 @@ public class GUIConstants {
 
     public static final int PROFILE_WIDTH = 400;
     public static final int PROFILE_HEIGHT = 400;
+
+    public final static String BUTTON_STYLE = "-fx-background-color: #42b6f4;";
 }

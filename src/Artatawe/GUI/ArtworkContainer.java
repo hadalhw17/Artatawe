@@ -4,19 +4,20 @@ import Artatawe.Data.Auction;
 import Artatawe.Data.AuctionFilterKey;
 import Artatawe.Data.DataController;
 import Artatawe.Data.Profile;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXScrollPane;
+import javafx.beans.property.BooleanProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +38,11 @@ public class ArtworkContainer extends ScenePattern {
     //Name of the page
     private final String PAGE_NAME = "Artworks";
 
-    //Contains all information abot system
-    private DataController dc;
+    //Filter out completed auctions
+    private boolean hideCompleted = false;
 
-    private Profile p;
-
-    //Profile of currently logged in user
-    private Profile loggedInProfile;
+    //Filter key
+    private AuctionFilterKey auctionKey = AuctionFilterKey.ALL;
 
     /**
      * Constructor for <p>Artworkontainer.java</p>
@@ -53,9 +52,6 @@ public class ArtworkContainer extends ScenePattern {
      */
     public ArtworkContainer(DataController dc, Profile p, Profile loggedInProfile){
         super(dc,p, loggedInProfile);
-        this.loggedInProfile = loggedInProfile;
-        this.dc = dc;
-        this.p = p;
         setNameLabel(PAGE_NAME);
         setContentPane();
     }
@@ -86,60 +82,89 @@ public class ArtworkContainer extends ScenePattern {
         filterPaintings.setToggleGroup(filterGroup);
         filterSculptures.setToggleGroup(filterGroup);
 
-        filterPane.getChildren().addAll(new Label("Filter auctions: "), filterAll, filterPaintings, filterSculptures);
+        //Is complete filter
+        JFXCheckBox filterIsComplete = new JFXCheckBox("Hide completed");
+        filterIsComplete.setSelected(hideCompleted);
+        filterIsComplete.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            hideCompleted = newValue;
+            fillAuctionPane(auctionPane, dc.filterAuctions(auctionKey, hideCompleted));
+        });
+
+        filterPane.getChildren().addAll(
+                new Label("Filter auctions: "), filterAll, filterPaintings, filterSculptures, filterIsComplete
+        );
 
         //Fill auction pane
-        fillAuctionPane(auctionPane, dc.filterAuctions(AuctionFilterKey.ALL));
+        fillAuctionPane(auctionPane, dc.filterAuctions(AuctionFilterKey.ALL, hideCompleted));
 
         //Filter events
         filterAll.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) fillAuctionPane(auctionPane, dc.filterAuctions(AuctionFilterKey.ALL));
+            if (newValue) {
+                auctionKey = AuctionFilterKey.ALL;
+                fillAuctionPane(auctionPane, dc.filterAuctions(auctionKey, hideCompleted));
+            }
         });
         filterPaintings.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) fillAuctionPane(auctionPane, dc.filterAuctions(AuctionFilterKey.PAINTING));
+            if (newValue) {
+                auctionKey = AuctionFilterKey.PAINTING;
+                fillAuctionPane(auctionPane, dc.filterAuctions(auctionKey, hideCompleted));
+            }
         });
         filterSculptures.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) fillAuctionPane(auctionPane, dc.filterAuctions(AuctionFilterKey.SCULPTURE));
+            if (newValue) {
+                auctionKey = AuctionFilterKey.SCULPTURE;
+                fillAuctionPane(auctionPane, dc.filterAuctions(auctionKey, hideCompleted));
+            }
         });
 
         //Add panes to main pane
         mainPane.setTop(filterPane);
-
-        JFXScrollPane scroll = new JFXScrollPane();
-        scroll.setContent(auctionPane); //wrap auctions in scroll pane
         mainPane.setCenter(auctionPane);
+
+        BorderPane.setMargin(filterPane, new Insets(20,20,20,20));
 
         return  mainPane;
     }
 
-
+    /*
+        Populate auction pane with auctions
+     */
     private void fillAuctionPane(Pane auctionPane, List<Auction> auctionList) {
         auctionPane.getChildren().clear();
-        ImageView imgView = null;
         Random r = new Random(100);
-        int Low = 50;
+        int Low = 70;
         int High = 250;
-        for (Auction auction : auctionList) {//Gonna iterate over auctions list
-            VBox imageHolder;
+        //For each auction
+        for (Auction auction : auctionList) {
+
             int wh = r.nextInt(High - Low) + Low;
-            imgView = new ImageView(new Image(auction
-                    .getArtwork()
-                    .getPhoto()
-                    .getPath()));
-            imgView.setFitHeight(wh);
-            imgView.setFitWidth(wh);
-            imageHolder = new VBox(imgView, new Label(auction.getArtwork().getName()));
-            auctionPane
-                    .getChildren()
-                    .addAll(imageHolder);
-            imageHolder.setOnMouseClicked(e ->
-                    GUIController
-                            .getPrimaryStage()
-                            .setScene(new Scene(
-                                    new ArtworkScene(dc, p, auction, loggedInProfile)
-                                            .getPane(), GUIConstants
-                                    .SCENE_WIDTH, GUIConstants
-                                    .SCENE_HEIGHT)));
+            wh = 250; //no randomness for now
+
+            BorderPane tile = new BorderPane();
+
+            ImageView artPhoto = new ImageView(auction.getArtwork().getPhoto());
+            artPhoto.setFitHeight(wh);
+            artPhoto.setFitWidth(wh);
+            artPhoto.setPreserveRatio(true);
+
+
+            Label label = new Label(auction.getArtwork().getName());
+            label.setStyle("-fx-font-weight: bold; -fx-font-size: 11pt;");
+            label.setMaxWidth(Double.MAX_VALUE);
+
+            tile.setCenter(artPhoto);
+            tile.setBottom(new StackPane(label));
+
+            tile.setOnMouseClicked(e ->
+                    GUIController.getPrimaryStage().setScene(new Scene(
+                                    new ArtworkScene(dc, curProfile, auction, curProfile).getPane(),
+                                    GUIConstants.SCENE_WIDTH,
+                                    GUIConstants.SCENE_HEIGHT
+                            )
+                    )
+            );
+
+            auctionPane.getChildren().add(tile);
         }
     }
 }

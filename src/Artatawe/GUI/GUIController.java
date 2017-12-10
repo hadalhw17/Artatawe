@@ -4,6 +4,7 @@ import Artatawe.Data.DataController;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -53,5 +54,12 @@ public class GUIController extends Application {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX((bounds.getWidth() - primaryStage.getWidth()) / 2);
         primaryStage.setY((bounds.getHeight() - primaryStage.getHeight()) / 2);
+    }
+
+    public static void alert(String text, Alert.AlertType type)
+    {
+        Alert alert = new Alert(type);
+        alert.setContentText(text);
+        alert.show();
     }
 }

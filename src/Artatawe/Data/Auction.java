@@ -30,6 +30,7 @@ public class Auction {
     // the number of available bids for the auction
     private int bidMax;
 
+
     /**
      * Creates an Auction object
      * @param artwork The artwork being sold
@@ -105,14 +106,35 @@ public class Auction {
         /* Creates and adds a new bid to the bidList if the auction is
         not completed*/
         Bid newBid = new Bid(buyer, amount, dateTime, this);
+
         if (this.isCompleted()) {
             return false;
         }
-        else {
-            bidList.add(newBid);
-            buyer.getBids().add(newBid);
-            return true;
+
+        //Bid amount must be greater than the reserve price
+        if (this.artwork.getReservedPrice() >= amount)
+        {
+            return false;
         }
+
+        //Only compare if bids have been placed already
+        if (!bidList.isEmpty())
+        {
+            //Disallow the same profile bidding twice in a row
+            if (buyer.getUsername().equals(getLastBid().getBuyer().getUsername())) {
+                return false;
+            }
+
+            //Not enough has been bidded
+            if (getLastBid().getAmount() >= amount) {
+                return false;
+            }
+        }
+
+        bidList.add(newBid);
+        buyer.getBids().add(newBid);
+
+        return true;
     }
 
     /**
@@ -129,6 +151,11 @@ public class Auction {
      * @return The latest bid
      */
     public Bid getLastBid() {
+
+        if (bidList.isEmpty())
+        {
+            return new Bid(null, 0, null, this);
+        }
 
         return bidList.get(bidList.size() -1);
     }

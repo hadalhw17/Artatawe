@@ -25,11 +25,8 @@ import java.util.Date;
 public class ArtworkScene extends ScenePattern {
 
     //Artwork to be displayed
-    private Auction a;
+    private Auction auction;
     private Artwork art;
-    Profile p;
-    DataController dc;
-    private Profile logedInProfile;
 
     /**
      * Constructor for ArtworkScene.java
@@ -37,11 +34,8 @@ public class ArtworkScene extends ScenePattern {
      */
     public ArtworkScene(DataController dc, Profile p, Auction a, Profile logedInProfile){
         super(dc,p, logedInProfile);
-        this.logedInProfile = logedInProfile;
-        this.a = a;
-        this.p = p;
+        this.auction = a;
         this.art = a.getArtwork();
-        this.dc = dc;
         setNameLabel(art.getName());
         setContentPane();
     }
@@ -51,38 +45,56 @@ public class ArtworkScene extends ScenePattern {
      * @return profile page.
      */
     @Override
-    public JFXMasonryPane constructContentPane(){
+    public Pane constructContentPane(){
+
         JFXMasonryPane contentPane = new JFXMasonryPane();
         ImageView imgView = new ImageView();
-        JFXButton buyNow = new JFXButton("Buy now");
-        buyNow.setOnMousePressed(e->{
-            while(!a.isCompleted()){
-                a.placeBid(logedInProfile,a.getBidMax(),new Date(12,9,1997));
-            }
-            dc.save();
-            setContentPane();
-        });
-        JFXButton sellerButton = new JFXButton();
-        JFXButton bidButton = new JFXButton("Bid this work");
-        if(!a.isCompleted()){
-            bidButton.setOnMousePressed(e->{
-                a.placeBid(p,1,new Date(12,9,1997));
-                dc.save();
-                setContentPane();
+
+        HBox bidButtonPane = new HBox();
+        JFXButton bidPlaceButton = new JFXButton("Place bid: ");
+        TextField bidAmountInput = new TextField("");
+        Label bidStatus = new Label(String.format("%d bids remaining",  auction.getBidMax() - auction.getBidList().size()));
+
+        bidPlaceButton.getStyleClass().add("button-raised");
+        bidPlaceButton.setStyle(GUIConstants.BUTTON_STYLE);
+        bidAmountInput.setMaxWidth(Double.MAX_VALUE);
+
+        bidButtonPane.getChildren().addAll(bidPlaceButton, bidAmountInput);
+
+        if(!auction.isCompleted()){
+            bidPlaceButton.setOnMousePressed(e->{
+                try {
+                    if (auction.placeBid(curProfile, Integer.valueOf(bidAmountInput.getText()), new Date())) {
+                        dc.save();
+                    }
+                    else {
+                        //cannot place bid
+                        GUIController.alert("Invalid bid", Alert.AlertType.ERROR);
+                    }
+                    setContentPane();
+                }
+                catch (NumberFormatException ex) {
+                    GUIController.alert("Bid amount must be a number", Alert.AlertType.ERROR);
+                }
             });
         } else {
-            bidButton.setText("Winner is " + a.getLastBid().getBuyer().getFirstname() + " " +
-                    a.getLastBid().getBuyer().getSurname());
+            bidStatus.setText("Winner is " + auction.getLastBid().getBuyer().getFirstname() + " " +
+                    auction.getLastBid().getBuyer().getSurname());
         }
 
         if(imgView == null){
             imgView = new ImageView(art.getPhoto().getPath());
         }
 
-        sellerButton.setText("Seller is " + a.getSeller().getFirstname() + " " + a.getSeller().getSurname());
+        JFXButton sellerButton = new JFXButton();
+
+        sellerButton.setText("Seller is " + auction.getSeller().getFirstname() + " " + auction.getSeller().getSurname());
         sellerButton.setStyle(" -fx-text-fill: rgb(49, 89, 23)");
+        sellerButton.getStyleClass().add("button-raised");
+        sellerButton.setStyle(GUIConstants.BUTTON_STYLE);
+
         sellerButton.setOnMousePressed(e -> {
-            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,a.getSeller(), logedInProfile).getPane(),
+            GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc, auction.getSeller(), curProfile).getPane(),
                     GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         });
 
@@ -92,10 +104,7 @@ public class ArtworkScene extends ScenePattern {
 
         AnchorPane imgPane = new AnchorPane(imgView);
 
-        VBox bidPane = new VBox();
-        bidPane.getChildren().addAll(bidButton, buyNow);
-
-        VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"), new Label(a.toString()));
+        VBox aboutCard = new VBox(sellerButton, new Label("ABOUT"), new Label(auction.toString()));
         aboutCard.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
 
         VBox descriptionCard = new VBox(new Label("Description\n"), new Label(art.getDescription()));
@@ -103,20 +112,21 @@ public class ArtworkScene extends ScenePattern {
 
         //Bids
         JFXListView<String> bidListView = new JFXListView<>();
-        bidListView.setPrefSize(200, 50 * a.getBidMax());
+        bidListView.setPrefSize(200, 40 * (auction.getBidMax()));
 
-        for(Bid bid : a.getBidList()) {
+        for(Bid bid : auction.getBidList()) {
             bidListView.getItems().add(String.format("%s: £%d", bid.getBuyer().getUsername(), bid.getAmount()));
         }
 
-        //VBox bidders = new VBox(new Label("BIDDERS: "), new Label(biddersName.toString()));
-        //bidders.setStyle("-fx-effect: dropshadow(gaussian, silver, 10, 0, 0, 0); -fx-background-color: #E8EAF6;");
+        //Bid pane
+        VBox bidPane = new VBox();
+        bidPane.setSpacing(10);
+        bidPane.getChildren().addAll(bidStatus, bidButtonPane, bidListView);
 
         //Comments
         Pane commentSection = createCommentSection();
 
-        contentPane.getChildren().addAll(imgPane, aboutCard, bidPane, descriptionCard, bidListView);
-        contentPane.getChildren().add(commentSection);
+        contentPane.getChildren().addAll(imgPane, aboutCard, descriptionCard, bidPane, commentSection);
 
         return contentPane;
     }
@@ -131,7 +141,7 @@ public class ArtworkScene extends ScenePattern {
         VBox commentList = new VBox();
 
         //Construct comment list
-        for (AuctionComment comment : a.getCommentList()) {
+        for (AuctionComment comment : auction.getCommentList()) {
             fillCommentLabel(commentList, comment);
         }
 
@@ -142,14 +152,16 @@ public class ArtworkScene extends ScenePattern {
         commentArea.setMaxHeight(100);
 
         //Comment submit button
-        JFXButton commentSubmit = new JFXButton("submit");
+        JFXButton commentSubmit = new JFXButton("submit comment");
+        commentSubmit.getStyleClass().add("button-raised");
+        commentSubmit.setStyle(GUIConstants.BUTTON_STYLE);
 
-        commentSubmit.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+        commentSubmit.setOnMouseClicked(e -> {
             //Get comment text
             String c = commentArea.getText().trim();
             commentArea.clear();
             //Update auction
-            a.makeComment(curProfile, c);
+            auction.makeComment(curProfile, c);
             //Update comment pane
             fillCommentLabel(commentList, new AuctionComment(curProfile, c));
             //Persist
