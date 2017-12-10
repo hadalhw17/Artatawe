@@ -4,186 +4,183 @@ import Artatawe.Data.DataController;
 import Artatawe.Data.Profile;
 import com.jfoenix.controls.*;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 
 public class CustomAvatar extends ScenePattern {
 
-    //Canvas where a user can draw custom avatars
-    private Canvas canvas = new Canvas(GUIConstants.PROFILE_WIDTH * 2, GUIConstants.PROFILE_HEIGHT * 2);
-
-    //Saves new custom avatar
+    private Canvas canvas;
     private JFXButton saveButton;
-
-    //Changes avatar and sets up profile scene
     private JFXButton exitButton;
-
-    //Scene to leave later
     private ProfileScene profileScene;
+    private JFXSnackbar imageSaved;
+    private double canvasLineX;
+    private double canvasLineY;
 
-    //Notification about creating new avatar
-    private JFXSnackbar imageSaved = new JFXSnackbar(this.getPane());
-
-    //Contains information about Artatawe
-    private DataController dc;
-
-    //Needed for interactions with different profiles
-    private Profile p;
-
-    //Current user
-    private Profile loggedInProfile;
-
-    /**
-     * Constructor for <p>CustomAvatar.java</p>
-     * @param dc information about system
-     * @param p needed for interactions woth different profiles
-     * @param profileScene initioal scene
-     * @param loggedInProfile current user
-     */
-    public CustomAvatar(DataController dc, 
-                        Profile p, 
-                        ProfileScene profileScene, 
-                        Profile loggedInProfile){
-        
-        super(dc,p, loggedInProfile);
-        this.loggedInProfile = loggedInProfile;
-        this.p = p;
-        this.dc = dc;
+    public CustomAvatar(DataController dc, Profile p, ProfileScene profileScene, Profile logedInProfile){
+        super(dc,p, logedInProfile);
         this.profileScene = profileScene;
         setNameLabel("Custom Avatar");
         setContentPane();
+        imageSaved = new JFXSnackbar(this.getPane());
     }
 
-
-    /**
-     * Saves new avatar by making a snapshot of canvas
-     */
     public void onSave(){
         try{
-            Image snapshot = canvas.snapshot(null,null);
-            ImageIO.write(SwingFXUtils.fromFXImage(snapshot,null), "png",
-                    new File("data/avatars/"+p.getUsername()+"Avatar.png"));
+            Image snapsot = canvas.snapshot(null,null);
+            ImageIO.write(SwingFXUtils.fromFXImage(snapsot,null), "png",
+                    new File("data/avatars/"+curProfile.getUsername()+"Avatar.png"));
             imageSaved.show("Picture Saved!\n It will be updated after you press exit", 5000);
         } catch(Exception e){
             System.out.print("Unable to save image. " + e);
         }
     }
 
-    /**
-     *Sets new avatar and leaves this nage
-     */
     public void onExit(){
-        p.setPicture("file:data/avatars/"+p.getUsername()+"Avatar.png");
+        curProfile.setPicture("file:data/avatars/"+ curProfile.getUsername() + "Avatar.png");
         dc.save();
-        GUIController
-                .getPrimaryStage()
-                .setScene(new Scene(new ProfileScene(dc,
-                        profileScene.getProfile(), 
-                        loggedInProfile).getPane(), GUIConstants
-                        .SCENE_WIDTH, GUIConstants.SCENE_HEIGHT)
-                );
+        GUIController.getPrimaryStage().setScene(new Scene(new ProfileScene(dc,profileScene.getProfile(), curProfile).getPane(),
+                GUIConstants.SCENE_WIDTH, GUIConstants.SCENE_HEIGHT));
         GUIController.centerize();
     }
 
-
-    /**
-     * Generates content panel
-     * @return central panel
-     */
     @Override
     public JFXMasonryPane constructContentPane() {
-        HBox erasebox = new HBox();
-        HBox lineBox = new HBox();
-        JFXCheckBox erase = new JFXCheckBox();
-        JFXCheckBox line = new JFXCheckBox();
-        JFXMasonryPane root = new JFXMasonryPane();
-        JFXColorPicker colorPicker = new JFXColorPicker();
-        GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        //Drawing tools
+        JFXRadioButton toolErase = new JFXRadioButton("Eraser");
+        JFXRadioButton toolDrawTrace = new JFXRadioButton("Particle trace");
+        JFXRadioButton toolDrawLine = new JFXRadioButton("Straight line");
+
+        toolErase.setTooltip(new Tooltip("Eraser tool"));
+        toolDrawTrace.setTooltip(new Tooltip("Particle trace drawing tool"));
+        toolDrawLine.setTooltip(new Tooltip("Line drawing tool"));
+
+        //Group radio buttons
+        ToggleGroup toolGroup = new ToggleGroup();
+        toolErase.setToggleGroup(toolGroup);
+        toolDrawTrace.setToggleGroup(toolGroup);
+        toolDrawLine.setToggleGroup(toolGroup);
+
+        //Particle trace is default drawing tool
+        toolDrawTrace.setSelected(true);
+
+        //Draw tool colour
+        JFXColorPicker colorPicker = new JFXColorPicker();
+
+        //Drawing tool size slider
         JFXSlider sizeSlider = new JFXSlider();
-        saveButton = new JFXButton("Save");
-        exitButton = new JFXButton("Exit");
-        erasebox
-                .getChildren()
-                .addAll(erase, new Label("eraser"));
-        lineBox
-                .getChildren()
-                .addAll(line, new Label("Straight Line"));
         sizeSlider.setMinWidth(200);
         sizeSlider.setMinHeight(10);
         sizeSlider.setOrientation(Orientation.HORIZONTAL);
 
-        Pane pane1 = new Pane();
-        Pane pane = new Pane();
-        VBox pane2 = new VBox();
-        HBox btnPane = new HBox();
+        //Save/Exit operations
+        saveButton = new JFXButton("Save");
+        exitButton = new JFXButton("Exit");
+        saveButton.getStyleClass().add("button-raised");
+        exitButton.getStyleClass().add("button-raised");
 
-        saveButton.setOnMousePressed(e -> onSave());
-        exitButton.setOnMousePressed(e -> onExit());
+        saveButton.setOnMouseClicked(e->{
+            onSave();
+        });
+        exitButton.setOnMouseClicked(e->{
+            onExit();
+        });
+
+        //Drawing canvas
+        canvas = new Canvas(GUIConstants.PROFILE_WIDTH * 2, GUIConstants.PROFILE_HEIGHT * 2);
+        canvas.setStyle("-fx-border-color: black");
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
         canvas.setOnMouseDragged(e->{
+
             double size = sizeSlider.getValue();
             double x = e.getX() - size/2;
             double y = e.getY() - size-2;
-            if(erase.isSelected()){
+
+            //Erase area
+            if(toolErase.isSelected()) {
                 gc.clearRect(x,y,size,size);
-            } else if(!line.isSelected()) {
+            }
+            //Particle trace
+            else if(toolDrawTrace.isSelected()) {
                 gc.setFill(colorPicker.getValue());
                 gc.fillOval(x, y, size, size);
             }
         });
-        line.setOnMouseClicked(e1->{
-            canvas.setOnMousePressed(e->{
-                if(line.isSelected()){
-                    canvas.setOnMousePressed(event->{
-                        if(line.isSelected()) {
-                            gc.setStroke(colorPicker.getValue());
-                            gc.setLineWidth(sizeSlider.getValue());
-                            double x1 = e.getX();
-                            double y1 = e.getY();
-                            double x2 = event.getX();
-                            double y2 = event.getY();
-                            gc.strokeLine(x1,y1,x2,y2);
-                            line.setSelected(false);
-                        }
-                    });
-                }
-            });
+
+        //Workaround because lambda's can't reference this directly
+        CustomAvatar thisRef = this;
+
+        canvas.setOnMousePressed(e->{
+            //If line drawing selected
+            if (toolDrawLine.isSelected())
+            {
+                //Save current canvas pos
+                thisRef.canvasLineX = e.getX();
+                thisRef.canvasLineY = e.getY();
+            }
         });
 
-        pane.setStyle("-fx-background-color: WHITE; ");
-        pane
-                .getChildren()
-                .add(canvas);
-        pane1
-                .getChildren()
-                .add(colorPicker);
-        pane2
-                .getChildren()
-                .addAll(erasebox,sizeSlider, new Label("Resize brush"), lineBox
+        canvas.setOnMouseReleased(e->{
+            //If line drawing selected
+            if (toolDrawLine.isSelected())
+            {
+                //Draw
+                gc.setStroke(colorPicker.getValue());
+                gc.setLineWidth(sizeSlider.getValue());
+                gc.strokeLine(
+                        thisRef.canvasLineX,
+                        thisRef.canvasLineY,
+                        e.getX(),
+                        e.getY()
                 );
-        btnPane
-                .getChildren()
-                .addAll(saveButton,exitButton
-                );
-        root
-                .getChildren()
-                .addAll(pane,pane1,pane2,btnPane
-                );
-        return root;
+            }
+        });
+
+
+        //Panes
+        JFXMasonryPane mainPane = new JFXMasonryPane();
+        VBox toolPane = new VBox();
+        toolPane.setSpacing(10);
+        toolPane.setPadding(new Insets(10,10,10,10));
+        //toolPane.setStyle("-fx-border-color: #336699;"); //line border around tool pane
+
+        //Tool pane
+        toolPane.getChildren().add(colorPicker);
+        toolPane.getChildren().addAll(new Label("Resize brush"), sizeSlider);
+        toolPane.getChildren().addAll(toolDrawTrace, toolDrawLine, toolErase);
+        toolPane.getChildren().add(new HBox(saveButton,exitButton));
+
+        //Wrap canvas in pane
+        Rectangle canvasRect = new Rectangle(canvas.getWidth(), canvas.getHeight());
+        canvasRect.setFill(Color.TRANSPARENT);
+        canvasRect.setStroke(Color.BLACK);
+
+        StackPane canvasPane = new StackPane(
+                canvasRect,
+                canvas
+        );
+
+        //Set border bane canvas and tools
+        mainPane.getChildren().addAll(canvasPane,toolPane);
+
+        return mainPane;
     }
 }
