@@ -134,11 +134,19 @@ public class Profile {
 	
     /**
     * sets profile picture
-    * @paramprofilePicture 
+    * @param profilePicture
     */
 	public void setProfileImg(Picture profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+
+    /**
+     * changes address
+     * @param newAddress
+     */
+	public void changeAddress(Address newAddress){
+	    this.address = newAddress;
+    }
 	
 	
     /**

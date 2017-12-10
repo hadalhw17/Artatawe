@@ -51,15 +51,15 @@
             "favourite_profiles" : [],
             "firstname" : "Aleksandr",
             "address" : {
-                "country" : "",
-                "city" : "",
-                "street" : "",
-                "postcode" : "",
-                "houseNo" : 0
+                "country" : "United Kingdom",
+                "city" : "Swansea",
+                "street" : "Slketty Road",
+                "postcode" : "SA2 0EU",
+                "houseNo" : 9
             },
             "surname" : "Slobodov",
             "avatar" : "file:data/avatars/default_avatars/img5.png",
-            "mobileNo" : "89257382222",
+            "mobileNo" : "123123",
             "username" : "hadalhw17"
         },
         {

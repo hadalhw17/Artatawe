@@ -96,13 +96,17 @@ public class ProfileScene extends ScenePattern {
     @Override
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane contentPane = new JFXMasonryPane();
+        Pane addressPane = new Pane();
         ImageView imgView = new ImageView();
         imgView.setImage(profImage);
         imgView.setCache(false);
         VBox avatarBox = new VBox();
         ScrollPane pane2 = new ScrollPane();
         HBox bidedPane = loadSellingAuctions();
+        JFXButton editProfileInfo = new JFXButton("Edit profile");
         createArtwork.setOnMousePressed( e -> initCreateArtwork(createArtwork));
+
+        addressPane.getChildren().add(new Label(p.getAddress().toString()));
 
         JFXButton chooseImage = new JFXButton("Choose profile image");
         chooseImage.setOnMousePressed(e -> chooseImage());
@@ -119,7 +123,7 @@ public class ProfileScene extends ScenePattern {
                 .equals(p.getUsername())){
             avatarBox
                     .getChildren()
-                    .addAll(imagePane, customImage, chooseImage,combo
+                    .addAll(editProfileInfo,imagePane, customImage, chooseImage,combo
                     );
         } else {
             ToggleSwitch favButton = new ToggleSwitch(dc,loggedInProfile,p);
@@ -132,6 +136,17 @@ public class ProfileScene extends ScenePattern {
         imgView.setFitHeight(GUIConstants.PROFILE_HEIGHT);
 
         imagePane.getChildren().addAll(imgView);
+
+        editProfileInfo.setOnMousePressed(e ->
+
+                GUIController
+                        .getPrimaryStage()
+                        .setScene(new Scene(new EditProfile(dc,p,loggedInProfile)
+                                .getPane(), GUIConstants
+                                .SCENE_WIDTH, GUIConstants
+                                .SCENE_HEIGHT)
+                        ));
+
         customImage.setOnMousePressed(e ->
 
             GUIController
@@ -145,10 +160,14 @@ public class ProfileScene extends ScenePattern {
         pane2.setPrefSize(600, 200);
 
         VBox pane1 = new VBox(
-                new Label("About"),
+                new Label("About:"),
                 new Label("Name: " + p.getFirstname() + " " + p.getSurname() +
                         "\nPhone#: " + p.getMobileNo()));
         pane1
+                .setStyle("" +
+                        "-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); " +
+                        "-fx-background-color: #E8EAF6;");
+        addressPane
                 .setStyle("" +
                         "-fx-effect: dropshadow(gaussian, silver, 5, 0, 0, 0); " +
                         "-fx-background-color: #E8EAF6;");
@@ -159,7 +178,8 @@ public class ProfileScene extends ScenePattern {
 
         contentPane
                 .getChildren()
-                .addAll(avatarBox, pane1, pane2, createArtwork);
+                .addAll(avatarBox,addressPane, pane1, pane2, createArtwork);
+
 
         return contentPane;
     }

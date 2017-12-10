@@ -124,4 +124,8 @@ public class Address {
 	public int getHouseNum() {
 		return houseNum;
 	}
+
+	public String toString(){
+		return houseNum + " " + street + " \n" + city + " " + county + "\n" + postcode;
+	}
 }
