@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class LoginScene {
@@ -100,7 +99,7 @@ public class LoginScene {
             ((Stage)signInButton
                     .getScene()
                     .getWindow())
-                    .setScene(new Scene(new SignInScene(dc).getPane(),
+                    .setScene(new Scene(new SignUpScene(dc).getPane(),
                     GUIConstants
                             .SIGNUP_WIDTH,GUIConstants
                             .SIGNUP_HEIGHT
