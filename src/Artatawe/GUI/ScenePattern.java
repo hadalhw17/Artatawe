@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -49,7 +50,7 @@ public class ScenePattern {
     //Main pane of scene
     private BorderPane border;
     //Central content pane
-    private JFXMasonryPane contentPane;
+    private Pane contentPane;
     //Label for name of the current page
     private Label nameLabel;
     //Header panel
@@ -177,7 +178,7 @@ public class ScenePattern {
      * Generates central content pane.
      * @return generated content pane.
      */
-    public JFXMasonryPane constructContentPane(){
+    public Pane constructContentPane(){
 
         return contentPane;
     }
