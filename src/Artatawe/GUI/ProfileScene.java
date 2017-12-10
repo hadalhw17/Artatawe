@@ -192,7 +192,7 @@ public class ProfileScene extends ScenePattern {
 
     private void initCreateArtwork(JFXButton btn){
         ((Stage) btn.getScene().getWindow()).setScene(new Scene(new ArtworkCreation(dc,p, logedInProfile).getPane(),
-                getPane().getWidth(), getPane().getHeight()));
+                Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
     }
 
 

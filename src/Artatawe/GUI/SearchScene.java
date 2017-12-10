@@ -16,17 +16,28 @@ import javafx.scene.layout.VBox;
 
 public class SearchScene extends ScenePattern {
 
-    private Profile logedInProfile;
+    //Current user
+    private Profile loggedInProfile;
 
-    public SearchScene(DataController dc, Profile p, Profile logedInProfile){
+    /**
+     * Constructor for <p>SearchScene.java</p>
+     * @param dc information about system
+     * @param p profile for iteraction with other users
+     * @param loggedInProfile current user
+     */
+    public SearchScene(DataController dc, Profile p, Profile loggedInProfile){
 
-        super(dc, p, logedInProfile);
-        this.logedInProfile = logedInProfile;
-        this.setNameLabel("ArtaSearchTawe");
+        super(dc, p, loggedInProfile);
+        this.loggedInProfile = loggedInProfile;
+        this.setNameLabel("ArtaSearchAwe");
         setContentPane();
 
     }
 
+    /**
+     * Constructs main content pane
+     * @return central pane
+     */
     @Override
     public JFXMasonryPane constructContentPane(){
         JFXMasonryPane content = new JFXMasonryPane();
@@ -70,7 +81,7 @@ public class SearchScene extends ScenePattern {
                     GUIController
                             .getPrimaryStage()
                             .setScene(new Scene(
-                                    new ProfileScene(dc,searchRes,logedInProfile)
+                                    new ProfileScene(dc,searchRes,loggedInProfile)
                                             .getPane()
                                     ,GUIConstants.SCENE_WIDTH
                                     ,GUIConstants.SCENE_HEIGHT)));

@@ -1,12 +1,13 @@
 package Artatawe.GUI;
 
-import Artatawe.Data.*;
+import Artatawe.Data.DataController;
+import Artatawe.Data.Painting;
+import Artatawe.Data.Picture;
+import Artatawe.Data.Profile;
 import com.jfoenix.controls.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
@@ -14,35 +15,78 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
 
+/**
+ * @athor Aleksandr Slobodov
+ *
+ * <p>
+ *     ArtworkCration.java
+ * </p>
+ * Constructs a page where a user is able to initiate new auction
+ * Inherits from <p>ScenePattern.java</p>
+ */
 public class ArtworkCreation extends ScenePattern {
 
+    //Contains information about the system
     private DataController dc;
-    private Profile logedInProfile;
 
-    JFXTextField name = new JFXTextField();
-    JFXTextField year = new JFXTextField();
-    JFXTextField reservedPrice = new JFXTextField();
-    JFXTextField width = new JFXTextField();
-    JFXTextField height = new JFXTextField();
-    JFXTextField depth = new JFXTextField();
+    //Current use
+    private Profile loggedInProfile;
+
+    //Field for the name of new artwork
+    private JFXTextField name = new JFXTextField();
+
+    //Field fof the year of createon of artwork
+    private JFXTextField year = new JFXTextField();
+
+    //Field for reserved price of artwork
+    private JFXTextField reservedPrice = new JFXTextField();
+
+    //Field for width of artwork
+    private JFXTextField width = new JFXTextField();
+
+    //Field for height of artwork
+    private JFXTextField height = new JFXTextField();
+
+    //Field for depth of artwork if it is sculpture
+    private JFXTextField depth = new JFXTextField();
+
+    //Field for description of artwork
     private JFXTextArea description = new JFXTextArea();
-    JFXCheckBox isSculpture = new JFXCheckBox("Add sculpture");
+
+    //Checks if it is a sculpture
+    private JFXCheckBox isSculpture = new JFXCheckBox("Add sculpture");
+
+    //Approve image choice
     private JFXButton chooseImage = new JFXButton("Choose image");
+
+    //File chooser for image
     private FileChooser fileChooser = new FileChooser();
+
+    //Approve artwork creation
     private JFXButton create = new JFXButton("Create artwork!");
+
+    //Notify about dummy errors
     private JFXSnackbar notification = new JFXSnackbar( this.getPane());
+
+    //Picture of an artwork
     private Picture artworkPic;
 
-    public ArtworkCreation(DataController dc, Profile p, Profile logedInProfile){
-        super(dc,p, logedInProfile);
+    /**
+     * Constructor for <p>ArtworkCreation.java</p>
+     * @param dc information about the system
+     * @param p profile for interactions with other users
+     * @param loggedInProfile current user
+     */
+    public ArtworkCreation(DataController dc, Profile p, Profile loggedInProfile){
+        super(dc,p, loggedInProfile);
         this.dc = dc;
-        this.logedInProfile = logedInProfile;
+        this.loggedInProfile = loggedInProfile;
+        //------------------------------------Init of layout-------------------------------
         this.setNameLabel("Create Artwork");
         name.setPromptText("Name");
         name.setPadding(new Insets(10,0,10,0));
@@ -60,10 +104,16 @@ public class ArtworkCreation extends ScenePattern {
         description.setPadding(new Insets(10,0,10,0));
         description.setPromptText("Description");
         depth.setDisable(true);
+        //-------------------------------------------------------------------------------
         setContentPane();
 
     }
 
+    /**
+     * Constructs central part of stage.
+     * Contains dynamical content.
+     * @return main pane of the page containing all of the auctions
+     */
     @Override
     public JFXMasonryPane constructContentPane() {
         JFXMasonryPane content = new JFXMasonryPane();
@@ -74,7 +124,9 @@ public class ArtworkCreation extends ScenePattern {
         mainField.setCenter(createCard);
         createCard.setPadding(new Insets(200,200,200,200));
 
-        createCard.getChildren().addAll(name, year, reservedPrice,chooseImage, isSculpture, width,height, depth,description, create);
+        createCard
+                .getChildren()
+                .addAll(name, year, reservedPrice,chooseImage, isSculpture, width,height, depth,description, create);
         if(isSculpture.isSelected()){
             depth.setEditable(true);
         } else {
@@ -87,12 +139,16 @@ public class ArtworkCreation extends ScenePattern {
         });
         try{
             create.setOnMousePressed(e -> {
-                if(name.getText().equals("") || year.getText().equals("") || reservedPrice.getText().equals("") || width.getText().equals("")
-                        || height .getText().equals("") ||
-                        artworkPic == null){
+                if(name.getText().equals("")
+                        || year.getText().equals("")
+                        || reservedPrice.getText().equals("")
+                        || width.getText().equals("")
+                        || height .getText().equals("")
+                        || artworkPic == null) {
                     notification.show("Complete all of these fields!!!", 5000);
+
                 } else {
-                    dc.createAuction(logedInProfile,new Painting(name.getText(),description.getText(),
+                    dc.createAuction(loggedInProfile,new Painting(name.getText(),description.getText(),
                                     artworkPic,
                                     Integer.parseInt(year.getText()),
                                     Integer.parseInt(reservedPrice.getText()),
@@ -102,8 +158,17 @@ public class ArtworkCreation extends ScenePattern {
                             Integer.parseInt(reservedPrice.getText()));
 
                     dc.save();
-                    ((Stage) create.getScene().getWindow()).setScene(new Scene(new ProfileScene(dc,logedInProfile, logedInProfile).getPane(),
-                            Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+                    ((Stage) create
+                            .getScene()
+                            .getWindow())
+                            .setScene(new Scene(new ProfileScene(dc,loggedInProfile, loggedInProfile)
+                                    .getPane(),
+                            Screen.getPrimary()
+                                    .getVisualBounds()
+                                    .getWidth(), Screen
+                                    .getPrimary()
+                                    .getVisualBounds()
+                                    .getHeight()));
                 }
 
             });
@@ -113,19 +178,34 @@ public class ArtworkCreation extends ScenePattern {
         return content;
     }
 
+    /**
+     * Just an easy and secure implementation of this method
+     * @param f image
+     */
     private void initLoadImage(File f){
         artworkPic = new Picture("file:"+loadImage(f));
     }
+
+    /**
+     * Loads image of artwork
+     * @param f image
+     * @return path to image
+     */
     private String loadImage(File f){
         String path = null;
         try{
-            Files.copy(f.toPath(),new File("data/avatars/"+logedInProfile.getUsername()+
-                    logedInProfile.getAuctions().size()+"Avatar.png").toPath(), StandardCopyOption.REPLACE_EXISTING);
-            path = "data/avatars/"+logedInProfile.getUsername()+
-                    logedInProfile.getAuctions().size()+"Avatar.png";
+            Files.copy(f
+                    .toPath(),new File("data/avatars/"+loggedInProfile
+                    .getUsername()+ loggedInProfile
+                    .getAuctions()
+                    .size()+"Avatar.png")
+                    .toPath(), StandardCopyOption.REPLACE_EXISTING
+            );
+            path = "data/avatars/"+loggedInProfile.getUsername()+
+                    loggedInProfile.getAuctions().size()+"Avatar.png";
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return path;
     }
