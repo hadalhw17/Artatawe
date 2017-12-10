@@ -15,6 +15,7 @@ bin-release/
 *.iml
 *.iws
 *.ipr
+.idea/
 
 # Eclipse
 .settings/
@@ -36,8 +37,6 @@ target/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 
-
-
-
-
-
+# build.sh
+sources.temp
+bin/
