@@ -158,29 +158,29 @@
             ],
             "bids" : [
                 {
-                    "date" : "10-Dec-2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 1000001,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "10-Dec-2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 1000002,
                     "bidder" : "user_B"
                 },
                 {
-                    "date" : "10-Dec-2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 2000000,
                     "bidder" : "user_A"
                 },
                 {
-                    "date" : "10-Dec-2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 2000001,
                     "bidder" : "user_B"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "10-Dec-2017",
+                "date" : "Dec 10, 2017",
                 "year" : 1503,
                 "name" : "Mona Lisa",
                 "width" : 0.53,
@@ -210,7 +210,7 @@
             "bids" : [],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "10-Dec-2017",
+                "date" : "Dec 10, 2017",
                 "year" : 1889,
                 "name" : "The Starry Night",
                 "width" : 0.92,
@@ -227,7 +227,7 @@
             "bids" : [],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "10-Dec-2017",
+                "date" : "Dec 10, 2017",
                 "year" : 123,
                 "name" : "Mona",
                 "width" : 2.0,
@@ -243,14 +243,14 @@
             "comments" : [],
             "bids" : [
                 {
-                    "date" : "10-Dec-2017",
+                    "date" : "Dec 10, 2017",
                     "amount" : 222,
                     "bidder" : "user_B"
                 }
             ],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "10-Dec-2017",
+                "date" : "Dec 10, 2017",
                 "year" : 123,
                 "name" : "asd",
                 "width" : 123.0,
@@ -267,7 +267,7 @@
             "bids" : [],
             "max_bids" : 5,
             "artwork" : {
-                "date" : "10-Dec-2017",
+                "date" : "Dec 10, 2017",
                 "depth" : 20.0,
                 "year" : 2017,
                 "name" : "Gorilla Head",
@@ -285,7 +285,7 @@
             "bids" : [],
             "max_bids" : 2,
             "artwork" : {
-                "date" : "10-Dec-2017",
+                "date" : "Dec 10, 2017",
                 "depth" : 123.0,
                 "year" : 12312,
                 "name" : "Sculpture1",
@@ -303,7 +303,7 @@
             "bids" : [],
             "max_bids" : 300,
             "artwork" : {
-                "date" : "12-Jan-1913",
+                "date" : "Dec 10, 2017",
                 "year" : 1997,
                 "name" : "Jeff ",
                 "width" : 80.0,

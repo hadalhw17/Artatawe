@@ -116,15 +116,15 @@ public class EditProfile extends ScenePattern{
                 .getChildren()
                 .addAll(welcomeField
                 );
-        firstNameField.setPromptText("First Name");
-        secondNameField.setPromptText("Second Name");
-        usernameField.setPromptText("Username");
-        mobileNumberField.setPromptText("Mobile number");
-        houseNoField.setPromptText("House#");
-        cityField.setPromptText("City");
-        streetField.setPromptText("Street");
-        postcodeField.setPromptText("Post code");
-        countryField.setPromptText("Country");
+        firstNameField.setText(logedInProfile.getFirstname());
+        secondNameField.setText(logedInProfile.getSurname());
+        usernameField.setText(logedInProfile.getUsername());
+        mobileNumberField.setText(logedInProfile.getMobileNo());
+        houseNoField.setText(Integer.toString(logedInProfile.getAddress().getHouseNum()));
+        cityField.setText(logedInProfile.getAddress().getCity());
+        streetField.setText(logedInProfile.getAddress().getStreet());
+        postcodeField.setText(logedInProfile.getAddress().getPostcode());
+        countryField.setText(logedInProfile.getAddress().getCounty());
         signInButton
                 .getStyleClass()
                 .add("button-raised");
@@ -146,7 +146,7 @@ public class EditProfile extends ScenePattern{
                     ||postcodeField.getText().equals("")
                     ||!houseNoField.getText().matches("[0-9]*")){
                 notification.show("Complete all of these fields!!!" +
-                        "\nAnd make sure that your phone number\n is an actual number:3", 5000);
+                        "\nAnd make sure that your phone number and house number\n are actual numbers:3", 5000);
 
             } else {
                 logedInProfile.setUsername(usernameField.getText());
